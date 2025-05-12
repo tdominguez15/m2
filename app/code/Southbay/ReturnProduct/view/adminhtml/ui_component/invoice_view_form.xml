@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">invoice_view_form.form_data_source</item>
+            <item name="deps" xsi:type="string">invoice_view_form.form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Factura</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Magento\Customer\Block\Adminhtml\Edit\BackButton</item>
+        </item>
+    </argument>
+
+    <dataSource name="form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">
+                Southbay\ReturnProduct\Model\ResourceModel\DataProvider\Invoice\InvoiceDataProvider
+            </argument>
+            <argument name="name" xsi:type="string">form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">southbay_invoice_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="fields">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Detalle</item>
+            </item>
+        </argument>
+
+        <field name="southbay_invoice_id" formElement="input" sortOrder="0">
+            <settings>
+                <elementTmpl>ui/form/element/input</elementTmpl>
+                <dataType>text</dataType>
+                <label translate="true">Invoice ID</label>
+                <dataScope>southbay_invoice_id</dataScope>
+                <visible>false</visible>
+            </settings>
+        </field>
+
+        <field name="southbay_invoice_country_code" formElement="select" sortOrder="1">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                    <item name="label" xsi:type="string" translate="true">País</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\CountryOptionsProvider"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="southbay_invoice_date" formElement="input">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Fecha facturación</label>
+            </settings>
+        </field>
+
+        <field name="southbay_int_invoice_num" formElement="input">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Nº Factura</label>
+            </settings>
+        </field>
+
+        <field name="southbay_invoice_ref" formElement="input">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Ref. factura</label>
+            </settings>
+        </field>
+
+        <field name="southbay_customer_code" formElement="input">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Solicitante</label>
+            </settings>
+        </field>
+
+        <field name="southbay_customer_name" formElement="input">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Nombre del solicitante</label>
+            </settings>
+        </field>
+
+        <field name="southbay_customer_ship_to_code" formElement="input">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Puerta</label>
+            </settings>
+        </field>
+
+        <fieldset name="list_items_fs">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Items</item>
+                </item>
+            </argument>
+            <insertListing name="invoice_items_list">
+                <settings>
+                    <autoRender>true</autoRender>
+                    <dataScope>invoice_items_list</dataScope>
+                    <ns>invoice_items_list</ns>
+                </settings>
+            </insertListing>
+        </fieldset>
+    </fieldset>
+</form>

@@ -1,0 +1,46 @@
+<?php
+/**
+ * @var \Southbay\CustomCheckout\Helper\Data $helper
+ */
+$helper = $this->helper(\Southbay\CustomCheckout\Helper\Data::class);
+?>
+
+<div class="success-buttons">
+    <a href="<?= $block->getUrl('/') ?>" class="neworder">Realizar nuevo pedido</a>
+    <a href="#" class="reorder">Duplicar pedido</a>
+    <a href="<?= $block->getUrl('sales/order/view/', ['order_id' => $helper->getLastOrderId()]) ?>" class="vieworder">Ver
+        mi pedido</a>
+</div>
+
+<script type="application/javascript">
+    require(['jquery', 'ko', 'uiRegistry'],
+        function ($, ko, registry) {
+            $('.reorder').on('click', function (e) {
+                e.preventDefault();
+
+                $('body').trigger('processStart');
+
+                setTimeout(function () {
+                    $.ajax({
+                        url: '<?= $block->getUrl("sales/order/reorder/", ['order_id' => $helper->getLastOrderId()]) ?>',
+                        type: 'POST',
+                        async: false,
+                        success: function () {
+                            window.location.href = '<?= $block->getUrl("checkout/cart/index") ?>';
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error al realizar reorder:", error);
+                        },
+                        complete: function () {
+                            setTimeout(function () {
+                                $('body').trigger('processStop')
+                            }, 2000);
+                        }
+                    });
+                }, 500);
+
+
+            });
+        }
+    );
+</script>

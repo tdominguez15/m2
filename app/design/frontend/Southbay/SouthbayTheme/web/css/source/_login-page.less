@@ -1,0 +1,56 @@
+& when (@media-common = true) {
+    .customer-account-login {
+        .minicart-wrapper {
+            display: none;
+        }
+
+        .block-search {
+            display: none;
+        }
+
+        .nav-sections-item-content {
+            display: none;
+        }
+
+        .block-customer-login {
+            .block-content {
+                .primary {
+                    .action.login.primary {
+                        display: block;
+                        float: left;
+                        margin-right: 8px;
+                        font-size: 16px;
+                        text-transform: uppercase;
+                        padding: 6px 8px;
+                        color: #FFFFFF;
+                        background-color: #F75301;
+                        border-radius: 4px;
+                        transition: 0.3s;
+                        border: 1px solid transparent;
+                        width: 200px;
+                        text-align: center;
+
+                        &:hover {
+                            text-decoration: none;
+                            color: #F75301;
+                            background-color: #FFFFFF;
+                            border: 1px solid #f75301;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .customer-account-login {
+        .action.nav-toggle {
+            display: none;
+        }
+
+        a.logo {
+            margin-left: 2px;
+        }
+    }
+}

@@ -1,0 +1,84 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+use Magento\CatalogSearch\Block\Result;
+
+/** These changes need to valid applying filters and configuration before search process is started. */
+
+/** @var $block  Result*/
+$productList = $block->getProductListHtml();
+?>
+<?php if ($block->getResultCount()) : ?>
+    <?= /* @noEscape */ $block->getChildHtml('tagged_product_list_rss_link') ?>
+    <h3 class="agregar-todos">Agregar todos</h3>
+<div class="search results">
+    <?php if ($messages = $block->getNoteMessages()) : ?>
+    <div class="message notice">
+        <div>
+            <?php foreach ($messages as $message) : ?>
+                <?= /* @noEscape */ $message ?><br />
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+    <?= /* @noEscape */ $productList ?>
+</div>
+<?php else : ?>
+
+<div class="message notice">
+    <div>
+        <?= $block->escapeHtml($block->getNoResultText() ? $block->getNoResultText() : __('Your search returned no results.')) ?>
+        <?= /* @noEscape */ $block->getAdditionalHtml() ?>
+        <?php if ($messages = $block->getNoteMessages()) : ?>
+            <?php foreach ($messages as $message) : ?>
+                <br /><?= /* @noEscape */ $message ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>
+
+<script type="text/javascript">
+    require(['jquery', 'mage/url', 'Magento_Customer/js/customer-data'], function ($, urlBuilder, customerData) {
+        $(document).ready(function(){
+            $('.agregar-todos').on('click', function() {
+                // Capturar los IDs de los productos marcados como "checked"
+                var checkedProducts = [];
+                $('.check-product:checked').each(function() {
+                    // Obtener el ID del producto desde el ID del elemento padre
+                    var productId = $(this).closest('.product-item-info').attr('id').replace('product-item-info_', '');
+                    checkedProducts.push(productId);
+                    $(this).closest('.product-item').find('.product-item-link').addClass('added-to-cart');
+                });
+                var requestData = {
+                    checked_products: checkedProducts.join(',')
+                };
+                $.ajax({
+                    url: '<?php echo $block->getUrl("southbay_custom_checkout/cart/addall") ?>',
+                    type: 'POST',
+                    data: requestData,
+                    dataType: 'json',
+                    success: function(response) {
+                        // Actualizar el contenido del minicart después de agregar productos
+                        var sections = ['cart'];
+                        customerData.reload(sections, true);
+                        var total = response.total || 0;
+                        var button = $('.agregar-todos');
+                        button.addClass('success').text('Agregados ' + total + ' productos');
+                        $('.check-product:checked').prop('checked', false);
+                        setTimeout(function() {
+                            button.removeClass('success').text('Agregar todos');
+                        }, 4000);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error en la solicitud AJAX:', error);
+                    }
+                });
+            });
+        });
+    });
+</script>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Comerline_Company Module
+ *
+ * @category    Comerline
+ * @package     Comerline_Company
+ * @author      Comerline
+ *
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Southbay\ReturnProduct\Block\Adminhtml\Approval\Grid" name="southbay_return_product_listing"/>
+        </referenceContainer>
+    </body>
+</page>

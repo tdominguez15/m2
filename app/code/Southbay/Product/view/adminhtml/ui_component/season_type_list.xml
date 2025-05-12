@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">season_type_list.grid_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>grid_columns</spinner>
+        <deps>
+            <dep>season_type_list.grid_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Nuevo tipo de temporada</label>
+            </button>
+        </buttons>
+    </settings>
+    <dataSource name="grid_data_source" component="Magento_Ui/js/grid/provider">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">type_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="Southbay\Product\Model\ResourceModel\SeasonType\Datasource"
+                      name="grid_data_source">
+            <settings>
+                <primaryFieldName>type_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>false</sticky>
+        </settings>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="grid_columns">
+        <column name="type_code">
+            <settings>
+                <label translate="true">Codigo</label>
+                <dataType>text</dataType>
+                <sortable>true</sortable>
+                <filter>text</filter>
+            </settings>
+        </column>
+        <column name="type_name">
+            <settings>
+                <label translate="true">Nombre</label>
+                <dataType>text</dataType>
+                <sortable>true</sortable>
+                <filter>text</filter>
+            </settings>
+        </column>
+        <column name="created_at" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <label translate="true">Fecha creación</label>
+                <dataType>date</dataType>
+                <filter>dateRange</filter>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Southbay\Product\Model\ResourceModel\SeasonType\Actions">
+            <settings>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

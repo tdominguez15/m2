@@ -1,0 +1,18 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="false" name="title" xsi:type="string">Dashboard</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Southbay\ReturnProduct\Block\Frontend\Dashboard"
+                   name="southbay_return_product_dashboard_content"
+                   template="Southbay_ReturnProduct::dashboard.phtml"
+                   cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

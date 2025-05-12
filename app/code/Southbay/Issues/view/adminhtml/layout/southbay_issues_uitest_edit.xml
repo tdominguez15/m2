@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Comerline_Company Module
+ *
+ * @category    Comerline
+ * @package     Comerline_Company
+ * @author      Comerline
+ *
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
+             src_type="url"/>
+        <script src="Southbay_Issues::js/ui_test.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="southbay_ui_test"/>
+        </referenceContainer>
+    </body>
+</page>

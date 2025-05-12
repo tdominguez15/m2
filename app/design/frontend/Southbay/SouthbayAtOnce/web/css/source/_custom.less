@@ -1,0 +1,82 @@
+//Desktop
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .catalog-product-view {
+        .page-wrapper {
+            .page-main {
+                .columns {
+                    .column.main {
+                        .product-info-main {
+                            .product-add-form {
+                                form {
+                                    .product-options-wrapper {
+                                        .fieldset {
+                                            table {
+                                                border-bottom: 1px solid gray!important;
+
+                                                span.stock {
+                                                    color: blue; /* Color de texto azul */
+                                                    font-weight: bold; /* Negrita */
+                                                }
+                                                thead#month_sizes_header {
+                                                    tr {
+                                                        td {
+                                                            width: 65px;
+
+                                                            &:first-child {
+                                                                width: 65px;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                tbody#month_sizes_rows {
+                                                    tr {
+                                                        padding-bottom: 1px;
+
+                                                        td {
+                                                            width: 65px;
+
+                                                            input.searon_cell_qty {
+                                                                margin: 0 auto;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Modal
+
+footer.modal-footer {
+    display: block;
+
+    .action-secondary, .action-primary {
+        display: block;
+        float: left;
+        background-color: #F75301;
+        border: 1px solid #f75301;
+        color: white;
+        margin-right: 12px;
+        padding: 7px 10px;
+        border-radius: 4px;
+        transition: 0.3s;
+        font-size: 13px;
+        text-transform: uppercase;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: none;
+            opacity: 0.8;
+        }
+    }
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="southbay" translate="label" sortOrder="100">
+            <label>Southbay</label>
+        </tab>
+        <section id="southbay_magento" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Magento</label>
+            <tab>southbay</tab>
+            <resource>Southbay_Config::magento</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="url_base" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>URL Base</label>
+                    <comment>Url base para llamadas a apis internas</comment>
+                </field>
+                <field id="max_request" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cantidad maxima request simuntaneos</label>
+                    <comment>Cantidad maxima de request que se envian simultaneamente al servidor</comment>
+                </field>
+            </group>
+        </section>
+        <section id="southbay_landing" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Landing</label>
+            <tab>southbay</tab>
+            <resource>Southbay_Config::landing</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enable_menu_button" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Menu Button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable the menu button</comment>
+                </field>
+                <field id="enable_based_on_schedule" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Based on Schedule</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable the button based on schedule</comment>
+                </field>
+                <field id="start_time" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Start Time</label>
+                    <comment>Set the start time for the button display (HH:MM format)</comment>
+                    <depends>
+                        <field id="enable_based_on_schedule">1</field>
+                    </depends>
+                </field>
+                <field id="end_time" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>End Time</label>
+                    <comment>Set the end time for the button display (HH:MM format)</comment>
+                    <depends>
+                        <field id="enable_based_on_schedule">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

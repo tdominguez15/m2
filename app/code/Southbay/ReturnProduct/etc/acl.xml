@@ -1,0 +1,22 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Southbay_ReturnProduct::manager" title="Southbay Devoluciones" translate="title" sortOrder="10">
+                    <resource id="Southbay_ReturnProduct::Reception" title="Recepciones" translate="title" sortOrder="1"/>
+                    <resource id="Southbay_ReturnProduct::ControlQa" title="Control de calidad" translate="title" sortOrder="2"/>
+                    <resource id="Southbay_ReturnProduct::Approval" title="Aprobaciones" translate="title" sortOrder="3"/>
+                    <resource id="Southbay_ReturnProduct::Confirmation" title="Confirmaciones" translate="title" sortOrder="4"/>
+                    <resource id="Southbay_ReturnProduct::Config" title="Configuración general" translate="title" sortOrder="5"/>
+                    <resource id="Southbay_ReturnProduct::ReasonReject" title="Motivos de devolución" translate="title" sortOrder="6"/>
+                    <resource id="Southbay_ReturnProduct::Exchange" title="Tipo de cambio" translate="title" sortOrder="7"/>
+                    <resource id="Southbay_ReturnProduct::ConfigApproval" title="Configuración de aprobadores" translate="title" sortOrder="8"/>
+                    <resource id="Southbay_ReturnProduct::ConfigRol" title="Configuración de roles" translate="title" sortOrder="9"/>
+                    <resource id="Southbay_ReturnProduct::ConfigRolNotification" title="Configuración de notificaciones por rol" translate="title" sortOrder="10"/>
+                    <resource id="Southbay_ReturnProduct::ConfigCustomerNotification" title="Configuración de notificaciones del cliente" translate="title" sortOrder="11"/>
+                    <resource id="Southbay_ReturnProduct::Invoices" title="Facturas" translate="title" sortOrder="12"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

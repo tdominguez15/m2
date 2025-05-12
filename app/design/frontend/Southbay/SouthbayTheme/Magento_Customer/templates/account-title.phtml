@@ -1,0 +1,9 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+if($customerSession->isLoggedIn()):
+?>
+<h1 class="page-title">
+    <span class="base" data-ui-id="page-title-wrapper">Compras a Futuro</span>
+</h1>
+<?php endif; ?>

@@ -1,0 +1,303 @@
+<?php
+/** @var \Southbay\ReturnProduct\Helper\Data $southbay_helper */
+$southbay_helper = $this->helper(Southbay\ReturnProduct\Helper\Data::class);
+?>
+<div class="southbay_return_product_items_return_container">
+    <div style="text-align: center">
+        <form id="control_qa_items_form" action="#">
+            <table class="table_items">
+                <thead>
+                <tr>
+                    <td><?= __('SKU') ?></td>
+                    <td><?= __('Talle') ?></td>
+                    <td><?= __('Nombre') ?></td>
+                    <td><?= __('Observaciones del cliente') ?></td>
+                    <td><?= __('Cantidad Solicitada') ?></td>
+                    <td><?= __('Cantidad Recepcionada') ?></td>
+                    <td><?= __('Cantidad Faltante') ?></td>
+                    <td><?= __('Cantidad Sobrante') ?></td>
+                    <td><?= __('Cantidad Aceptada') ?></td>
+                    <td><?= __('Cantidad Rechazada') ?></td>
+                    <td><?= __('Motivo Devolución') ?></td>
+                    <td><?= __('Observaciones') ?></td>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+<style>
+    .table_items {
+        font-size: 13px;
+        width: 100%;
+    }
+
+    .table_items tr {
+        border-bottom: 1px solid gray;
+    }
+
+    .table_items thead tr {
+        background-color: #6e716e;
+        color: white;
+        font-weight: bold;
+    }
+
+    .table_items thead td {
+        padding: 10px;
+    }
+
+    .table_items tbody td {
+        padding: 5px;
+        padding-top: 10px;
+        vertical-align: top;
+    }
+
+    .southbay_return_qty_rejected input {
+        min-width: 6.5em;
+        text-align: right;
+    }
+
+    td.southbay_return_item_sku {
+        text-wrap: nowrap;
+    }
+
+    .southbay_return_item_name, .southbay_return_item_sku {
+        text-align: center;
+    }
+
+    .southbay_return_item_sku, .southbay_return_item_qty, .southbay_return_qty_accepted {
+        font-size: 18px;
+        line-height: 35px;
+    }
+
+    .southbay_return_item_sku {
+        font-weight: 400;
+    }
+
+    .southbay_return_qty_rejected {
+        font-size: 16px;
+    }
+
+    .southbay_return_qty_real {
+        max-width: 6.5em !important;
+        text-align: right;
+    }
+
+    .table_items .select2-container {
+        min-width: 200px;
+    }
+
+    .table_items .select2-container .select2-selection {
+        text-align: left;
+    }
+
+</style>
+
+<script type="text/javascript">
+    require(['jquery', 'ko', 'Magento_Ui/js/modal/confirm', 'mage/url', 'uiRegistry', 'select2'], function ($, ko, confirm, urlBuilder, registry) {
+        window._$ = $;
+        let items = [];
+        let form_items = {};
+        let control_qa_items = null;
+
+        if (window.southbay_return_product_set_values) {
+            load(window.southbay_return_product_set_values);
+        } else {
+            $(document).on('southbay_return_product_set_values', function (e, data) {
+                load(data);
+            });
+        }
+
+        function load(data) {
+            form_items = {};
+            items = data.items;
+
+            $('.table_items tbody').html('');
+            let template = '';
+
+            items.forEach(item => {
+                if (!item.southbay_return_item_reject_reason_text) {
+                    item.southbay_return_item_reject_reason_text = '';
+                }
+
+                template += itemTemplate(item);
+
+                form_items[item.key] = {
+                    sku: item.southbay_return_item_sku,
+                    size: item.southbay_return_item_size,
+                    qty_return: item.southbay_return_item_qty,
+                    qty_real: item.southbay_return_item_qty,
+                    qty_accepted: item.southbay_return_qty_accepted,
+                    qty_rejected: item.southbay_return_qty_rejected,
+                    qty_extra: item.qty_extra,
+                    qty_missing: item.qty_missing,
+                    reason_codes: item.southbay_return_item_reject_reason_codes,
+                    text: item.southbay_return_item_reject_reason_text
+                };
+            });
+
+            $('.table_items tbody').html(template);
+
+            if (data.control_qa_items) {
+                control_qa_items = registry.get(data.control_qa_items);
+            } else {
+                control_qa_items = registry.get('control_qa_form.areas.fields.fields.items_fieldset.southbay_return_control_qa_items');
+                updateValues();
+            }
+
+            $('.southbay_return_control_qa_item_reject_reason_codes').select2({
+                tags: false,
+                allowClear: false
+            });
+
+            items.forEach(item => {
+                if (item.southbay_return_item_reject_reason_codes && item.southbay_return_item_reject_reason_codes.length > 0) {
+                    $(`.southbay_return_control_qa_item_reject_reason_codes[itemIndex="${item.key}"]`)
+                        .val(item.southbay_return_item_reject_reason_codes)
+                        .trigger("change");
+                }
+            });
+
+            $('#control_qa_items_form select').on('change', function (e) {
+                const elem = $(e.currentTarget);
+                const values = elem.val().join(',');
+                const index = elem.attr('itemIndex');
+
+                form_items[index].reason_codes = values;
+
+                updateValues();
+            });
+
+            $('#control_qa_items_form input, #control_qa_items_form textarea').on('change', function (e) {
+                const elem = $(e.currentTarget);
+                const index = elem.attr('itemIndex');
+
+                if (elem.attr('name') === 'southbay_return_qty_real') {
+                    const str = elem.val().trim();
+
+                    if (str === '' || str.indexOf('.') > 0) {
+                        elem.val('0');
+                    }
+
+                    let value = parseInt(elem.val());
+
+                    form_items[index].qty_real = value;
+                    form_items[index].qty_accepted = 0;
+                    form_items[index].qty_rejected = 0;
+                    form_items[index].qty_extra = 0;
+                    form_items[index].qty_missing = 0;
+
+                    if (value > 0) {
+                        if (form_items[index].qty_return > form_items[index].qty_real) {
+                            form_items[index].qty_missing = (form_items[index].qty_return - form_items[index].qty_real);
+                        } else if (form_items[index].qty_return < form_items[index].qty_real) {
+                            form_items[index].qty_extra = (form_items[index].qty_real - form_items[index].qty_return);
+                        }
+
+                        form_items[index].qty_accepted = form_items[index].qty_return - form_items[index].qty_missing;
+                    } else {
+                        form_items[index].qty_missing = form_items[index].qty_return;
+                    }
+
+                    $(`tr[itemIndex="${index}"]`).find('.southbay_return_qty_extra').html(form_items[index].qty_extra);
+                    $(`tr[itemIndex="${index}"]`).find('.southbay_return_qty_missing').html(form_items[index].qty_missing);
+                    $(`tr[itemIndex="${index}"]`).find('.southbay_return_qty_accepted').html(form_items[index].qty_accepted);
+                    $(`tr[itemIndex="${index}"]`).find('.southbay_return_qty_rejected input').val(form_items[index].qty_rejected);
+                    $(`tr[itemIndex="${index}"]`).find('.southbay_return_qty_rejected input').attr('max', form_items[index].qty_accepted);
+
+                    updateValues();
+                } else if (elem.attr('name') === 'southbay_return_qty_rejected') {
+                    const str = elem.val().trim();
+
+                    if (str === '' || str.indexOf('.') > 0) {
+                        elem.val('0');
+                    }
+
+                    const max = parseInt(elem.attr('max'));
+                    let value = parseInt(elem.val());
+                    if (value > max) {
+                        value = max;
+                        elem.val(max);
+                    }
+                    const diff = max - value;
+
+                    $(`tr[itemIndex="${index}"]`).find('.southbay_return_qty_accepted').text(diff);
+
+                    form_items[index].qty_accepted = diff;
+                    form_items[index].qty_rejected = value;
+
+                    updateValues();
+                } else if (elem.attr('name') === 'southbay_return_item_reject_reason_text') {
+                    form_items[index].text = elem.val();
+
+                    updateValues();
+                }
+            });
+
+            if (data.edit_mode && data.edit_mode === 'view') {
+                console.log('DATA!!',data);
+                $('table input').prop('readonly', true);
+                $('table textarea').prop('readonly', true);
+                $('.southbay_return_control_qa_item_reject_reason_codes').prop("disabled", true);
+            }
+        }
+
+        function updateValues() {
+            control_qa_items.value(JSON.stringify(form_items));
+        }
+
+        function itemTemplate(item) {
+            const max = item.southbay_return_item_qty - item.southbay_return_qty_missing;
+            return `
+            <tr itemIndex="${item.key}">
+                <td class="southbay_return_item_sku">${item.southbay_return_item_sku}</td>
+                <td class="southbay_return_item_size">${item.southbay_return_item_size}</td>
+                <td class="southbay_return_item_name">${item.southbay_return_item_name}</td>
+                <td class="southbay_return_item_reasons_text">${item.southbay_return_item_reasons_text}</td>
+                <td class="southbay_return_item_qty">${item.southbay_return_item_qty}</td>
+                <td class="southbay_return_qty_real">
+                    <input  class="admin__control-text southbay_return_qty_real"
+                            itemIndex="${item.key}"
+                            type="number"
+                            min="0"
+                            name="southbay_return_qty_real"
+                            value="${item.southbay_return_qty_real}" />
+                </td>
+                <td class="southbay_return_qty_missing">${item.southbay_return_qty_missing}</td>
+                <td class="southbay_return_qty_extra">${item.southbay_return_qty_extra}</td>
+                <td class="southbay_return_qty_accepted">${item.southbay_return_qty_accepted}</td>
+                <td class="southbay_return_qty_rejected">
+                    <input  class="admin__control-text southbay_return_qty_rejected"
+                            itemIndex="${item.key}"
+                            type="number"
+                            min="0"
+                            max="${max}"
+                            name="southbay_return_qty_rejected"
+                            value="${item.southbay_return_qty_rejected}" />
+                </td>
+                <td>
+                    <select itemIndex="${item.key}"
+                            class="southbay_return_control_qa_item_reject_reason_codes"
+                            name="southbay_return_control_qa_item_reject_reason_codes"
+                            multiple>
+                           <?php foreach ($southbay_helper->getReasonReject() as $reason) { ?>
+                                <option value="<?= $reason['code'] ?>"><?= $reason['code'] ?>-<?= $reason['name'] ?></option>
+                            <?php } ?>
+                    </select>
+                </td>
+                <td>
+                    <textarea
+                    class="admin__control-text"
+                    itemIndex="${item.key}"
+                    name="southbay_return_item_reject_reason_text"
+                    rows="4"
+                    cols="10"
+                    maxlength="250">${item.southbay_return_item_reject_reason_text}</textarea>
+                </td>
+            </tr>`;
+        }
+    });
+</script>

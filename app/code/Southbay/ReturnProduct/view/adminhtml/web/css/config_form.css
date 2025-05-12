@@ -1,0 +1,10 @@
+div[data-index="southbay_return_max_year_history"] input {
+    max-width: 5em !important;
+    text-align: right;
+}
+
+div[data-index="southbay_return_max_automatic_amount"] input {
+    max-width: 6em !important;
+    text-align: right;
+}
+

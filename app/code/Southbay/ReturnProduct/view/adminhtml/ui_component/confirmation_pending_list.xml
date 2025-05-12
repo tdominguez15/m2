@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">confirmation_pending_list.grid_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>return_product_grid_columns</spinner>
+        <deps>
+            <dep>confirmation_pending_list.grid_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="grid_data_source" component="Magento_Ui/js/grid/provider">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">southbay_return_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="Southbay\ReturnProduct\Model\PendingConfirmationReturnProductDataProvider"
+                      name="grid_data_source">
+            <settings>
+                <primaryFieldName>southbay_return_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>false</sticky>
+        </settings>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <action name="return_product_confirmation">
+                <settings>
+                    <confirm>
+                        <title>Confirmar devoluciones</title>
+                        <message>¿Está seguro de querer confirmar las devoluciones seleccionadas?</message>
+                    </confirm>
+                    <url path="southbay_return_product/confirmation/confirm"/>
+                    <type>return_product_confirmation</type>
+                    <label translate="true">Confirmar</label>
+                </settings>
+            </action>
+            <action name="return_product_archive">
+                <settings>
+                    <confirm>
+                        <title>Archivar devoluciones</title>
+                        <message>¿Está seguro de querer archivar las devoluciones seleccionadas?</message>
+                    </confirm>
+                    <url path="southbay_return_product/confirmation/archive"/>
+                    <type>return_product_archive</type>
+                    <label translate="true">Archivar</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="return_product_grid_columns">
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">southbay_return_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="southbay_return_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Nº Devolución</label>
+                <sorting>desc</sorting>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+        <column name="created_at">
+            <settings>
+                <label translate="true">Fecha creación</label>
+                <filter>false</filter>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+        <column name="southbay_return_type" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label translate="true">Tipo</label>
+                <dataType>select</dataType>
+                <sortable>true</sortable>
+                <filter>select</filter>
+                <options class="Southbay\ReturnProduct\Block\Adminhtml\Form\Grid\ReturnTypeOptionsProvider"/>
+            </settings>
+        </column>
+        <column name="southbay_return_customer_code" component="Magento_Ui/js/grid/columns/select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Cliente</label>
+                <dataType>select</dataType>
+                <sortable>true</sortable>
+                <filter>select</filter>
+                <options class="Southbay\ReturnProduct\Block\Adminhtml\Form\Grid\ReturnProductClientOptionsProvider"/>
+            </settings>
+        </column>
+        <column name="southbay_return_total_qty">
+            <settings>
+                <label translate="true">Total solicitado</label>
+                <sortable>false</sortable>
+                <filter>false</filter>
+            </settings>
+        </column>
+        <column name="southbay_return_control_qa_total_real">
+            <settings>
+                <label translate="true">Total recepcionado</label>
+                <sortable>false</sortable>
+                <filter>false</filter>
+            </settings>
+        </column>
+        <column name="southbay_return_control_qa_total_missing">
+            <settings>
+                <label translate="true">Total faltante</label>
+                <sortable>false</sortable>
+                <filter>false</filter>
+            </settings>
+        </column>
+        <column name="southbay_return_control_qa_total_extra">
+            <settings>
+                <label translate="true">Total sobrante</label>
+                <sortable>false</sortable>
+                <filter>false</filter>
+            </settings>
+        </column>
+        <column name="southbay_return_rejected">
+            <settings>
+                <label translate="true">Total rechazado</label>
+                <sortable>false</sortable>
+                <filter>false</filter>
+            </settings>
+        </column>
+        <column name="southbay_return_total_accepted">
+            <settings>
+                <label translate="true">Total aceptado</label>
+                <sortable>false</sortable>
+                <filter>false</filter>
+            </settings>
+        </column>
+        <column name="southbay_return_total_amount_accepted">
+            <settings>
+                <label translate="true">Monto total aprobado</label>
+                <sortable>false</sortable>
+                <filter>false</filter>
+            </settings>
+        </column>
+        <column name="link_label" component="Magento_Ui/js/grid/columns/link">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="link" xsi:type="string">link</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Ver detalle</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+    </columns>
+</listing>

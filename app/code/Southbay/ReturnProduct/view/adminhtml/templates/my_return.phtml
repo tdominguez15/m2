@@ -1,0 +1,211 @@
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Southbay\ReturnProduct\Block\Adminhtml\MyReturn
+ */
+
+$data = $block->getReturnProduct();
+/**
+ * @var \Southbay\ReturnProduct\Api\Data\SouthbayReturnProduct $field
+ */
+$field = $data['field'];
+$items = $data['items'];
+$control_qa = $data['control_qa'];
+$has_docs = $data['has_docs'];
+$docs = $data['docs'];
+?>
+<div class="table-wrapper return-history">
+    <div>
+        <p>
+            <label>Nro. Devolución:</label><span><?= $block->getItemId($field) ?></span>
+        </p>
+        <p>
+            <label>Tipo:</label><span><?= $block->getTypeName($field->getType()) ?></span>
+        </p>
+        <p>
+            <label>Fecha:</label><span><?= $field->getCreatedAt() ?></span>
+        </p>
+        <p>
+            <label>Estado:</label><span><?= $field->getStatusName() ?></span>
+        </p>
+        <p><label>Cantidad solicitada:</label><span><?= $field->getTotalReturn() ?></span></p>
+        <p><label>Cantidad recepcionada:</label><span><?= $control_qa['total_real'] ?></span></p>
+        <p><label>Cantidad sobrante:</label><span><?= $control_qa['total_extra'] ?></span></p>
+        <p><label>Cantidad faltante:</label><span><?= $control_qa['total_missing'] ?></span></p>
+        <p><label>Cantidad rechazada:</label><span><?= $control_qa['total_rejected'] ?></span></p>
+        <p><label>Cantidad aceptada:</label><span><?= $control_qa['total_accepted'] ?></span></p>
+    </div>
+
+    <table class="data table table-order-items history" id="my-returns-table" border="1">
+        <thead>
+        <tr>
+            <th scope="col" class="col">Nº Factura</th>
+            <th scope="col" class="col">Referencia</th>
+            <th scope="col" class="col">SKU</th>
+            <th scope="col"
+                class="col">Talle
+            </th>
+            <th scope="col"
+                class="col">Nombre
+            </th>
+            <th scope="col"
+                class="col">Precio Unitario
+            </th>
+            <th scope="col" class="col">Precio</th>
+            <th scope="col" class="col">Cantidad solicitada</th>
+            <th scope="col" class="col">Observaciones</th>
+            <th scope="col" class="col"><?= __('Cantidad recepcionada') ?></th>
+            <th scope="col" class="col"><?= __('Cantidad sobrante') ?></th>
+            <th scope="col" class="col"><?= __('Cantidad faltante') ?></th>
+            <th scope="col" class="col"><?= __('Cantidad aceptada') ?></th>
+            <th scope="col" class="col"><?= __('Cantidad rechazada') ?></th>
+            <th scope="col" class="col"><?= __('Motivo devolución') ?></th>
+            <th scope="col" class="col"><?= __('Observaciones control calidad') ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($items as $item) { ?>
+            <tr>
+                <td style="text-wrap: nowrap"><?= $item['southbay_int_invoice_num'] ?></td>
+                <td style="text-wrap: nowrap"><?= $item['southbay_invoice_ref'] ?></td>
+                <td style="text-wrap: nowrap"><?= $item['southbay_invoice_item_sku'] ?></td>
+                <td><?= $item['southbay_invoice_item_size_code'] ?></td>
+                <td><?= $item['southbay_invoice_item_name'] ?></td>
+                <td style="text-wrap: nowrap">$ <?= $item['southbay_return_item_unit_price'] ?></td>
+                <td style="text-wrap: nowrap">$ <?= $item['southbay_return_item_price'] ?></td>
+                <td><?= $item['southbay_return_item_qty'] ?></td>
+                <td><?= $item['southbay_return_item_reasons_text'] ?></td>
+                <td><?= $item['southbay_return_item_qty_real'] ?></td>
+                <td><?= $item['southbay_return_item_qty_extra'] ?></td>
+                <td><?= $item['southbay_return_item_qty_missing'] ?></td>
+                <td><?= $item['southbay_return_item_qty_accepted'] ?></td>
+                <td><?= $item['southbay_return_item_qty_rejected'] ?></td>
+                <td>
+                    <div style="display: flex; flex-wrap: wrap; flex-direction: row">
+                        <?php foreach ($item['southbay_return_item_rejected_reasons'] as $reason) { ?>
+                            <div class="reason_selected_option reason_selected_option_rejected"><?= $reason ?></div>
+                        <?php } ?>
+                    </div>
+                </td>
+                <td>
+                    <?= $item['southbay_return_item_rejected_text'] ?>
+                </td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>
+
+<?php if ($has_docs) { ?>
+    <hr />
+    <div>
+        <h5><?= __('Notas de créditos generadas') ?></h5>
+        <table border="1">
+            <tr style="background-color: #ccc; font-weight: 600; font-size: 16px">
+                <td>
+                    <?= __('Nro Interno') ?>
+                </td>
+                <td>
+                    <?= __('Nro Legal') ?>
+                </td>
+                <td>
+                    <?= __('Total Neto') ?>
+                </td>
+                <td>
+                    <?= __('Total') ?>
+                </td>
+            </tr>
+            <?php foreach ($docs as $doc) { ?>
+                <tr class="docs">
+                    <td>
+                        <?= $doc['internal_number'] ?>
+                    </td>
+                    <td>
+                        <?= $doc['legal_number'] ?>
+                    </td>
+                    <td>
+                        <?= $doc['net_total'] ?>
+                    </td>
+                    <td>
+                        <?= $doc['total'] ?>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
+    </div>
+<?php } ?>
+
+<style>
+    table.history td {
+        padding: 2px;
+    }
+
+    tr.docs td {
+        padding: 10px;
+    }
+
+    table.history td {
+        padding: 10px;
+    }
+
+    .packages-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .packages-content label {
+        font-weight: 600;
+    }
+
+    .packages-content input {
+        max-width: 30% !important;
+        text-align: right;
+    }
+
+    .southbay_return_type {
+        text-align: center;
+    }
+
+    .southbay_return_status {
+        text-align: center;
+    }
+
+    .southbay_created_at {
+        text-align: center;
+    }
+
+    .southbay_return_id {
+        text-align: right;
+    }
+
+    tr {
+        vertical-align: middle;
+    }
+
+    tr th {
+        padding: 1em;
+    }
+
+    td {
+        vertical-align: middle;
+    }
+
+    .qty {
+        text-align: right;
+    }
+
+    .reason_selected_option_rejected {
+        border-color: darkkhaki;
+        background-color: lightyellow;
+    }
+
+    label {
+        margin-right: 15px;
+        font-weight: 700;
+    }
+
+</style>

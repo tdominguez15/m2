@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="southbay_fix_issue_at_once_visibility_20241022" xsi:type="object">
+                    Southbay\Issues\Console\Command\FixAtOnceVisibility20241022
+                </item>
+                <item name="southbay_fix_issue_future_orders_unit_purchase_20241025" xsi:type="object">
+                    Southbay\Issues\Console\Command\FixFutureOrdersPurchaseUnit20241025
+                </item>
+                <item name="southbay_fix_issue_future_orders_flow3_20241125" xsi:type="object">
+                    Southbay\Issues\Console\Command\FixFuturesOrderFlow320241125
+                </item>
+                <item name="southbay_fix_issue_future_orders_20241127" xsi:type="object">
+                    Southbay\Issues\Console\Command\FixRemoveSkuFromFutureOrder20241127
+                </item>
+                <item name="southbay_fix_issue_at_once_price_20241219" xsi:type="object">
+                    Southbay\Issues\Console\Command\FixAtOncePrice20241219
+                </item>
+                <item name="southbay_fix_issue_order_items_without_base_row_total" xsi:type="object">
+                    Southbay\Issues\Console\Command\FixOrderItemsWithoutBaseRowTotal20250213
+                </item>
+                <item name="southbay_fix_issue_order_without_all_variants" xsi:type="object">
+                    Southbay\Issues\Console\Command\FixOrderItemsWithoutAllVariants20250213
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

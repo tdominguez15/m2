@@ -1,0 +1,101 @@
+//Variables
+
+@custom-primary-color: #F5F5F5;
+@green-link-color: #D94747;
+@color-black: #000000;
+@button-colors: #111111;
+
+@button-primary__background: @custom-primary-color;
+@link__color: @green-link-color;
+
+@screen__m: 1024px;
+
+@copyright__background-color: @custom-primary-color;
+
+
+//Estilos Generales
+
+& when (@media-common = true) {
+//Buttons
+    .action.primary {
+        background: #000000;
+        border: none;
+        opacity: 0.7;
+        transition: 0.3s;
+
+        &:hover {
+            background: #C0C0C0;
+            color: #696969;
+            border: none;
+            opacity: 1;
+        }
+    }
+
+    a, .alink {
+        color: #1d1d1d;
+    }
+
+//Fotorama
+    .fotorama__nav__shaft {
+        .fotorama__thumb-border {
+            border: 1px solid #808080;
+        }
+    }
+
+//Search results
+    .search.results {
+        .block {
+            display: none;
+        }
+    }
+    
+//Sidebar  
+    .sidebar {
+        .block-wishlist {
+            display: none;
+        }
+    }
+
+    ul {
+        padding-left: 0;
+        list-style: none;
+    }
+}
+
+//Links
+
+a:visited, .alink:visited {
+    color: #333333;
+}
+
+body, select, button, .action.primary, input[type="text"], input {
+    font-family: 'Montserrat', sans-serif;
+}
+
+footer.modal-footer {
+    display: block;
+
+    .action-secondary, .action-primary {
+        display: block;
+        float: left;
+        background-color: #F75301;
+        border: 1px solid #f75301;
+        color: white;
+        margin-right: 12px;
+        padding: 7px 10px;
+        border-radius: 4px;
+        transition: 0.3s;
+        font-size: 13px;
+        text-transform: uppercase;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: none;
+            opacity: 0.8;
+        }
+    }
+}
+
+strong {
+    font-weight: 600;
+}

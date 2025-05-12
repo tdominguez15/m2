@@ -1,0 +1,22 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config/etc/system_file.xsd">
+
+        <system>
+            <tab id="southbay" translate="label" sortOrder="10">
+                <label>Southbay</label>
+            </tab>
+            <section id="log_administrator" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Log Administrator</label>
+                <tab>southbay</tab>
+                <resource>Southbay_LogAdministrator::config</resource>
+                <group id="cart_excel_upload" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cart Excel Upload</label>
+                    <field id="enable_logging" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable Logging</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+
+            </section>
+        </system>
+    </config>
+

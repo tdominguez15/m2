@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="cancel_order_atonce">
+        <job name="southbay_approveorders_cancel_order_atonce" instance="Southbay\ApproveOrders\Cron\CancelOrderAtonce"
+             method="execute">
+            <schedule>0 0 30 2 0</schedule>
+        </job>
+    </group>
+    <group id="send_orders_to_sap">
+        <job name="southbay_approveorders_send_at_once_orders_to_sap" instance="Southbay\ApproveOrders\Cron\SendOrdersToSap"
+             method="sendAtOnce">
+            <schedule>* * * * *</schedule>
+        </job>
+        <job name="southbay_approveorders_send_future_orders_to_sap" instance="Southbay\ApproveOrders\Cron\SendOrdersToSap"
+             method="sendFuture">
+            <schedule>* * * * *</schedule>
+        </job>
+    </group>
+</config>

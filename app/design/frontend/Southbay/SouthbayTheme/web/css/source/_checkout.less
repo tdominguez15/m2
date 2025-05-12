@@ -1,0 +1,123 @@
+& when (@media-common = true) {
+    .checkout-container {
+        .opc-progress-bar {
+            padding-top: 20px;
+
+            .opc-progress-bar-item._active > span:before {
+                background: #1d1d1d;
+                border-color: #1d1d1d;
+            }
+
+            .opc-progress-bar-item._active:before {
+                background: #1d1d1d;
+                border-color: #1d1d1d;
+            }
+
+            .opc-progress-bar-item._active > span:after {
+                border-color: #1d1d1d;
+            }
+        }
+
+        .opc-wrapper {
+            .shipping-address-item.selected-item {
+                border-color: #1d1d1d;
+            }
+
+            .shipping-address-item.selected-item:after {
+                background: #1d1d1d;
+            }
+
+            .checkout-shipping-method {
+                #checkout-shipping-method-load {
+                    display: none;
+                }
+
+                .step-title {
+                    display: none;
+                }
+            }
+        }
+
+        .ship-via {
+            display: none;
+        }
+
+        .payment-option-title {
+            .action {
+                display: none;
+            }
+        }
+
+        .totals.shipping.excl {
+            display: none;
+        }
+
+        .shipping-information {
+            .action-edit {
+                display: none;
+
+                &:before {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .checkout-index-index {
+        .button.action.action-show {
+            padding-top: 5px;
+        }
+
+        button.action.primary.checkout {
+            font-size: 22px;
+            padding: 16px;
+            font-weight: 500;
+        }
+
+        .new-address-popup {
+            display: none;
+        }
+
+        .checkout-agreements .checkout-agreement {
+            display: flex;
+            align-items: flex-start; /* Alinea verticalmente el checkbox y el texto */
+            margin-top: 40px;
+
+            input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                margin-right: 10px; /* Espacio entre el checkbox y el texto */
+            }
+
+            button {
+                display: block;
+                font-size: 1.1rem;
+                text-align: left;
+                padding: 5px 10px 10px 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                margin: 0; /* Elimina margen adicional para alinear correctamente */
+            }
+
+            button.action {
+                position: relative;
+                top: 3px; /* Ajuste fino para la alineación vertical si es necesario */
+                left: 1px; /* Ajuste fino para la alineación horizontal si es necesario */
+
+                span {
+                    color: #F75301;
+                    font-weight: 600;
+                }
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+
+    }
+    //se quita boton de aplicar cupones.
+    .payment-option._collapsible.opc-payment-additional.discount-code {
+        display: none;
+    }
+}

@@ -1,0 +1,20 @@
+
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$registry = $objectManager->get('\Magento\Framework\Registry');
+$_product = $registry->registry('product');
+
+$southbay_helper = $this->helper(Southbay\Product\Helper\Data::class);
+$multiplo = $_product->getData('southbay_purchase_unit');
+
+if ($multiplo && $multiplo > 1): ?>
+    <p class="multiplo-message">
+        Se vende por <?= $multiplo; ?> unidades.
+    </p>
+    <input type="hidden" id="purchase-unit" name="purchase-unit" value="<?= $multiplo; ?>" />
+<?php endif; ?>

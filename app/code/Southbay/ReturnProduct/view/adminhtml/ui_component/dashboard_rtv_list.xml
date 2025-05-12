@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">dashboard_rtv_list.grid_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>grid_columns</spinner>
+        <deps>
+            <dep>dashboard_rtv_list.grid_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="southbay_dashboard_btn_download">
+                <url path="southbay_return_product/dashboard/download"/>
+                <class>secondary</class>
+                <label translate="true">Descargar detalle</label>
+            </button>
+        </buttons>
+    </settings>
+    <dataSource name="grid_data_source" component="Magento_Ui/js/grid/provider">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">southbay_return_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider
+            class="Southbay\ReturnProduct\Model\ResourceModel\DataProvider\Dashboard\DashboardDataProvider"
+            name="grid_data_source">
+            <settings>
+                <primaryFieldName>southbay_return_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <filterSelect name="southbay_return_status"
+                          provider="${ $.parentName }"
+                          component="Magento_Ui/js/form/element/ui-select"
+                          template="ui/grid/filters/elements/ui-select">
+                <settings>
+                    <options class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\StatusOptionsProvider"/>
+                    <caption translate="true">Select</caption>
+                    <label translate="true">Estado</label>
+                    <dataScope>southbay_return_status</dataScope>
+                    <imports>
+                        <link name="visible">componentType = column, index = ${ $.index }:visible</link>
+                    </imports>
+                </settings>
+            </filterSelect>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="grid_columns">
+        <column name="southbay_return_country_code" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label translate="true">País</label>
+                <dataType>select</dataType>
+                <sortable>true</sortable>
+                <filter>select</filter>
+                <options class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\CountryOptionsProvider"/>
+            </settings>
+        </column>
+
+        <column name="southbay_return_id">
+            <settings>
+                <label translate="true">NºDevolución</label>
+                <sortable>true</sortable>
+                <filter>true</filter>
+            </settings>
+        </column>
+        <column name="southbay_return_type" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label translate="true">Tipo devolución</label>
+                <dataType>select</dataType>
+                <sortable>true</sortable>
+                <filter>select</filter>
+                <options class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\ReturnTypeOptionsProvider"/>
+            </settings>
+        </column>
+        <column name="southbay_return_customer_name">
+            <settings>
+                <label translate="true">Cliente</label>
+                <sortable>true</sortable>
+                <filter>text</filter>
+            </settings>
+        </column>
+        <column name="southbay_return_status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label translate="true">Estado</label>
+                <dataType>select</dataType>
+                <sortable>true</sortable>
+                <filter>multiselect</filter>
+                <options class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\StatusOptionsProvider"/>
+            </settings>
+        </column>
+        <column name="created_at" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <label translate="true">Fecha Creación</label>
+                <dataType>date</dataType>
+                <filter>dateRange</filter>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+        <column name="reception_date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <label translate="true">Fecha Recepción</label>
+                <dataType>date</dataType>
+                <sortable>true</sortable>
+                <filter>dateRange</filter>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="control_qa_date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <label translate="true">Fecha de Control</label>
+                <dataType>date</dataType>
+                <sortable>true</sortable>
+                <filter>dateRange</filter>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="approval_date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <label translate="true">Fecha de Aprobación</label>
+                <dataType>date</dataType>
+                <sortable>true</sortable>
+                <filter>dateRange</filter>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="confirmation_date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <label translate="true">Fecha de Confirmación</label>
+                <dataType>date</dataType>
+                <sortable>true</sortable>
+                <filter>dateRange</filter>
+                <visible>false</visible>
+            </settings>
+        </column>
+    </columns>
+</listing>

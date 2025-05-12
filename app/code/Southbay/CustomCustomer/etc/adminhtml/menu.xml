@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Southbay_CustomCustomer::manager"
+            resource="Southbay_CustomCustomer::manager"
+            title="Southbay Clientes"
+            module="Southbay_CustomCustomer"
+            sortOrder="10"
+        />
+        <add
+            id="Southbay_CustomCustomer::CustomerConfig"
+            resource="Southbay_CustomCustomer::CustomerConfig"
+            parent="Southbay_CustomCustomer::manager"
+            action="southbay_custom_customer/config"
+            module="Southbay_CustomCustomer"
+            title="Configuración de clientes"
+        />
+        <add
+            id="Southbay_CustomCustomer::OrderEntryRep"
+            resource="Southbay_CustomCustomer::OrderEntryRep"
+            parent="Southbay_CustomCustomer::manager"
+            action="southbay_custom_customer/orderentryrep"
+            module="Southbay_CustomCustomer"
+            title="Representantes"
+        />
+        <add
+            id="Southbay_CustomCustomer::OrderEntryNotification"
+            resource="Southbay_CustomCustomer::OrderEntryNotification"
+            parent="Southbay_CustomCustomer::manager"
+            action="southbay_custom_customer/orderentrynotification"
+            module="Southbay_CustomCustomer"
+            title="Configuración de notificaciones"
+        />
+        <add
+            id="Southbay_CustomCustomer::StoreConfig"
+            resource="Southbay_CustomCustomer::StoreConfig"
+            parent="Southbay_CustomCustomer::manager"
+            action="southbay_custom_customer/store"
+            module="Southbay_CustomCustomer"
+            title="Configuración de tiendas"
+        />
+        <add
+            id="Southbay_CustomCustomer::SoldTo"
+            resource="Southbay_CustomCustomer::SoldTo"
+            parent="Southbay_CustomCustomer::manager"
+            action="southbay_custom_customer/soldto"
+            module="Southbay_CustomCustomer"
+            title="Solicitantes"
+        />
+        <add
+            id="Southbay_CustomCustomer::SoldToMap"
+            resource="Southbay_CustomCustomer::SoldToMap"
+            parent="Southbay_CustomCustomer::manager"
+            action="southbay_custom_customer/soldtomap"
+            module="Southbay_CustomCustomer"
+            title="Solicitantes - Mapeo Codigos"
+        />
+        <add
+            id="Southbay_CustomCustomer::ShipTo"
+            resource="Southbay_CustomCustomer::ShipTo"
+            parent="Southbay_CustomCustomer::manager"
+            action="southbay_custom_customer/shipto"
+            module="Southbay_CustomCustomer"
+            title="Destino Mercaderia"
+        />
+        <add
+            id="Southbay_CustomCustomer::ShipToMap"
+            resource="Southbay_CustomCustomer::ShipToMap"
+            parent="Southbay_CustomCustomer::manager"
+            action="southbay_custom_customer/shiptomap"
+            module="Southbay_CustomCustomer"
+            title="Destino Mercaderia - Mapeo Codigos"
+        />
+    </menu>
+</config>

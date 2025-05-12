@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order" resource="default" engine="innodb" comment="">
+        <column xsi:type="varchar" name="southbay_order_observation" nullable="true" length="35"
+                comment="observation from user"/>
+    </table>
+    <table name="quote">
+        <column xsi:type="decimal" name="custom_grand_total" scale="4" precision="20" unsigned="false" nullable="true"
+                default="0" comment="Custom Grand Total"/>
+    </table>
+
+    <table name="quote_item" resource="default" engine="innodb" comment="Quote Item">
+
+        <column xsi:type="decimal" name="customqty" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Custom Qty"/>
+    </table>
+</schema>

@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$registry = $objectManager->get('\Magento\Framework\Registry');
+$_product = $registry->registry('product');
+
+$southbay_helper = $this->helper(Southbay\Product\Helper\Data::class);
+$priceCurrency = $objectManager->get('\Magento\Framework\Pricing\PriceCurrencyInterface');
+?>
+<p class="suggested-price">Precio sugerido:
+    <span>
+        <?= $priceCurrency->format(
+            $southbay_helper->getProductValues($_product->getSku(), ['southbay_price_retail'])['southbay_price_retail'],
+            false, // No redondear
+            0,     // Sin decimales
+            null,  // Símbolo de moneda (por defecto)
+            null,  // Tasa de conversión (por defecto)
+            null,  // Código de moneda (por defecto)
+            null   // Separador de miles (por defecto)
+        ); ?>
+    </span>
+</p>

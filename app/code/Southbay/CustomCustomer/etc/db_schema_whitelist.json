@@ -1,0 +1,190 @@
+{
+    "southbay_config_store": {
+        "column": {
+            "southbay_general_config_id": true,
+            "southbay_function_code": true,
+            "southbay_country_code": true,
+            "southbay_store_code": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "SOUTHBAY_CONFIG_STORE_SOUTHBAY_GENERAL_CONFIG_ID": true,
+            "SOUTHBAY_CONFIG_STORE_SOUTHBAY_FUNCTION_CODE": true,
+            "SOUTHBAY_CONFIG_STORE_SOUTHBAY_COUNTRY_CODE": true,
+            "SOUTHBAY_CONFIG_STORE_SOUTHBAY_STORE_CODE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "southbay_map_country": {
+        "column": {
+            "southbay_map_country_id": true,
+            "southbay_map_country_code": true,
+            "southbay_map_sap_country_code": true,
+            "created_at": true,
+            "updated_at": true,
+            "southbay_map_sap_country_code_frontera": true
+        },
+        "index": {
+            "SOUTHBAY_MAP_COUNTRY_SOUTHBAY_MAP_COUNTRY_CODE": true,
+            "SOUTHBAY_MAP_COUNTRY_SOUTHBAY_MAP_SAP_COUNTRY_CODE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "southbay_customer_config": {
+        "column": {
+            "magento_customer_email": true,
+            "southbay_customer_config_sol_to_ids": true,
+            "southbay_customer_config_countries_codes": true,
+            "southbay_customer_config_functions_codes": true,
+            "created_at": true,
+            "updated_at": true,
+            "southbay_customer_config_id": true,
+            "southbay_customer_config_sold_to_ids": true
+        },
+        "index": {
+            "SOUTHBAY_CUSTOMER_CONFIG_MAGENTO_CUSTOMER_EMAIL": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "southbay_sold_to": {
+        "column": {
+            "southbay_sold_to_id": true,
+            "southbay_sold_to_country_code": true,
+            "southbay_sold_to_sap_country_code": true,
+            "southbay_sold_to_channel_code": true,
+            "southbay_sold_to_section_code": true,
+            "southbay_sold_to_customer_code": true,
+            "southbay_sold_to_customer_code_old": true,
+            "southbay_sold_to_country_business_code": true,
+            "southbay_sold_to_customer_name": true,
+            "southbay_sold_to_locked": true,
+            "southbay_sold_to_automatically_authorize_purchases": true,
+            "southbay_sold_to_segmentation": true,
+            "southbay_sold_to_is_active": true
+        },
+        "constraint": {
+            "SOUTHBAY_SOLD_TO_SOUTHBAY_SOLD_TO_CUSTOMER_CODE": true,
+            "PRIMARY": true
+        }
+    },
+    "southbay_ship_to": {
+        "column": {
+            "southbay_ship_to_id": true,
+            "southbay_ship_to_customer_code": true,
+            "southbay_ship_to_name": true,
+            "southbay_ship_to_code": true,
+            "southbay_ship_to_old_code": true,
+            "southbay_ship_to_address": true,
+            "southbay_ship_to_address_number": true,
+            "southbay_ship_to_state": true,
+            "southbay_ship_country_code": true,
+            "southbay_ship_to_country_code": true,
+            "southbay_ship_to_is_active": true
+        },
+        "index": {
+            "SOUTHBAY_SHIP_TO_SOUTHBAY_SHIP_TO_CUSTOMER_CODE": true,
+            "SOUTHBAY_SHIP_TO_SOUTHBAY_SHIP_TO_OLD_CODE": true
+        },
+        "constraint": {
+            "SOUTHBAY_SHIP_TO_SOUTHBAY_SHIP_TO_CODE": true,
+            "PRIMARY": true
+        }
+    },
+    "southbay_order_entry_rep_config": {
+        "column": {
+            "entity_id": true,
+            "magento_user_code": true,
+            "southbay_customer_config_sold_to_ids": true,
+            "can_approve_at_once": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "SOUTHBAY_ORDER_ENTRY_REP_CONFIG_CAN_APPROVE_AT_ONCE": true
+        },
+        "constraint": {
+            "SOUTHBAY_ORDER_ENTRY_REP_CONFIG_MAGENTO_USER_CODE": true,
+            "PRIMARY": true
+        }
+    },
+    "southbay_order_entry_notification_config": {
+        "column": {
+            "entity_id": true,
+            "southbay_country_code": true,
+            "southbay_function_code": true,
+            "magento_template_id": true,
+            "retry_after": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "UNQ_31EF15708E1EAA6A939EFAFD86C3F2A0": true,
+            "PRIMARY": true
+        }
+    },
+    "southbay_order_entry_notification": {
+        "column": {
+            "entity_id": true,
+            "southbay_country_code": true,
+            "southbay_function_code": true,
+            "order_id": true,
+            "increment_id": true,
+            "magento_template_id": true,
+            "magento_user_email": true,
+            "magento_user_name": true,
+            "status": true,
+            "send_at": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "SOUTHBAY_ORDER_ENTRY_NTFC_SEND_AT_STS_SOUTHBAY_FUNCTION_CODE": true,
+            "SOUTHBAY_ORDER_ENTRY_NOTIFICATION_STATUS": true,
+            "SOUTHBAY_ORDER_ENTRY_NOTIFICATION_ORDER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "southbay_sold_to_map": {
+        "column": {
+            "entity_id": true,
+            "sold_to_code": true,
+            "sold_to_old_code": true
+        },
+        "index": {
+            "SOUTHBAY_SOLD_TO_MAP_SOLD_TO_CODE": true,
+            "SOUTHBAY_SOLD_TO_MAP_SOLD_TO_OLD_CODE": true
+        },
+        "constraint": {
+            "SOUTHBAY_SOLD_TO_MAP_SOLD_TO_CODE_SOLD_TO_OLD_CODE": true,
+            "PRIMARY": true
+        }
+    },
+    "southbay_ship_to_map": {
+        "column": {
+            "entity_id": true,
+            "sold_to_code": true,
+            "sold_to_old_code": true,
+            "ship_to_code": true,
+            "ship_to_old_code": true
+        },
+        "index": {
+            "SOUTHBAY_SHIP_TO_MAP_SOLD_TO_CODE": true,
+            "SOUTHBAY_SHIP_TO_MAP_SOLD_TO_OLD_CODE": true,
+            "SOUTHBAY_SHIP_TO_MAP_SHIP_TO_CODE": true,
+            "SOUTHBAY_SHIP_TO_MAP_SHIP_TO_OLD_CODE": true
+        },
+        "constraint": {
+            "UNQ_E28E9DAF2D5DBF10A86FF0B929BE1577": true,
+            "PRIMARY": true
+        }
+    }
+}

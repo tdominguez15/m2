@@ -1,0 +1,8 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_save_before">
+        <observer name="Southbay_CustomCheckout_Sale_Add_All_Before" instance="Southbay\CustomCheckout\Observer\AddAllSizeBeforeSale"/>
+    </event>
+    <event name="sales_order_place_after">
+        <observer name="custom_order_place_after" instance="Southbay\CustomCheckout\Observer\OrderPlaceAfter" />
+    </event>
+</config>

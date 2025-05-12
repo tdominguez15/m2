@@ -1,0 +1,57 @@
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Southbay\ReturnProduct\Block\Adminhtml\MyReturn
+ */
+
+$data = $block->getSapDetail();
+$id = $block->getReturnProductId();
+?>
+
+<div>
+    <h2><?= __('Tramite') ?> #<?= $id ?></h2>
+    <table border="1">
+        <tr>
+            <th>
+                <?= __('Nro documento interno') ?>
+            </th>
+            <th>
+                <?= __('Estado') ?>
+            </th>
+            <th>
+                <?= __('Detalle técnico - Datos enviados') ?>
+            </th>
+            <th>
+                <?= __('Detalle técnico - Respuesta') ?>
+            </th>
+        </tr>
+        <?php foreach ($data as $item) { ?>
+            <tr>
+                <td>
+                    <?= $item['id'] ?>
+                </td>
+                <td>
+                    <?= $item['status'] ?>
+                    <?php if ($item['retry']) { ?>
+                        <a class="retry" href="<?= $block->getUrl('southbay_return_product/confirmation/sapretry', ['id' => $item['id']]) ?>"><?= __('Reintentar') ?></a>
+                    <?php } ?>
+                </td>
+                <td>
+                    <?= $item['request'] ?>
+                </td>
+                <td>
+                    <?= $item['response'] ?>
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
+</div>
+
+<style>
+    tr th {
+        padding: 1em;
+        font-weight: bold;
+    }
+</style>
+

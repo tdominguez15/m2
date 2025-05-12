@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="southbay_catalog_product" resource="default" engine="innodb" comment="southbay products">
+        <column xsi:type="int" name="southbay_catalog_product_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_country_code" nullable="false" length="30"
+                comment="magento country code"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_sap_country_code" nullable="false" length="30"
+                comment="sap country code"/>
+
+        <column xsi:type="int" name="southbay_catalog_product_magento_product_id" unsigned="true" nullable="true"
+                comment="magento product id"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_sku" nullable="false" length="50"
+                comment="sku"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_sku_generic" nullable="false" length="50"
+                comment="sku generic"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_sku_variant" nullable="false" length="60"
+                comment="sku variant generic"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_sku_full" nullable="false" length="100"
+                comment="sku full"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_name" nullable="false" length="150"
+                comment="name"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_color" nullable="false" length="100"
+                comment="color"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_size" nullable="false" length="30"
+                comment="size"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_ean" nullable="true" length="50"
+                comment="ean code"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_group_code" nullable="true" length="100"
+                comment="group code"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_group_name" nullable="true" length="150"
+                comment="group name"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_season_name" nullable="true" length="150"
+                comment="season name"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_season_year" nullable="true" length="4"
+                comment="season year"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_bu" nullable="true" length="100"
+                comment="business unit"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_gender" nullable="true" length="100"
+                comment="gender"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_age" nullable="true" length="100"
+                comment="age"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_sport" nullable="true" length="150"
+                comment="sport"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_shape_1" nullable="true" length="150"
+                comment="shape one"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_shape_2" nullable="true" length="150"
+                comment="shape two"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_brand" nullable="true" length="150"
+                comment="brand"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_channel" nullable="true" length="150"
+                comment="channel"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_level" nullable="true" length="150"
+                comment="level"/>
+
+        <column xsi:type="decimal" name="southbay_catalog_product_price" nullable="true" precision="10" scale="2"
+                comment="price"/>
+
+        <column xsi:type="decimal" name="southbay_catalog_product_suggested_retail_price" nullable="true" precision="10"
+                scale="2"
+                comment="suggested retail price"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_denomination" nullable="true" length="150"
+                comment="denomination"/>
+
+        <column xsi:type="date" name="southbay_catalog_product_sale_date_from" nullable="true"
+                comment="sale date from"/>
+
+        <column xsi:type="date" name="southbay_catalog_product_sale_date_to" nullable="true" comment="sale date to"/>
+
+        <column xsi:type="varchar" name="southbay_catalog_product_initiative" nullable="true" length="100"/>
+
+        <column xsi:type="int" name="southbay_catalog_product_purchasing_unit" unsigned="true" nullable="true"/>
+
+        <column xsi:type="text" name="southbay_catalog_product_description" nullable="true"/>
+
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+
+        <index referenceId="SOUTHBAY_CATALOG_PRODUCT_COUNTRY_CODE" indexType="btree">
+            <column name="southbay_catalog_product_country_code"/>
+        </index>
+        <index referenceId="SOUTHBAY_CATALOG_PRODUCT_MAGENTO_PRODUCT_ID" indexType="btree">
+            <column name="southbay_catalog_product_magento_product_id"/>
+        </index>
+        <index referenceId="SOUTHBAY_CATALOG_PRODUCT_SAP_COUNTRY_CODE" indexType="btree">
+            <column name="southbay_catalog_product_sap_country_code"/>
+        </index>
+        <index referenceId="SOUTHBAY_CATALOG_PRODUCT_SKU" indexType="btree">
+            <column name="southbay_catalog_product_sku"/>
+        </index>
+        <index referenceId="SOUTHBAY_CATALOG_PRODUCT_SKU_GENERIC" indexType="btree">
+            <column name="southbay_catalog_product_sku_generic"/>
+        </index>
+        <index referenceId="SOUTHBAY_CATALOG_PRODUCT_SKU_VARIANT" indexType="btree">
+            <column name="southbay_catalog_product_sku_variant"/>
+        </index>
+        <index referenceId="SOUTHBAY_CATALOG_PRODUCT_SKU_AND_COUNTRY" indexType="btree">
+            <column name="southbay_catalog_product_sku"/>
+            <column name="southbay_catalog_product_country_code"/>
+        </index>
+        <index referenceId="SOUTHBAY_CATALOG_PRODUCT_SKU_GENERIC_AND_COUNTRY" indexType="btree">
+            <column name="southbay_catalog_product_sku_variant"/>
+            <column name="southbay_catalog_product_country_code"/>
+        </index>
+        <constraint xsi:type="unique" referenceId="SOUTHBAY_CATALOG_PRODUCT_UNIQUE">
+            <column name="southbay_catalog_product_sku"/>
+            <column name="southbay_catalog_product_size"/>
+            <column name="southbay_catalog_product_sap_country_code"/>
+        </constraint>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="southbay_catalog_product_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_product_group" resource="default" engine="innodb" comment="sap doc">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="30" comment="type"/>
+        <column xsi:type="varchar" name="code" nullable="false" length="50" comment="code"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="150" comment="name"/>
+
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <index referenceId="SOUTHBAY_PRODUCT_GROUP_TYPE" indexType="btree">
+            <column name="type"/>
+        </index>
+        <constraint xsi:type="unique" referenceId="SOUTHBAY_PRODUCT_GROUP_UNIQUE">
+            <column name="code"/>
+            <column name="type"/>
+        </constraint>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+
+    <table name="southbay_product_exclusion" resource="default" engine="innodb" comment="Southbay Product Exclusions">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="sku" nullable="false" length="50" comment="SKU"/>
+        <column xsi:type="int" name="store" unsigned="true" nullable="false" comment="Store ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="true"
+                comment="Product ID"/> <!-- Nuevo campo -->
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="SOUTHBAY_PRODUCT_EXCLUSION_SKU_STORE" indexType="btree">
+            <column name="sku"/>
+            <column name="store"/>
+        </index>
+    </table>
+
+    <table name="southbay_import_img_history" resource="default" engine="innodb" comment="Southbay Product imgs">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="100" comment="name"/>
+        <column xsi:type="varchar" name="file" nullable="false" length="250" comment="img pack file"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="50" comment="status"/>
+        <column xsi:type="varchar" name="result_msg" nullable="false" length="250" comment="result import"/>
+        <column xsi:type="timestamp" name="start_import_date" nullable="true" comment="start import"/>
+        <column xsi:type="timestamp" name="end_import_date" nullable="true" comment="end import"/>
+        <column xsi:type="int" name="total_files" unsigned="true" nullable="true" comment="Total files"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+
+        <index referenceId="SOUTHBAY_IMPORT_IMG_STATUS_HISTORY" indexType="btree">
+            <column name="status"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_IMPORT_IMG_CREATED_AT_HISTORY" indexType="btree">
+            <column name="created_at"/>
+        </index>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_import_products_history" resource="default" engine="innodb" comment="Southbay Product import">
+        <column xsi:type="int" name="store_id" unsigned="true" nullable="true" comment="store id"/>
+        <column xsi:type="boolean" name="is_at_once" nullable="false" default="0" comment="is at once flag"/>
+        <column xsi:type="int" name="season_id" unsigned="true" nullable="true" comment="season id"/>
+        <column xsi:type="varchar" name="skus" nullable="true" length="1024" comment="only import sku"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="50" comment="import|update" default="import"/>
+        <column xsi:type="varchar" name="source" nullable="false" length="100" comment="source: file|memory"
+                default="file"/>
+        <column xsi:type="varchar" name="attribute_code" nullable="true" length="255" comment="attribute code"/>
+        <column xsi:type="varchar" name="type_operation" nullable="false" default="progressive" length="100"
+                comment="type operation"/>
+
+        <index referenceId="SOUTHBAY_IMPORT_PRODUCT_IS_AT_ONCE" indexType="btree">
+            <column name="is_at_once"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_IMPORT_PRODUCT_TYPE" indexType="btree">
+            <column name="type"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_IMPORT_PRODUCT_SOURCE" indexType="btree">
+            <column name="source"/>
+        </index>
+    </table>
+
+    <table name="southbay_product_sap_interface" resource="default" engine="innodb"
+           comment="Southbay Product sap interface">
+        <column xsi:type="mediumtext" name="southbay_data"/>
+    </table>
+
+    <table name="southbay_product_changes_history" resource="default" engine="innodb"
+           comment="Southbay Product Change History">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false"
+                comment="Product ID"/>
+
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false"
+                comment="Store ID"/>
+
+        <column xsi:type="text" name="json" nullable="false" comment="Json data"/>
+
+        <column xsi:type="varchar" name="hash" length="250" nullable="false" comment="Hash json data"/>
+
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+
+        <index referenceId="SOUTHBAY_PRODUCT_CHANGE_HISTORY_PRODUCT_ID_INDEX" indexType="btree">
+            <column name="product_id"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_PRODUCT_CHANGE_HISTORY_STORE_ID_INDEX" indexType="btree">
+            <column name="store_id"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_PRODUCT_CHANGE_HISTORY_CREATED_AT_INDEX" indexType="btree">
+            <column name="created_at"/>
+        </index>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="southbay_product_segmentation" resource="default" engine="innodb" comment="Product Segmentation Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="code" nullable="false" length="255" comment="Segmentation Code"/>
+        <column xsi:type="varchar" name="label" nullable="false" length="255" comment="Segmentation Label"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+        <index referenceId="SOUTHBAY_PRODUCT_SEGMENTATION_CODE_IDX">
+            <column name="code"/>
+        </index>
+    </table>
+
+    <table name="southbay_atp_history" resource="default" engine="innodb"
+           comment="Southbay Stock Atp History">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+
+        <column xsi:type="varchar" name="country_code" nullable="false" length="30"
+                comment="magento country code"/>
+
+        <column xsi:type="varchar" name="sap_country_code" nullable="false" length="30"
+                comment="sap country code"/>
+
+        <column xsi:type="longtext" name="json" nullable="false" comment="Json data"/>
+
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+
+        <index referenceId="SOUTHBAY_ATP_HISTORY_COUNTRY_CODE" indexType="btree">
+            <column name="country_code"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_ATP_HISTORY_SAP_COUNTRY_CODE" indexType="btree">
+            <column name="sap_country_code"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_PRODUCT_CHANGE_HISTORY_CREATED_AT_INDEX" indexType="btree">
+            <column name="created_at"/>
+        </index>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_import_products_detail" resource="default" engine="innodb">
+        <column xsi:type="int" name="season_import_detail_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="int" name="season_id" unsigned="true" nullable="true" comment="season id"/>
+        <column xsi:type="int" name="season_import_id" unsigned="true" nullable="false" comment="import product id"/>
+        <column xsi:type="varchar" name="sku" nullable="false" length="64" comment="product sku"/>
+        <column xsi:type="int" name="store_id" unsigned="true" nullable="false" comment="store id"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="true" comment="product id"/>
+        <column xsi:type="int" name="line" unsigned="true" nullable="true" comment="line number"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="50" comment="status"/>
+        <column xsi:type="varchar" name="result_msg" nullable="true" length="250" comment="Import result msg"/>
+        <column xsi:type="text" name="source_data" nullable="true" comment="Json data"/>
+        <column xsi:type="text" name="process_data" nullable="true" comment="Json data"/>
+        <column xsi:type="timestamp" name="start_import_date" nullable="true" comment="Start import"/>
+        <column xsi:type="timestamp" name="end_import_date" nullable="true" comment="End import"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+
+        <index referenceId="SOUTHBAY_IMPORT_PRODUCTS_DETAIL_CREATED_AT_INDEX" indexType="btree">
+            <column name="created_at"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_IMPORT_PRODUCTS_DETAIL_SEASON_IMPORT_ID_INDEX" indexType="btree">
+            <column name="season_import_id"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_IMPORT_PRODUCTS_DETAIL_SKU_INDEX" indexType="btree">
+            <column name="sku"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_IMPORT_PRODUCTS_DETAIL_STORE_ID_INDEX" indexType="btree">
+            <column name="store_id"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_IMPORT_PRODUCTS_DETAIL_SKU_AND_STORE_ID_INDEX" indexType="btree">
+            <column name="sku"/>
+            <column name="store_id"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_IMPORT_PRODUCTS_DETAIL_SEASON_IMPORT_ID_AND_SKU_INDEX" indexType="btree">
+            <column name="season_import_id"/>
+            <column name="sku"/>
+        </index>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="season_import_detail_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_products_update" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="season_import_id" unsigned="true" nullable="false" comment="import product id"/>
+        <column xsi:type="varchar" name="sku" nullable="false" length="64" comment="product sku"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="true" comment="product id"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+
+        <index referenceId="SOUTHBAY_PRODUCTS_UPDATE_SEASON_IMPORT_ID_INDEX" indexType="btree">
+            <column name="season_import_id"/>
+        </index>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

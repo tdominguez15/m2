@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+use Magento\Framework\App\Action\Action;
+?>
+<?php $_helper = $this->helper(Magento\Catalog\Helper\Output::class); ?>
+<?php $_product = $block->getProduct(); ?>
+<?php
+/** @var \Southbay\Product\Helper\Data $southbay_helper */
+$southbay_helper = $this->helper(Southbay\Product\Helper\Data::class);
+$first_variant = $southbay_helper->getFirstProductVariant($_product);
+?>
+
+<div class="product-add-form">
+    <form data-product-sku="<?= $block->escapeHtml($first_variant->getSku()) ?>"
+          action="<?= $block->escapeUrl($block->getSubmitUrl($first_variant)) ?>" method="post"
+          id="product_addtocart_form">
+        <input type="hidden" name="product" value="<?= $first_variant->getId() ?>" />
+        <?= $block->getBlockHtml('formkey') ?>
+        <?= $block->getChildHtml('form_top') ?>
+
+        <?php if ($_product->isSaleable() && $block->hasOptions() && $block->getOptionsContainer() == 'container2') :?>
+            <?= $block->getChildChildHtml('options_container') ?>
+        <?php endif;?>
+        <?= $block->getChildHtml('form_bottom') ?>
+    </form>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "[data-role=priceBox][data-price-box=product-id-<?= $block->escapeHtml($_product->getId()) ?>]": {
+            "priceBox": {
+                "priceConfig":  <?= /* @noEscape */ $block->getJsonConfig() ?>
+            }
+        }
+    }
+</script>

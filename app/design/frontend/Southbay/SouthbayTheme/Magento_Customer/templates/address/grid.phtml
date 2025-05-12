@@ -1,0 +1,87 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Address\Grid $block */
+$customerAddressView = $block->getData('customer_address');
+
+
+/** @var \Southbay\SouthbayTheme\Magento_Customer\ViewModel\ShipToViewModel $viewModel */
+$viewModel = $block->getData('viewModel');
+
+?>
+
+<div class="block block-addresses-list">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Additional Address Entries')) ?></strong></div>
+    <div class="block-content">
+        <?php if ($_pAddsses = $block->getAdditionalAddresses()) : ?>
+
+            <div class="table-wrapper additional-addresses">
+                <table class="data table table-additional-addresses-items history" id="additional-addresses-table">
+                    <caption class="table-caption"><?= $block->escapeHtml(__('Additional addresses')) ?></caption>
+                    <thead>
+                    <tr>
+                        <th scope="col" class="col dm"><?= $block->escapeHtml(__('DM')) ?></th>
+                        <th scope="col" class="col firstname"><?= $block->escapeHtml(__('First Name')) ?></th>
+                        <th scope="col" class="col lastname"><?= $block->escapeHtml(__('Last Name')) ?></th>
+                        <th scope="col" class="col streetaddress"><?= $block->escapeHtml(__('Street Address')) ?></th>
+<!--                        <th scope="col" class="col city">--><?php //= $block->escapeHtml(__('City')) ?><!--</th>-->
+<!--                        <th scope="col" class="col country">--><?php //= $block->escapeHtml(__('Country')) ?><!--</th>-->
+<!--                        <th scope="col" class="col state">--><?php //= $block->escapeHtml(__('Provincia')) ?><!--</th>-->
+<!--                        <th scope="col" class="col zip">--><?php //= $block->escapeHtml(__('Zip/Postal Code')) ?><!--</th>-->
+<!--                        <th scope="col" class="col phone">--><?php //= $block->escapeHtml(__('Phone')) ?><!--</th>-->
+<!--                        <th scope="col" class="col actions"> </th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($_pAddsses as $address) : ?>
+                        <tr>
+                            <td data-th="<?= $block->escapeHtml(__('DM')) ?>" class="col dm"><?= $viewModel->getShipToCodeById($address->getVatId()) ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('First Name')) ?>" class="col firstname"><?= $block->escapeHtml($address->getFirstname()) ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('Last Name')) ?>" class="col lastname"><?= $block->escapeHtml($address->getLastname()) ?></td>
+                            <td data-th="<?= $block->escapeHtml(__('Street Address')) ?>" class="col streetaddress"><?= $block->escapeHtml($block->getStreetAddress($address)) ?></td>
+<!--                            <td data-th="--><?php //= $block->escapeHtml(__('City')) ?><!--" class="col city">--><?php //= $block->escapeHtml($address->getCity()) ?><!--</td>-->
+<!--                            <td data-th="--><?php //= $block->escapeHtml(__('Country')) ?><!--" class="col country">--><?php //= $block->escapeHtml($block->getCountryByCode($address->getCountryId())) ?><!--</td>-->
+<!--                            <td data-th="--><?php //= $block->escapeHtml(__('State')) ?><!--" class="col state">--><?php //= $block->escapeHtml($address->getRegion()->getRegion()) ?><!--</td>-->
+<!--                            <td data-th="--><?php //= $block->escapeHtml(__('Zip/Postal Code')) ?><!--" class="col zip">--><?php //= $block->escapeHtml($address->getPostcode()) ?><!--</td>-->
+<!--                            <td data-th="--><?php //= $block->escapeHtml(__('Phone')) ?><!--" class="col phone">--><?php //= $block->escapeHtml($address->getTelephone()) ?><!--</td>-->
+<!--                            <td data-th="--><?php //= $block->escapeHtml(__('Actions')) ?><!--" class="col actions">-->
+<!--                                <a class="action edit" href="--><?php //= $block->escapeUrl($block->getUrl('customer/address/edit', ['id' => $address->getId()])) ?><!--"><span>--><?php //= $block->escapeHtml(__('Edit')) ?><!--</span></a>-->
+<!--                                <a class="action delete" href="#" role="delete-address" data-address="--><?php //= $block->escapeHtmlAttr($address->getId()) ?><!--"><span>--><?php //= $block->escapeHtml(__('Delete')) ?><!--</span></a>-->
+<!--                            </td>-->
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php if ($block->getChildHtml('pager')) : ?>
+                <div class="customer-addresses-toolbar toolbar bottom"><?= $block->getChildHtml('pager') ?></div>
+            <?php endif ?>
+        <?php else : ?>
+            <p class="empty"><?= $block->escapeHtml(__('You have no other address entries in your address book.')) ?></p>
+        <?php endif ?>
+    </div>
+</div>
+
+<div class="actions-toolbar">
+    <div class="primary">
+        <button type="button" role="add-address" title="<?= $block->escapeHtmlAttr(__('Add New Address')) ?>" class="action primary add"><span><?= $block->escapeHtml(__('Add New Address')) ?></span></button>
+    </div>
+    <div class="secondary">
+        <a class="action back" href="<?= $block->escapeUrl($block->getUrl('customer/account')) ?>"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        ".page-main": {
+            "address": {
+                "deleteAddress": "td a[role='delete-address']",
+                "deleteUrlPrefix": "<?= $block->escapeJs($block->escapeUrl($block->getDeleteUrl())) ?>id/",
+                "addAddress": "button[role='add-address']",
+                "addAddressLocation": "<?= $block->escapeJs($block->escapeUrl($block->getAddAddressUrl())) ?>"
+            }
+        }
+    }
+</script>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Model\Order">
+        <plugin name="remove_notification_after_cancel"
+                type="Southbay\ApproveOrders\Plugin\RemoveNotificactionAfterCancel"/>
+    </type>
+    <type name="Magento\Sales\Model\Service\OrderService">
+        <plugin name="after_place_order"
+                type="Southbay\ApproveOrders\Plugin\AfterPlaceOrder"/>
+    </type>
+    <type name="Magento\Sales\Controller\Adminhtml\Order\Cancel">
+        <plugin name="around_cancel"
+                type="Southbay\ApproveOrders\Plugin\AroundCancel"/>
+    </type>
+
+    <preference for="Magento\Sales\Controller\Adminhtml\Order\MassCancel" type="Southbay\ApproveOrders\Controller\Adminhtml\Order\MassCancel" />
+    <preference for="Magento\InventoryConfiguration\Model\GetStockItemConfiguration" type="Southbay\ApproveOrders\Plugin\GetStockItemConfiguration" />
+    <preference for="Magento\InventorySourceDeductionApi\Model\SourceDeductionService" type="Southbay\ApproveOrders\Plugin\SourceDeductionService" />
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="southbay:run-script" xsi:type="object">Southbay\ApproveOrders\Console\Command\RunScript</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+</config>

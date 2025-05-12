@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="component" xsi:type="string">Southbay_ReturnProduct/js/new_approval</item>
+            <item name="provider" xsi:type="string">new_approval.form_data_source</item>
+            <item name="deps" xsi:type="string">new_approval.form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Nueva aprobación</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Magento\Customer\Block\Adminhtml\Edit\BackButton</item>
+            <item name="save" xsi:type="string">Southbay\ReturnProduct\Block\Adminhtml\Action\SaveButton</item>
+        </item>
+    </argument>
+
+    <dataSource name="form_data_source" component="Magento_Ui/js/form/provider">
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider name="form_data_source" class="Southbay\ReturnProduct\Model\ApprovalDataProvider">
+            <settings>
+                <primaryFieldName>southbay_return_financial_approval_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="fields">
+        <settings>
+            <label translate="true"/>
+        </settings>
+
+        <fieldset name="search_fieldset">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Buscar devolución:</item>
+                </item>
+            </argument>
+            <htmlContent name="southbay_return_search">
+                <settings>
+                    <additionalClasses>
+                        <class name="html-content-class">true</class>
+                    </additionalClasses>
+                </settings>
+                <block name="html_southbay_return_search_block" class="Southbay\ReturnProduct\Block\Adminhtml\Approval\ApprovalBlock">
+                    <arguments>
+                        <argument name="template" xsi:type="string">
+                            Southbay_ReturnProduct::approval_search_template.phtml
+                        </argument>
+                    </arguments>
+                </block>
+            </htmlContent>
+        </fieldset>
+
+        <fieldset name="form_fields">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Detalle:</item>
+                </item>
+            </argument>
+            <settings>
+                <visible>true</visible>
+            </settings>
+            <field name="southbay_return_product_id" formElement="input" sortOrder="1">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="southbay_return_product_id_container" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <visible>true</visible>
+                    <elementTmpl>ui/form/element/input</elementTmpl>
+                    <label translate="true">Nº Devolución</label>
+                    <disabled>true</disabled>
+                </settings>
+            </field>
+            <field name="southbay_return_product_type" formElement="input" sortOrder="3">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="southbay_return_product_type_container" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <visible>true</visible>
+                    <elementTmpl>ui/form/element/input</elementTmpl>
+                    <label translate="true">Tipo Devolución</label>
+                    <disabled>true</disabled>
+                </settings>
+            </field>
+            <field name="southbay_return_product_customer" formElement="input" sortOrder="4">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Texto descriptivo debajo del campo
+                            de entrada.
+                        </item>
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="southbay_return_product_customer_container" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <visible>true</visible>
+                    <elementTmpl>ui/form/element/input</elementTmpl>
+                    <label translate="true">Cliente</label>
+                    <disabled>true</disabled>
+                </settings>
+            </field>
+
+            <field name="southbay_return_total_amount" formElement="input">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="amount_container" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <visible>true</visible>
+                    <elementTmpl>ui/form/element/input</elementTmpl>
+                    <label translate="true">Total de unidades aceptadas</label>
+                    <disabled>true</disabled>
+                </settings>
+            </field>
+
+            <field name="southbay_return_amount_accepted" formElement="input">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="amount_container" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <visible>true</visible>
+                    <elementTmpl>ui/form/element/input</elementTmpl>
+                    <label translate="true">Monto total</label>
+                    <disabled>true</disabled>
+                </settings>
+            </field>
+
+            <field name="southbay_return_financial_approval_total_accepted_amount" formElement="input">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="amount_container" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <visible>true</visible>
+                    <elementTmpl>ui/form/element/input</elementTmpl>
+                    <label translate="true">Monto total valorizado (US$)</label>
+                    <disabled>true</disabled>
+                </settings>
+            </field>
+
+            <field name="southbay_return_financial_approval_exchange_rate" formElement="input">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="amount_container" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <visible>true</visible>
+                    <elementTmpl>ui/form/element/input</elementTmpl>
+                    <label translate="true">Tipo de cambio utilizado</label>
+                    <disabled>true</disabled>
+                </settings>
+            </field>
+
+            <field name="southbay_return_financial_approval_approved" formElement="select">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">select</item>
+                        <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                        <item name="label" xsi:type="string" translate="true">¿Aprueba esta solicitud?</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <formElements>
+                    <select>
+                        <settings>
+                            <options>
+                                <option name="0" xsi:type="array">
+                                    <item name="value" xsi:type="string"/>
+                                    <item name="label" xsi:type="string">Seleccione una opción</item>
+                                </option>
+                                <option name="1" xsi:type="array">
+                                    <item name="value" xsi:type="string">approval</item>
+                                    <item name="label" xsi:type="string">Si</item>
+                                </option>
+                                <option name="2" xsi:type="array">
+                                    <item name="value" xsi:type="string">reject</item>
+                                    <item name="label" xsi:type="string">No</item>
+                                </option>
+                            </options>
+                        </settings>
+                    </select>
+                </formElements>
+            </field>
+
+            <button name="search_again">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="buttonClasses" xsi:type="string">search_again</item>
+                        <item name="actions" xsi:type="array">
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <displayAsLink>true</displayAsLink>
+                    <title translate="true">Buscar otra devolución</title>
+                </settings>
+            </button>
+        </fieldset>
+
+        <modal name="southbay_return_modal">
+            <fieldset name="general">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="southbay_return_product_detail_container" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <label/>
+                </settings>
+            </fieldset>
+        </modal>
+    </fieldset>
+</form>

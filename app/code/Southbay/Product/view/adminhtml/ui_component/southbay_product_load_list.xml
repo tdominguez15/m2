@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">southbay_product_load_list.grid_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>grid_columns</spinner>
+        <deps>
+            <dep>southbay_product_load_list.grid_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="add">
+                <url path="*/*/load"/>
+                <class>primary</class>
+                <label translate="true">Cargar linea</label>
+            </button>
+        </buttons>
+    </settings>
+    <dataSource name="grid_data_source" component="Magento_Ui/js/grid/provider">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">season_import_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="Southbay\Product\Model\ResourceModel\SouthbayProductImportHistory\Datasource"
+                      name="grid_data_source">
+            <settings>
+                <primaryFieldName>season_import_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>false</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="grid_columns">
+        <column name="season_id" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label translate="true">Temporada</label>
+                <dataType>select</dataType>
+                <sortable>true</sortable>
+                <filter>select</filter>
+                <options class="Southbay\Product\Model\ResourceModel\Season\OptionsProvider"/>
+            </settings>
+        </column>
+
+        <column name="file">
+            <settings>
+                <label translate="true">Archivo</label>
+                <dataType>text</dataType>
+                <sortable>true</sortable>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <column name="created_at" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <label translate="true">Fecha de creación</label>
+                <dateFormat>yyyy-MM-dd</dateFormat>
+                <dataType>date</dataType>
+                <filter>false</filter>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+
+        <column name="status">
+            <settings>
+                <label translate="true">Estado</label>
+                <dataType>text</dataType>
+                <sortable>true</sortable>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <column name="result_msg">
+            <settings>
+                <label translate="true">Resultado</label>
+                <dataType>text</dataType>
+                <sortable>false</sortable>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <column name="lines">
+            <settings>
+                <label translate="true">Total de lineas leidas</label>
+                <dataType>text</dataType>
+                <sortable>false</sortable>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <column name="start_import_date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <label translate="true">Fecha inicio importación</label>
+                <dateFormat>yyyy-MM-dd H:m:s</dateFormat>
+                <dataType>date</dataType>
+                <filter>false</filter>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+
+        <column name="end_import_date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <label translate="true">Fecha fin de importación</label>
+                <dateFormat>yyyy-MM-dd H:m:s</dateFormat>
+                <dataType>date</dataType>
+                <filter>false</filter>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" class="Southbay\Product\Model\ResourceModel\SouthbayProductImportHistory\Actions">
+            <settings>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

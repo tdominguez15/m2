@@ -1,0 +1,24 @@
+<?php
+/** @var \Southbay\CustomCustomer\ViewModel\LandingViewModel $viewModel */
+$viewModel = $block->getData('view_model');
+
+$dinamicGrid = $viewModel->getConfigStores();
+
+?>
+
+<div class="container">
+    <div class="row">
+        <?php foreach ($dinamicGrid as $countryCode => $functions): ?>
+            <?php $countryName = $viewModel->getCountryName($countryCode); ?>
+            <div class="col">
+                <h2><?php echo $countryName; ?></h2>
+
+                <?php foreach ($functions as $function): ?>
+                    <?php $translatedFunction = __($function['functionCode']); ?>
+                    <a href="<?php echo $function['url']; ?>" class="action primary" ><?php echo $translatedFunction; ?></a>
+                <?php endforeach; ?>
+
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>

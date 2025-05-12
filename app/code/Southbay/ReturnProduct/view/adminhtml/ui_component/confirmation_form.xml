@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">confirmation_form.form_data_source</item>
+            <item name="deps" xsi:type="string">confirmation_form.form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Confirmaciones</item>
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
+    </argument>
+
+    <settings>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
+    </settings>
+
+    <dataSource name="form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Southbay\ReturnProduct\Model\EmptyReceptionDataProvider</argument>
+            <argument name="name" xsi:type="string">form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">southbay_return_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="southbay_return_pending">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Pendientes</item>
+            </item>
+        </argument>
+        <insertListing name="confirmation_pending_list">
+            <settings>
+                <autoRender>true</autoRender>
+                <dataScope>confirmation_pending_list</dataScope>
+                <ns>confirmation_pending_list</ns>
+            </settings>
+        </insertListing>
+        <modal name="southbay_return_modal">
+            <fieldset name="general">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="southbay_return_product_detail_container" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <label/>
+                </settings>
+            </fieldset>
+        </modal>
+        <modal name="southbay_return_modal_sap">
+            <fieldset name="general">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="additionalClasses" xsi:type="array">
+                            <item name="southbay_return_product_sap_container" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <label/>
+                </settings>
+            </fieldset>
+        </modal>
+    </fieldset>
+
+    <fieldset name="southbay_return_confirmed">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Confirmadas</item>
+            </item>
+        </argument>
+        <insertListing name="confirmation_confirmed_list">
+            <settings>
+                <autoRender>true</autoRender>
+                <dataScope>confirmation_confirmed_list</dataScope>
+                <ns>confirmation_confirmed_list</ns>
+            </settings>
+        </insertListing>
+    </fieldset>
+
+    <fieldset name="southbay_return_archived">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Archivadas</item>
+            </item>
+        </argument>
+        <insertListing name="confirmation_archived_list">
+            <settings>
+                <autoRender>true</autoRender>
+                <dataScope>confirmation_archived_list</dataScope>
+                <ns>confirmation_archived_list</ns>
+            </settings>
+        </insertListing>
+    </fieldset>
+</form>

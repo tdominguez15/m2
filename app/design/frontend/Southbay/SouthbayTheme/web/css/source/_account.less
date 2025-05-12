@@ -1,0 +1,201 @@
+& when (@media-common = true) {
+    .block-dashboard-orders {
+        .action.view {
+            color: #ff5501;
+            font-weight: 600;
+            text-transform: uppercase;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .table-order-items {
+            tr {
+                th {
+                    font-weight: 600;
+                }
+            }
+
+            .action.view, .action.order {
+                color: #ff5501;
+                font-weight: 500;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .sales-order-view {
+        .order-details-items {
+            margin-top: -27px;
+        }
+
+        .block-order-details-view {
+            .block-content {
+                .box-order-shipping-method, .box-order-billing-address, .box-order-billing-method {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .block-dashboard-addresses {
+        display: none;
+    }
+
+    .customer-account-index {
+        .block-reorder {
+            display: none;
+        }
+    }
+
+    .box-newsletter {
+        display: none;
+    }
+
+    .box-address-billing {
+        display: none;
+    }
+    .sidebar .block .content ul.nav {
+        list-style: none;
+        padding-left: 0;
+        margin-left: 0;
+    }
+    .switch-tienda {
+        clear: both;
+        /*display: none;*/
+        height: 52px;
+
+        ul {
+            padding: 10px 0 30px 0;
+
+            li {
+                float: left;
+                margin-right: 20px;
+                list-style: none;
+
+                &.future {
+                    a {
+                        color: white;
+                        font-weight: 600;
+                        border: 1px solid black;
+                        background-color: #ff5501;
+
+                        &:hover {
+                            color: #ff5501;
+                            border: 1px solid #ff5501;
+                            border-bottom: 1px solid #fb7633;
+                            background-color: #ffffff;
+                        }
+                    }
+                }
+
+                &.atonce {
+                    a {
+                        color: #ff5501;
+                        border: 1px solid #ff5501;
+                        border-bottom: 1px solid #fb7633;
+                        background-color: #ffffff;
+
+                        &:hover {
+                            color: white;
+                            font-weight: 600;
+                            border: 1px solid black;
+                            background-color: #ff5501;
+                        }
+                    }
+                }
+
+                a {
+                    transition: 0.3s;
+                    padding: 4px;
+                    display: inline-block;
+                    font-size: 13px;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .customer-address-index {
+        .block-addresses-default {
+            display: none;
+        }
+
+        .table-additional-addresses-items {
+            .action.edit {
+                display: none;
+            }
+        }
+
+        .action.primary.add {
+            display: none;
+        }
+    }
+
+    .sales-order-view {
+        tr.shipping {
+            display: none;
+        }
+    }
+
+    .sidebar-additional {
+        display: none;
+    }
+
+    .orders-history {
+        .table-order-items {
+            thead {
+                tr {
+                    th {
+                        font-weight: 600;
+                    }
+                }
+            }
+
+            .col.actions {
+                a.view, a.order {
+                    color: #fb7633;
+                    font-weight: 500;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Desktop
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .account {
+        .column.main {
+            .block:not(.widget) {
+                .block-content {
+                    .box:nth-child(1) {
+                        float: left;
+                        clear: left;
+                    }
+
+                    .box:nth-child(2) {
+                        float: left;
+                        clear: left;
+                    }
+                }
+            }
+        }
+    }
+
+    .sales-order-view {
+        .order-details-items {
+            margin-top: -27px;
+        }
+    }
+}

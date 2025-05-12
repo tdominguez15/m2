@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Southbay_Issues::ui_test"
+             title="Pruebas manuales"
+             module="Southbay_Issues"
+             sortOrder="1000"
+             parent="Magento_Backend::system"
+             action="southbay_issues/uitest"
+             resource="Southbay_Issues::ui_test"/>
+    </menu>
+</config>

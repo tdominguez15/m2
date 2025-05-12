@@ -1,0 +1,25 @@
+.southbay_return_product_search_return_container .message {
+    width: 36em;
+    margin: auto;
+    margin-bottom: .5em;
+    display: none;
+}
+
+#save {
+    display: none;
+}
+
+#southbay_return_product_search_return_id {
+    width: 50%;
+}
+
+.southbay_return_product_id_container input {
+    width: 10em !important;
+    text-align: right;
+}
+
+.admin__control-text[disabled]
+{
+    background-color: #fff !important;
+    color: #000 !important;
+}

@@ -1,0 +1,649 @@
+<?php
+/** @var \Southbay\ReturnProduct\Block\Frontend\NewReturnBlock $block */
+/** @var \Southbay\ReturnProduct\Helper\Data $southbay_helper */
+$southbay_helper = $this->helper(Southbay\ReturnProduct\Helper\Data::class);
+$sold_to_options = $block->getSoldToOptions();
+?>
+
+<div class="start">
+    <div class="message-success success message">
+        <div class="content"></div>
+    </div>
+
+    <div class="message-error error message">
+        <div class="content"></div>
+    </div>
+
+    <div class="sold_to_list_container">
+        <label for="sold_to_select"><?= __('Solicitante:') ?></label>
+        <select name="sold_to_select" id="sold_to_select">
+            <option value=""><?= __('Seleccione un solicitante') ?></option>
+            <?php foreach ($sold_to_options as $option) { ?>
+                <option value="<?= $option['value'] ?>"><?= $option['label'] ?></option>
+            <?php } ?>
+        </select>
+    </div>
+
+    <a id="new-good"
+       href="#"><?= __(\Southbay\ReturnProduct\Api\Data\SouthbayReturnProduct::RETURN_TYPE_NAME_GOOD) ?></a>
+    <a id="new-fail"
+       href="#"><?= __(\Southbay\ReturnProduct\Api\Data\SouthbayReturnProduct::RETURN_TYPE_NAME_FAIL) ?></a>
+</div>
+
+<div id="popup-modal" style="display:none;">
+    <div class="return-reason-content">
+        <select id="return_reason" multiple>
+            <?php foreach ($southbay_helper->getReasonReturn() as $reason) { ?>
+                <option value="<?= $reason['code'] ?>"><?= $reason['name'] ?></option>
+            <?php } ?>
+        </select>
+        <div class="message-info info message">
+            <?= __('Seleccione uno o más motivos por los cuales quiere hacer la devolución') ?>
+        </div>
+    </div>
+</div>
+
+<div class="step-1">
+    <div class="type-return">
+    </div>
+    <!--
+    <div>
+        <a class="change-type-link" href="#"><?= __('cambiar') ?></a>
+    </div>
+    -->
+    <div class="search-paga-container">
+        <section class="page layout-2-left">
+            <form id="form-search" class="form">
+                <div class="search-container">
+                    <input type="hidden" name="type" value="sku">
+                    <input type="hidden" id="sold_to_id" name="sold_to_id">
+                    <input id="form-search-return-products-type" type="hidden" name="return_type">
+                    <input type="hidden" name="page" value="1">
+                    <input class="input-text" id="sku-search" name="search" type="text" placeholder="Buscar por sku"
+                           value="">
+                    <button class="button primary" id="btn-search"><?= __('Buscar') ?></button>
+                    <span class="empty"></span>
+                    <span class="return-cart-total">
+                        <span class="return-cart-total-text"><?= __('Total de productos para devolver:') ?></span>
+                        <span class="return-cart-total-value">
+                            <a class="return-cart-total-action" href="#"><span class="return-cart-total-number">0</span> <span
+                                    class="edit-returns"><?= __('Edit') ?></span></a>
+                        </span>
+                    </span>
+                </div>
+            </form>
+        </section>
+    </div>
+    <div class="buttons-container">
+        <a class="select-all" href="#"><?= __('Seleccionar todos') ?></a>
+        <a class="add-selection" href="#"><?= __('Agregar selección') ?></a>
+    </div>
+
+    <table>
+        <tr class="return-table-header">
+            <th>
+                <?= __('Selección') ?>
+            </th>
+            <th>
+                <?= __('Fecha Factura') ?>
+            </th>
+            <th>
+                <?= __('Nº Factura') ?>
+            </th>
+            <th>
+                <?= __('Referencia') ?>
+            </th>
+            <th>
+                <?= __('DM') ?>
+            </th>
+            <th>
+                <?= __('DM Nombre') ?>
+            </th>
+            <th>
+                <?= __('SKU') ?>
+            </th>
+            <th>
+                <?= __('Talle') ?>
+            </th>
+            <th>
+                <?= __('Nombre') ?>
+            </th>
+            <th>
+                <?= __('Cantidad Facturada') ?>
+            </th>
+            <th>
+                <?= __('Precio Unit Fact') ?>
+            </th>
+            <th>
+                <?= __('Total') ?>
+            </th>
+        </tr>
+        <tbody id="table_body">
+        </tbody>
+    </table>
+</div>
+
+<div class="step-2">
+    <div class="message-error error message">
+        <div class="content"></div>
+    </div>
+    <div class="type-return">
+    </div>
+    <div>
+        <!--<a class="change-type-link" href="#">cambiar</a>-->
+        <a class="add-more-link" href="#">Agregar más productos</a>
+    </div>
+    <form id="form-southbay-return-products">
+        <input id="form-southbay-return-products-type" type="hidden" name="type" value="">
+        <input type="hidden" id="form_southbay_sold_to_id" name="sold_to_id">
+        <div class="return-table-container">
+            <table>
+                <tr class="return-table-header">
+                    <th>
+                        Fecha Factura
+                    </th>
+                    <th>
+                        Nº Factura
+                    </th>
+                    <th>
+                        Referencia
+                    </th>
+                    <th>
+                        DM
+                    </th>
+                    <th>
+                        DM Nombre
+                    </th>
+                    <th>
+                        Sku
+                    </th>
+                    <th>
+                        Talle
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Cant Facturada
+                    </th>
+                    <th>
+                        Cant Disponible
+                    </th>
+                    <th>
+                        Cantidad
+                    </th>
+                    <th class="return_reasons">
+                        <?= __('Observaciones') ?>
+                    </th>
+                    <th></th>
+                </tr>
+                <tbody id="table_body_cart">
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top: 3em; text-align: right">
+            <a id="action-generate-return" class="generate-return" href="#">Generar Devolución</a>
+        </div>
+    </form>
+</div>
+
+<script type="application/javascript">
+    require(['jquery', 'ko', 'Magento_Ui/js/modal/modal'], function ($, ko, modal) {
+        window._$ = $;
+
+        var items = [];
+        var map_items = {};
+        var map_qty_values = {};
+        var map_text_values = {};
+        var fail_reason = {};
+        var map_items_out_of_cart = {};
+        var items_out_of_cart = [];
+        var current_item_id = null;
+        var current_selected_items = null;
+        var sold_to_id = null;
+
+        const options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            title: "<?= __('Motivo de la devolución') ?>",
+            buttons: [
+                {
+                    text: 'Cancelar',
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                },
+                {
+                    text: 'Aceptar',
+                    class: 'abs-like-link',
+                    click: function () {
+                        const selected = $('#return_reason').val();
+
+                        if (!selected || selected.length === 0) {
+                            $('#return_reason').focus();
+                        } else {
+                            const items = $('#return_reason option:selected').toArray().map(item => {
+                                return {value: item.value, text: item.text}
+                            });
+                            fail_reason[current_item_id] = {selected: selected, items: items};
+
+                            this.closeModal();
+                            renderItems();
+                        }
+                    }
+                }
+            ]
+        };
+
+        modal(options, $('#popup-modal'));
+
+        function openPopupReasons() {
+            $("#popup-modal").modal("openModal");
+            $('#return_reason').val(current_selected_items);
+        }
+
+        $('.add-more-link').on('click', function (e) {
+            e.preventDefault();
+            $('.step-2').hide();
+            $('.step-1').show();
+
+            map_items_out_of_cart = {};
+            items_out_of_cart = [];
+            fail_reason = {};
+
+            $('#sku-search').val('');
+            renderItemsOutOfCart();
+        });
+
+        $('.change-type-link').on('click', function (e) {
+            e.preventDefault();
+            reset();
+        });
+
+        $('#new-good').on('click', function (e) {
+            e.preventDefault();
+
+            const selected_sold_to = $('#sold_to_select').val();
+
+            if (!selected_sold_to || selected_sold_to === '') {
+                showErrorMessage("<?= __('Seleccione un solicitante') ?>", '.start');
+                return;
+            } else {
+                sold_to_id = selected_sold_to;
+            }
+
+            $('.step-1').show();
+            $('.start').hide();
+            $('.return-cart-total').hide();
+            $('.type-return').html(getTypeReturn("<?= __(\Southbay\ReturnProduct\Api\Data\SouthbayReturnProduct::RETURN_TYPE_NAME_GOOD) ?>"));
+            $('#form-southbay-return-products-type').val('<?= \Southbay\ReturnProduct\Api\Data\SouthbayReturnProduct::RETURN_TYPE_CODE_GOOD ?>');
+            $('#form-search-return-products-type').val('<?= \Southbay\ReturnProduct\Api\Data\SouthbayReturnProduct::RETURN_TYPE_CODE_GOOD ?>');
+
+            $('#sold_to_id').val(sold_to_id);
+
+            $('.return_reasons').css('display', 'none');
+
+            hideErrorMessage('.start');
+            hideSuccessMessage();
+        });
+
+        $('#new-fail').on('click', function (e) {
+            e.preventDefault();
+
+            const selected_sold_to = $('#sold_to_select').val();
+
+            if (!selected_sold_to || selected_sold_to === '') {
+                showErrorMessage("<?= __('Seleccione un solicitante') ?>", '.start');
+                return;
+            } else {
+                sold_to_id = selected_sold_to;
+            }
+
+            $('.step-1').show();
+            $('.start').hide();
+            $('.return-cart-total').hide();
+            $('.type-return').html(getTypeReturn("<?= __(\Southbay\ReturnProduct\Api\Data\SouthbayReturnProduct::RETURN_TYPE_NAME_FAIL) ?>"));
+            $('#form-southbay-return-products-type').val('<?= \Southbay\ReturnProduct\Api\Data\SouthbayReturnProduct::RETURN_TYPE_CODE_FAIL ?>');
+            $('#form-search-return-products-type').val('<?= \Southbay\ReturnProduct\Api\Data\SouthbayReturnProduct::RETURN_TYPE_CODE_FAIL ?>');
+
+            $('.return_reasons').css('display', 'block');
+
+            $('#sold_to_id').val(sold_to_id);
+
+            hideErrorMessage();
+            hideSuccessMessage();
+        });
+
+        $('.return-cart-total-action').on('click', function (e) {
+            e.preventDefault();
+            $('.step-2').show();
+            $('.step-1').hide();
+            renderItems();
+        });
+
+        $('.select-all').on('click', function (e) {
+            e.preventDefault();
+            const list = $('.return-select');
+            if (list.length > 0) {
+                for (var i = 0; i < list.length; i++) {
+                    list[i].checked = true;
+                }
+            }
+        });
+
+        $('.add-selection').on('click', function (e) {
+            e.preventDefault();
+            const list = $('.return-select');
+            if (list.length > 0) {
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].checked) {
+                        const fieldId = parseInt($(list[i]).attr('fieldId'));
+                        const data = map_items_out_of_cart[fieldId];
+                        items.push(data);
+                        map_items[fieldId] = data;
+
+                        delete map_items_out_of_cart[fieldId];
+                        items_out_of_cart.shift(data, 1);
+                    }
+                }
+
+                renderItemsOutOfCart();
+                $('.return-cart-total-action').trigger('click');
+            }
+        });
+
+        $('#form-search').on('submit',
+            function (e) {
+                e.preventDefault();
+
+                const text = $('#sku-search').val();
+                if (!text || text.trim() === '') {
+                    return;
+                }
+
+                $('body').trigger('processStart');
+
+                const _data = $('#form-search').serializeArray();
+                const data = {};
+                const url = "<?= $block->getUrl('southbay_return_product/search') ?>";
+
+                _data.forEach(function (item) {
+                    data[item.name] = item.value;
+                });
+
+                $.ajax({
+                    url: url, // Reemplaza con la ruta de tu controlador
+                    type: 'POST',
+                    dataType: 'json',
+                    data: data,
+                    success: function (response) {
+                        if (response.total_pages > 0) {
+                            items_out_of_cart = [];
+                            map_items_out_of_cart = {};
+
+                            response.list.forEach(data => {
+                                if (!map_items[data.item.southbay_invoice_item_id]) {
+                                    map_items_out_of_cart[data.item.southbay_invoice_item_id] = data;
+                                    items_out_of_cart.push(data);
+                                }
+                            });
+
+                            renderItemsOutOfCart();
+                        }
+                    },
+                    error: function (error) {
+                        console.error('Error en la solicitud AJAX', error);
+                    },
+                    complete: function () {
+                        $('body').trigger('processStop');
+                    }
+                });
+            }
+        );
+
+        function reset(hideSuccess = true) {
+            $('.step-2').hide();
+            $('.step-1').hide();
+            $('.start').show();
+            $('.return-cart-total').hide();
+            items = [];
+            items_out_of_cart = [];
+            map_items_out_of_cart = {};
+            map_items = {};
+            fail_reason = {};
+            map_qty_values = {};
+
+            if (hideSuccess) {
+                hideSuccessMessage();
+            }
+
+            hideErrorMessage();
+
+            $('#sku-search').val('');
+            renderItemsOutOfCart();
+        }
+
+        function renderItemsOutOfCart() {
+            $('#table_body').html('');
+
+            if (items.length > 0) {
+                $('.return-cart-total').show();
+                $('.return-cart-total-number').text(items.length);
+            } else {
+                $('.return-cart-total').hide();
+            }
+
+            items_out_of_cart.forEach(data => {
+                const row = getNewRow(data);
+                $('#table_body').append(row);
+            });
+        }
+
+        function renderItems() {
+            hideErrorMessage();
+            $('#table_body_cart').html('');
+            items.forEach(data => {
+                const row = getNewRowCart(data,);
+                $('#table_body_cart').append(row);
+            });
+
+            $('.remove-cart-item').on('click', function (e) {
+                e.preventDefault();
+                const fieldId = parseInt($(e.target).attr('fieldId'));
+                const index = items.findIndex(item => parseInt(item.item.southbay_invoice_item_id) === fieldId);
+                items.splice(index, 1);
+                delete map_items[fieldId];
+                renderItems();
+            });
+
+            $('.add_reasons').on('click', function (e) {
+                e.preventDefault();
+                current_item_id = $(e.currentTarget).attr('invoiceItemId');
+                current_selected_items = null;
+                openPopupReasons();
+            });
+
+            $('.edit_reasons').on('click', function (e) {
+                e.preventDefault();
+
+                current_item_id = $(e.currentTarget).attr('invoiceItemId');
+                current_selected_items = fail_reason[current_item_id].selected;
+
+                openPopupReasons();
+            });
+
+            $('.southbay_return_product').change(function (e) {
+                const elem = $(e.currentTarget);
+                const invoiceItemId = elem.attr('invoiceItemId');
+                map_qty_values[invoiceItemId] = elem.val();
+            });
+
+            $('.southbay_return_reasons_text').change(function (e) {
+                const elem = $(e.currentTarget);
+                const invoiceItemId = elem.attr('invoiceItemId');
+                map_text_values[invoiceItemId] = elem.val();
+            });
+
+            const keys = Object.keys(fail_reason);
+
+            keys.forEach(key => {
+                const selected = fail_reason[key].selected;
+                $('input[name="southbay_return_product_reason[' + key + ']"]').val(selected.join());
+            });
+        }
+
+        $('#action-generate-return').on('click', function (e) {
+            e.preventDefault();
+            $('#form-southbay-return-products').trigger('submit');
+        });
+
+        $('#form-southbay-return-products').on('submit', function (e) {
+            e.preventDefault();
+
+            hideErrorMessage();
+            $('body').trigger('processStart');
+
+            $('#form_southbay_sold_to_id').val(sold_to_id);
+            const _data = $('#form-southbay-return-products').serializeArray();
+            const data = {};
+            const url = "<?= $block->getUrl('southbay_return_product/newreturn/save') ?>";
+
+            _data.forEach(function (item) {
+                data[item.name] = item.value;
+            });
+
+            $.ajax({
+                url: url, // Reemplaza con la ruta de tu controlador
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                success: function (response) {
+                    console.log('new return response:', response);
+                    if (response.status === 'success') {
+                        let link = "<?= $block->getUrl('southbay_return_product/myreturns/detail') ?>";
+                        let message = "<?= __('Su solicitud se creo correctamente. Puede ver el detalle de su solicitud <a href=\"#\">aquí</a>') ?>";
+                        link += '?id=' + response.id;
+                        message = message.replace('#', link);
+                        showSuccessMessage(message);
+
+                        reset(false);
+                    } else {
+                        window.scrollTo(0, 0);
+                        showErrorMessage(response.message);
+                    }
+                },
+                error: function (error) {
+                    console.error('Error generando nueva devolucion', error);
+
+                    window.scrollTo(0, 0);
+                    showErrorMessage('<?= __('Ocurrio un error inesperado intentando crear su solictud. Intente nuevamente')?>');
+                },
+                complete: function () {
+                    $('body').trigger('processStop');
+                }
+            });
+
+        });
+
+        $('#table_body').html(getEmptyRow());
+
+        function hideErrorMessage(step = '') {
+            if (step === '') {
+                step = '.step-2';
+            }
+            $(step + ' .message-error').hide();
+        }
+
+        function showErrorMessage(message, step = '') {
+            if (step === '') {
+                step = '.step-2';
+            }
+
+            $(step + ' .message-error').show();
+            $(step + ' .message-error .content').html(message);
+        }
+
+        function hideSuccessMessage() {
+            $('.start .message-success').hide();
+        }
+
+        function showSuccessMessage(message) {
+            $('.start .message-success').show();
+            $('.start .message-success .content').html(message);
+        }
+
+        function getNewRow(data) {
+            return `
+            <tr>
+                <td class="text-center"><input type="checkbox" class="return-select" name="southbay_return_product[]" fieldId="${data.item.southbay_invoice_item_id}"/></td>
+                <td class="text-center southbay_invoice_date">${data.item.southbay_invoice_date}</td>
+                <td class="text-center southbay_int_invoice_num">${data.item.southbay_int_invoice_num}</td>
+                <td class="text-center southbay_invoice_ref">${data.item.southbay_invoice_ref}</td>
+                <td class="text-center southbay_invoice_ship_to_code">${data.item.southbay_customer_ship_to_code}</td>
+                <td class="text-center southbay_invoice_ship_to_code">${data.item.southbay_customer_ship_to_name}</td>
+                <td class="text-center southbay_invoice_item_sku">${data.item.southbay_invoice_item_sku}</td>
+                <td class="text-center">${data.item.southbay_invoice_item_size}</td>
+                <td class="text-center">${data.item.southbay_invoice_item_name}</td>
+                <td class="text-center">${data.item.southbay_invoice_item_qty}</td>
+                <td class="price">$ ${data.item.southbay_invoice_item_unit_price}</td>
+                <td class="price">$ ${data.item.southbay_invoice_item_net_amount}</td>
+            </tr>`;
+        }
+
+        function getNewRowCart(data) {
+            var qty = 0;
+
+            if (map_qty_values[data.item.southbay_invoice_item_id]) {
+                qty = map_qty_values[data.item.southbay_invoice_item_id];
+            }
+
+            var reasons_text_td = '';
+
+            if ($('#form-southbay-return-products-type').val() === '<?= \Southbay\ReturnProduct\Api\Data\SouthbayReturnProduct::RETURN_TYPE_CODE_FAIL ?>') {
+                const invoiceItemId = data.item.southbay_invoice_item_id;
+                const reasonText = map_text_values[invoiceItemId] || '';
+                reasons_text_td = `<td>
+        <textarea class="southbay_return_reasons_text"
+            invoiceItemId="${invoiceItemId}"
+            name="southbay_return_product_reason_text[${invoiceItemId}]">${reasonText}</textarea>
+    </td>`;
+            }
+
+            return `
+            <tr>
+                <td class="text-center southbay_invoice_date">${data.item.southbay_invoice_date}</td>
+                <td class="text-center southbay_int_invoice_num">
+                    ${data.item.southbay_int_invoice_num}
+                </td>
+                <td class="text-center southbay_invoice_ref">${data.item.southbay_invoice_ref}</td>
+                <td class="text-center southbay_invoice_ship_to_code">${data.item.southbay_customer_ship_to_code}</td>
+                <td class="text-center southbay_invoice_ship_to_code">${data.item.southbay_customer_ship_to_name}</td>
+                <td class="text-center southbay_invoice_item_sku">${data.item.southbay_invoice_item_sku}</td>
+                <td class="text-center">${data.item.southbay_invoice_item_size}</td>
+                <td class="text-center">${data.item.southbay_invoice_item_name}</td>
+                <td class="text-center">${data.item.southbay_invoice_item_qty}</td>
+                <td class="text-center">${data.total_available}</td>
+                <td><input class="southbay_return_product" invoiceItemId="${data.item.southbay_invoice_item_id}" name="southbay_return_product[${data.item.southbay_invoice_item_id}]" type="number" value="${qty}"></td>
+                ${reasons_text_td}
+                <td><a class="remove-cart-item" href="#" fieldId="${data.item.southbay_invoice_item_id}">Quitar</a></td>
+            </tr>`;
+        }
+
+        function getEmptyRow() {
+            return `
+                <tr>
+                    <td colspan="10" class="empty_row"><?= __('Sin datos para mostrar') ?></td>
+                </tr>
+            `;
+        }
+
+        function getTypeReturn(text) {
+            return `
+                <b>Tipo:</b> ${text}
+            `;
+        }
+    })
+    ;
+</script>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <action name="order_approve">
+                <settings>
+                    <url path="southbay_approve_orders/order/massapprove"/>
+                    <type>order_preparation</type>
+                    <label translate="true">Aprobar Ordenes</label>
+                </settings>
+            </action>
+        </massaction>
+    </listingToolbar>
+</listing>

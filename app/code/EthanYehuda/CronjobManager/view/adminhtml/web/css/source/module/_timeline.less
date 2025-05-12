@@ -1,0 +1,160 @@
+//
+//  Variables
+//  ____________________________
+
+@row--height: 40px;
+@row--boarder: 1px solid #dadfe0;
+
+@hours--height: auto;
+
+@hour--span--margin-left: 5px;
+
+@wrapper--background-color: #f1f1f1;
+@wrapper--border: 1px solid @wrapper__border-color;
+@wrapper--margin-bottom: 2rem;
+@wrapper__border-color: #999;
+
+@left-content__row--background-color: #fff;
+@date-sep-line-background: repeating-linear-gradient(180deg, transparent, transparent 5px, #3e4040 5px, #3e4040 6px, #979999 6px, #979999 7px);
+@now-line-color: #f00;
+
+//  Status colors
+@status--success: #1ca84c;
+@status--pending: #a4a8a3;
+@status--missed: #f75300;
+@status--running: #09a7e6;
+@status--error: #d71200;
+
+.cronjobmanager {
+    //  overriding body line height
+    line-height: .36px;
+
+    .row {
+        border-bottom: @row--boarder;
+        height: @row--height;
+        margin: 0;
+        padding: 0;
+    }
+
+    .wrapper {
+        background-color: @wrapper--background-color;
+        border: @wrapper--border;
+        float: left;
+        margin-bottom: @wrapper--margin-bottom;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    .hours {
+        height: @hours--height;
+    }
+
+    .hour {
+        float: left;
+
+        span {
+            margin-left: @hour--span--margin-left;
+        }
+    }
+
+    .job-code {
+        padding: 20px 10px;
+    }
+
+    .timeline-date {
+        padding: .9rem 0;
+    }
+
+    .left-content {
+        border-right: @wrapper--border;
+        float: left;
+
+        .timeline-unit {
+            border-right: none;
+            width: 100%;
+        }
+
+        .row {
+            background-color: @left-content__row--background-color;
+        }
+    }
+
+    .timeline-container {
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        overflow: auto;
+        user-select: none;
+
+        &__panel {
+            position: relative;
+
+            .timeline-date {
+                border-right: @wrapper--border;
+            }
+        }
+
+        &__now {
+            background-color: @now-line-color;
+            height: 100%;
+            position: absolute;
+            width: 1px;
+            z-index: 0;
+
+            &::before {
+                border: 10px solid transparent;
+                border-top-color: @now-line-color;
+                content: '';
+                height: 0;
+                position: absolute;
+                right: -10px;
+                top: 0;
+                width: 0;
+            }
+        }
+
+        .timeline-date {
+            &__container {
+                &::before {
+                    background: @date-sep-line-background;
+                    bottom: 0;
+                    content: '';
+                    margin-left: -1px;
+                    position: absolute;
+                    top: 3.3rem;
+                    width: 1px;
+                    z-index: 0;
+                }
+            }
+        }
+    }
+
+    .cron-job {
+        background-color: @status--pending;
+        height: 30px;
+        margin-top: 5px;
+        position: absolute;
+        z-index: 1;
+
+        &.success {
+            background-color: @status--success;
+        }
+
+        &.missed {
+            background-color: @status--missed;
+        }
+
+        &.running {
+            background-color: @status--running;
+            z-index: 0;
+        }
+
+        &.error {
+            background-color: @status--error;
+        }
+    }
+}

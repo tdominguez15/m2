@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd"
+      name="report_attribute_at_once_form">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="component" xsi:type="string">Magento_Ui/js/form/form</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Formulario de prueba</item>
+    </argument>
+    <fieldset name="test_fieldset">
+        <settings>
+            <label translate="true">Campos de prueba</label>
+        </settings>
+        <field name="test_field">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Campo de texto</label>
+                <dataScope>test_field</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+</form>

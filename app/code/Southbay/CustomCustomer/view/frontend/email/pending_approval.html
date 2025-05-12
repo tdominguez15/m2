@@ -1,0 +1,15 @@
+{{template config_path="design/email/header_template"}}
+
+<p>
+    El solicitante {{var sold_to_name}} (cod <i>{{var sold_to_code}}</i>) creo la orden <b>#{{var increment_id}}</b> que está pendiente de autorización.
+</p>
+
+<p>
+    Puede aprobar esta orden ingresando en el <a href="{{config path="web/secure/base_url"}}admin">portal de administradores</a> y luego vaya al menú "Ventas" > "Pedidos".
+</p>
+
+<p>
+    Saludos
+</p>
+
+{{template config_path="design/email/footer_template"}}

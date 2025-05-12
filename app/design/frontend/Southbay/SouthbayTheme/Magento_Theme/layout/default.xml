@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="currency" remove="true"/>
+    </body>
+    <body>
+<!--        <referenceContainer name="header-wrapper">-->
+<!--            <container name="search_notice_container" htmlTag="div" htmlClass="search-notice-container">-->
+<!--                <block class="Magento\Framework\View\Element\Template" name="search_maximum_notice" template="Southbay_Elasticsearch::search_max_notice.phtml" after="top.search"/>-->
+<!--            </container>-->
+<!--        </referenceContainer>-->
+        <referenceBlock name="top.search">
+            <block class="Magento\Framework\View\Element\Template" name="search_maximum_notice" template="Southbay_Elasticsearch::search_max_notice.phtml" after="-" />
+        </referenceBlock>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="reload.cart.button"
+                   template="Magento_Theme::reload-cart.phtml"/>
+        </referenceContainer>
+    </body>
+
+</page>

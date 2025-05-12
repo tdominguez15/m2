@@ -1,0 +1,17 @@
+{
+  "name": "southbay/module-log-administrator",
+  "version": "1.0.0",
+  "description": "Module to enable or disable custom logs",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Southbay\\LogAdministrator\\": ""
+    }
+  }
+}

@@ -1,0 +1,153 @@
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Southbay\ReturnProduct\Block\Frontend\MyReturns
+ */
+
+$items = $block->getList();
+?>
+<div class="table-wrapper return-history">
+    <div id="popup-modal" style="display:none;">
+        <form id="form-label" target="_blank" method="post"
+              action="<?= $block->getUrl('southbay_return_product/myreturns/label') ?>">
+            <div class="packages-content">
+                <label for="packages"><?= __('Total de paquetes:') ?></label>
+                <input id="text-packages" autofocus type="number" name="packages"/>
+                <input id="return_id" autofocus type="hidden" name="return_id"/>
+            </div>
+        </form>
+    </div>
+
+    <table class="data table table-order-items history" id="my-returns-table">
+        <caption class="table-caption"><?= $block->escapeHtml(__('Orders')) ?></caption>
+        <thead>
+        <tr>
+            <th scope="col" class="col southbay_return_id">Nro. Devolución</th>
+            <th scope="col" class="col southbay_return_type"><?= $block->escapeHtml(__('Tipo')) ?></th>
+            <th scope="col" class="col southbay_created_at"><?= $block->escapeHtml(__('Date')) ?></th>
+            <th scope="col"
+                class="col qty southbay_return_total_qty"><?= $block->escapeHtml(__('Cantidad Solicitada')) ?></th>
+            <th scope="col"
+                class="col qty southbay_return_total_accepted"><?= $block->escapeHtml(__('Cantidad Aceptada')) ?></th>
+            <th scope="col"
+                class="col qty southbay_return_total_rejected"><?= $block->escapeHtml(__('Cantidad Devuelta')) ?></th>
+            <th scope="col" class="col southbay_return_status"><?= $block->escapeHtml(__('Status')) ?></th>
+            <th scope="col" class="col actions"><?= $block->escapeHtml(__('Action')) ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($items as $item) { ?>
+            <tr>
+                <th scope="col" class="col southbay_return_id">
+                    <?= $block->escapeHtml(__($block->getItemId($item))) ?>
+                </th>
+                <td scope="col"
+                    class="col southbay_return_type"><?= $block->escapeHtml(__($block->getTypeName($item->getType()))) ?></td>
+                <td scope="col" class="col southbay_created_at"><?= $block->escapeHtml($item->getCreatedAt()) ?></td>
+                <td scope="col" class="col qty southbay_return_total_qty"><?= $item->getTotalReturn() ?></td>
+                <td scope="col" class="col qty southbay_return_total_accepted"><?= $item->getTotalAccepted() ?></td>
+                <td scope="col" class="col qty southbay_return_total_rejected"><?= $item->getTotalRejected() ?></td>
+                <td scope="col"
+                    class="col southbay_return_status"><?= $block->escapeHtml(__($item->getStatusName())) ?></td>
+                <td class="col actions">
+                    <a href="<?= $block->getUrl('southbay_return_product/myreturns/detail') . '?id=' . $item->getId() ?>"
+                       class="action view-return">
+                        <span><?= $block->escapeHtml(__('Ver')) ?></span>
+                    </a>
+                    <?php if ($block->printable($item)) { ?>
+                        <a href="#" returnId="<?= $item->getId() ?>" class="action generate-label">
+                            <span><?= $block->escapeHtml(__('Imprimir etiqueta')) ?></span>
+                        </a>
+                    <?php } ?>
+                    <?php if ($block->cancellable($item)) { ?>
+                        <a href="<?= $block->getUrl('southbay_return_product/myreturns/cancel', ['id' => $item->getId()]) ?>"
+                           class="action cancel">
+                            <span><?= $block->escapeHtml(__('Cancelar')) ?></span>
+                        </a>
+                    <?php } ?>
+                </td>
+            </tr>
+        <?php } ?>
+        </tbody>
+        <?php if ($block->activeShowAll()) { ?>
+            <tfoot>
+            <tr>
+                <td style="padding: 5px" colspan="7"></td>
+                <td style="padding: 5px; text-align: right">
+                    <a class="abs-like-link"
+                       href="<?= $block->getUrl('southbay_return_product/history') ?>">
+                        <?= __('Ver Todos') ?>
+                    </a>
+                </td>
+            </tr>
+            </tfoot>
+        <?php } ?>
+    </table>
+</div>
+
+<script>
+    require(['jquery', 'ko', 'Magento_Ui/js/modal/modal', 'Magento_Ui/js/modal/confirm'], function ($, ko, modal, confirm) {
+        const options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            title: "<?= __('Generar etiqueta') ?>",
+            buttons: [
+                {
+                    text: 'Cancelar',
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                },
+                {
+                    text: 'Generar etiqueta',
+                    class: 'abs-like-link',
+                    click: function () {
+                        const packages = $('#text-packages').val();
+
+                        if (!packages || packages === '') {
+                            $('#text-packages').focus();
+                        } else {
+                            const _packages = parseInt(packages);
+                            if (isNaN(_packages) || _packages <= 0) {
+                                $('#text-packages').focus();
+                            } else {
+                                $('#text-packages').val(packages);
+                                $('#form-label').submit();
+                                this.closeModal();
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+
+        modal(options, $('#popup-modal'));
+
+        $('.generate-label').on('click', function (e) {
+            e.preventDefault();
+            const returnId = $(e.currentTarget).attr('returnId');
+
+            $('#return_id').val(returnId);
+            $('#text-packages').val('');
+            $("#popup-modal").modal("openModal");
+            $('#text-packages').focus();
+        });
+
+        $('.cancel').on('click', function (e) {
+            e.preventDefault();
+            const link = e.currentTarget.href;
+
+            confirm({
+                content: "<?= __('¿Está seguro de querer cancelar el trámite?') ?>",
+                actions: {
+                    confirm: function () {
+                        window.location.href = link;
+                    }
+                }
+            });
+        });
+    });
+</script>

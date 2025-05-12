@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">customer_soldto_list.grid_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>grid_columns</spinner>
+        <deps>
+            <dep>customer_soldto_list.grid_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Nuevo Solicitante</label>
+            </button>
+        </buttons>
+    </settings>
+    <dataSource name="grid_data_source" component="Magento_Ui/js/grid/provider">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">southbay_sold_to_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="Southbay\CustomCustomer\Model\ResourceModel\SoldTo\Backend\SoldToDataProvider"
+                      name="grid_data_source">
+            <settings>
+                <primaryFieldName>southbay_sold_to_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>false</sticky>
+        </settings>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+   <columns name="grid_columns">
+       <column name="southbay_sold_to_id">
+           <settings>
+               <label translate="true">ID</label>
+               <dataType>text</dataType>
+               <filter>text</filter>
+           </settings>
+       </column>
+        <column name="southbay_sold_to_country_code">
+            <settings>
+                <label translate="true">Country Code</label>
+                <dataType>text</dataType>
+                <filter>text</filter>
+            </settings>
+        </column>
+       <column name="southbay_sold_to_sap_country_code">
+           <settings>
+               <label translate="true">Sap Country Code</label>
+               <dataType>text</dataType>
+           </settings>
+       </column>
+       <column name="southbay_sold_to_channel_code">
+           <settings>
+               <label translate="true">Channel Code</label>
+               <dataType>text</dataType>
+           </settings>
+       </column>
+       <column name="southbay_sold_to_section_code">
+           <settings>
+               <label translate="true">Section Code</label>
+               <dataType>text</dataType>
+           </settings>
+       </column>
+       <column name="southbay_sold_to_customer_code">
+           <settings>
+               <label translate="true">Customer Code</label>
+               <dataType>text</dataType>
+               <filter>text</filter>
+           </settings>
+       </column>
+       <!--
+       <column name="southbay_sold_to_customer_code_old">
+           <settings>
+               <label translate="true">Customer Code Old</label>
+               <dataType>text</dataType>
+           </settings>
+       </column>
+       -->
+       <column name="southbay_sold_to_country_business_code">
+           <settings>
+               <label translate="true">Country Business Code</label>
+               <dataType>text</dataType>
+           </settings>
+       </column>
+       <column name="southbay_sold_to_customer_name">
+           <settings>
+               <label translate="true">Customer Name</label>
+               <dataType>text</dataType>
+               <filter>text</filter>
+           </settings>
+       </column>
+       <column name="southbay_sold_to_locked">
+           <settings>
+               <label translate="true">locked</label>
+               <dataType>text</dataType>
+               <filter>text</filter>
+           </settings>
+       </column>
+       <column name="southbay_sold_to_automatically_authorize_purchases">
+           <settings>
+               <label translate="true">Automatically Authorize Purchases</label>
+               <dataType>text</dataType>
+           </settings>
+       </column>
+       <column name="southbay_sold_to_segmentation">
+           <settings>
+               <label translate="true">Segmentation</label>
+               <dataType>text</dataType>
+               <filter>text</filter>
+           </settings>
+       </column>
+
+        <column name="link_label" component="Magento_Ui/js/grid/columns/link">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="link" xsi:type="string">link</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Actions</label>
+                <dataType>text</dataType>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+    </columns>
+</listing>

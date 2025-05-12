@@ -1,0 +1,61 @@
+& when (@media-common = true) {
+    .checkout-success {
+        .actions-toolbar {
+            display: none;
+        }
+    }
+
+    .success-buttons {
+        padding-top: 12px;
+
+        a {
+            display: block;
+            float: left;
+            margin-right: 8px;
+            font-size: 16px;
+            text-transform: uppercase;
+            padding: 6px 8px;
+            color: #FFFFFF;
+            border-radius: 4px;
+            transition: 0.3s;
+            border: 1px solid transparent;
+            width: 240px;
+            text-align: center;
+            color: #FFFFFF!important;
+            font-weight: 600;
+
+            &.neworder {
+                background-color: #F75301;
+
+                &:hover {
+                    text-decoration: none;
+                    color: #F75301!important;
+                    background-color: #FFFFFF;
+                    border: 1px solid #f75301;
+                }
+            }
+
+            &.reorder {
+                background-color: #0033AF;
+
+                &:hover {
+                    text-decoration: none;
+                    color: #F75301!important;
+                    background-color: #FFFFFF;
+                    border: 1px solid #f75301;
+                }
+            }
+
+            &.vieworder {
+                background-color: #000000;
+
+                &:hover {
+                    text-decoration: none;
+                    color: #F75301!important;
+                    background-color: #FFFFFF;
+                    border: 1px solid #f75301;
+                }
+            }
+        }
+    }
+}

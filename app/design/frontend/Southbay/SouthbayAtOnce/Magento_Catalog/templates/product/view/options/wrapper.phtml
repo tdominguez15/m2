@@ -1,0 +1,279 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block Magento\Catalog\Block\Product\View */
+?>
+<?php
+$required = '';
+if ($block->hasRequiredOptions()) {
+    $required = ' data-hasrequired="' . $block->escapeHtmlAttr(__('* Required Fields')) . '"';
+}
+?>
+<div class="product-options-wrapper" id="product-options-wrapper"<?= /* @noEscape */ $required ?>>
+    <div class="fieldset" tabindex="0">
+        <div>
+            <label class="label" style="font-weight: 600"><span>Lista de talles</span></label>
+        </div>
+        <div class="table-container">
+            <table class="full-width-table" border="1">
+                <thead id="month_sizes_header">
+                </thead>
+                <tbody id="month_sizes_rows">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'ko', 'mage/url', 'jquery/ui'], function ($, ko, urlBuilder) {
+        var total_by_columns = {};
+        var total_general = {};
+        var url = "<?= $block->getUrl('southbay_product/product/SizeAtOnce', ['product_id' => $block->getProduct()->getId()]) ?>)";
+
+        function renderTable(data) {
+            var list = data.list;
+            var header = data.header;
+
+            var container_header = $('#month_sizes_header');
+            container_header.html(renderTableHeader(header));
+
+            var container = $('#month_sizes_rows');
+            container.html('');
+
+            total_by_columns = {};
+            total_general = {};
+
+            list.forEach(item => {
+                var row = `
+                    <tr class="${item.code}">
+                            <td>${item.title}</td>
+                            ${item.options.map(option => renderItem(item.code, option)).join('')}
+                    </tr>
+                `;
+
+                container.append(row);
+            });
+        }
+
+        function renderItem(rowParentCode, item) {
+            var result = '';
+
+            if (item.code != 'total') {
+                if (rowParentCode == 'total') {
+                    if (!total_general[rowParentCode]) {
+                        total_general[rowParentCode] = {};
+                    }
+
+                    total_general[rowParentCode][item.code] = item.qty;
+                } else {
+                    var parent = {};
+
+                    if (!total_by_columns[rowParentCode]) {
+                        total_by_columns[rowParentCode] = parent;
+                    } else {
+                        parent = total_by_columns[rowParentCode];
+                    }
+
+                    parent[item.code] = item.qty;
+
+                    if (!total_general[item.code]) {
+                        total_general[item.code] = {};
+                    }
+
+                    total_general[item.code][rowParentCode] = item.qty;
+                }
+            }
+
+            if (rowParentCode == 'total') {
+                if (item.code == 'total') {
+                    result = `
+                        <td class="row_total">${item.qty}</td>
+                    `;
+                } else {
+                    result = `
+                        <td name="${item.code}">${item.qty}</td>
+                    `;
+                }
+            } else if (item.code == 'total') {
+                result = `
+                    <td class="row_total">
+                        ${item.qty}
+                    </td>
+                    `;
+            } else {
+                result = `
+                    <td>
+                        <input style="width: 53px"
+                               type="text"
+                               value="${item.qty}"
+                               rowParent="${rowParentCode}"
+                               optionName="${item.code}"
+                               max="${item.salableQty}"
+                               class="searon_cell_qty"
+                               name="${rowParentCode}[${item.code}]">
+                    </td>
+                    `;
+            }
+
+            return result;
+        }
+
+        function renderTableHeader(header) {
+            return `
+                <tr>
+                    <td>Talle <span class="stock">(Stock)</span></td>
+                        ${header.map(item => renderItemHeader(item)).join('')}
+                    <td>Total</td>
+                </tr>
+                `;
+        }
+
+        function renderItemHeader(item) {
+            return `
+                <td>${item.label} <span class="stock">(${item.stock})</span></td>
+            `;
+        }
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            data: {},
+            success: function (response) {
+                renderTable(response);
+
+                $('.searon_cell_qty').change(function (e) {
+                    var target = $(e.target);
+                    var val = parseInt(target.val());
+                    var maxVal = parseInt(target.attr('max'));
+
+                    if (isNaN(val) || val < 0) {
+                        target.val(0);
+                        val = 0;
+                    }
+
+                    if (val > maxVal) {
+                        alert('El valor no puede ser mayor que ' + maxVal);
+                        target.val(maxVal);
+                        val = maxVal;
+                    }
+
+                    var parent = target.attr('rowParent');
+                    var option = target.attr('optionName');
+                    var parent_values = {};
+
+                    if (!total_by_columns[parent]) {
+                        total_by_columns[parent] = parent_values;
+                    } else {
+                        parent_values = total_by_columns[parent];
+                    }
+
+                    parent_values[option] = val;
+
+                    var keys = Object.keys(parent_values);
+                    var row_total = 0;
+
+                    keys.forEach(key => {
+                        row_total += parent_values[key];
+                    });
+
+                    $('.' + parent).find('.row_total').text(row_total);
+
+                    var general = {};
+
+                    if (!total_general[option]) {
+                        total_general[option] = general;
+                    } else {
+                        general = total_general[option];
+                    }
+
+                    general[parent] = val;
+
+                    keys = Object.keys(total_general[option]);
+                    row_total = 0;
+
+                    keys.forEach(key => {
+                        row_total += total_general[option][key];
+                    });
+
+                    $('.total').find('td[name="' + option + '"]').text(row_total);
+
+                    if (!total_general['total']) {
+                        total_general['total'] = {};
+                    }
+
+                    total_general['total'][option] = row_total;
+
+                    keys = Object.keys(total_general['total']);
+                    row_total = 0;
+
+                    keys.forEach(key => {
+                        row_total += total_general['total'][key];
+                    });
+
+                    $('.total').find('.row_total').text(row_total);
+                    $('#qty').val(row_total);
+                });
+
+                $('.searon_cell_qty').keydown(function(event) {
+                    var keyCode = event.which;
+                    var val = $(event.target).val();
+
+                    if ((keyCode < 48 ||
+                        keyCode > 57) &&
+                        keyCode !== 8 &&
+                        keyCode !== 13 &&
+                        keyCode !== 9
+                    )
+                    {
+                        event.preventDefault();
+                    }
+                    else if(keyCode >= 48 && keyCode <= 57 && val.length >= 4)
+                    {
+                        event.preventDefault();
+                    }
+                });
+
+                // $('.searon_cell_qty').inputmask('9999');
+                window._$ = $;
+            },
+            error: function (error) {
+                $('#month_sizes_rows').innerHTML = '';
+                console.error('Error en la solicitud AJAX', error);
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    require(['jquery', 'ko', 'mage/url'], function ($, ko, urlBuilder) {
+        $(document).ready(function(){
+            $.ajax({
+                url: '<?php echo $block->getUrl('southbay_product/product/cartitems') ?>',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response){
+                    var cartSkus = response.map(function(item){
+                        return item.sku;
+                    });
+                        var sku = $('.product.attribute.sku .value[itemprop="sku"]').text();
+                        console.log(sku);
+                        if ($.inArray(sku, cartSkus) !== -1) {
+                            $('.base').addClass('added-to-cart');
+                            $('#product-addtocart-button span').text('Actualizar carrito');
+                        }
+
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al obtener los SKUs del carrito:', error);
+                }
+            });
+        });
+        $('#product-addtocart-button').on('click', function(){
+            $('.base').addClass('added-to-cart');
+        });
+    });
+</script>

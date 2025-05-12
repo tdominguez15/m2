@@ -1,0 +1,163 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/**  @var $block \Magento\Checkout\Block\Cart\Grid */
+/** @var \Southbay\Product\Helper\Data $southbay_helper */
+$southbay_helper = $this->helper(Southbay\Product\Helper\Data::class);
+$options = $southbay_helper->getMonthForDeliveryFromCurrent();
+
+?>
+
+<?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
+<?= $block->getChildHtml('form_before') ?>
+<form action="<?= $block->escapeUrl($block->getUrl('southbay_custom_checkout/cart/upload')) ?>"
+      method="post"
+      enctype="multipart/form-data"
+      id="form-validate"
+class="form form-cart">
+
+    <?= $block->getBlockHtml('formkey') ?>
+    <div class="actions">
+<!--        <div class="secondary">-->
+<!--            <a id="southbay_cart_clean" href="#">--><?php //= __('Vaciar carrito de compras') ?><!--</a>-->
+<!--            <a id="southbay_cart_download"-->
+<!--               style="padding-left: 2em; padding-right: 5em"-->
+<!--               href="--><?php //= $block->escapeUrl($block->getUrl('southbay_custom_checkout/cart/download')) ?><!--">-->
+<!--                --><?php //= __('Descargar Carrito') ?>
+<!--            </a>-->
+<!--            <span-->
+<!--                style="border-color: #ccc; background-color: #e3e3e3; padding: 10px; border-radius: 3px; border-style: solid; border-width: thin; border-bottom-width: medium">-->
+<!--                <label for="southbay_cart_file">Subir carrito</label>-->
+<!--                <input type="file"-->
+<!--                       name="southbay_cart_file"-->
+<!--                       id="southbay_cart_file"-->
+<!--                       title="--><?php //= __('Subir archivo') ?><!--"-->
+<!--                       accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"-->
+<!--                       class="input-text">-->
+<!--                <input type="submit"-->
+<!--                       style="background-color: #F75301; font-weight: 500; padding: 8px; color: white; border-color: aliceblue; border-radius: 5.6px; border-width: thin"-->
+<!--                       value="--><?php //= __('Actualizar carrito') ?><!--"/>-->
+<!--            </span>-->
+<!--        </div>-->
+<!--    </div>-->
+    <div id="total" class="items-total-in-cart " style="margin-top: 20px;"></div>
+    <div class="cart table-wrapper<?= $mergedCells == 2 ? ' detailed' : '' ?>">
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="cart-products-toolbar cart-products-toolbar-top toolbar"
+                 data-attribute="cart-products-toolbar-top"><?= $block->getPagerHtml() ?>
+            </div>
+        <?php endif ?>
+        <table id="shopping-cart-table"
+               class="cart items data table"
+               data-mage-init='{"shoppingCart":{"emptyCartButton": ".action.clear",
+               "updateCartActionContainer": "#update_cart_action_container"}}'>
+            <caption class="table-caption"><?= $block->escapeHtml(__('Shopping Cart Items')) ?></caption>
+            <thead>
+            <tr>
+                <th class="col item" scope="col"><span><?= $block->escapeHtml(__('Item')) ?></span></th>
+                <th class="col color" scope="col"><span><?= $block->escapeHtml(__('Color')) ?></span></th>
+
+
+                <th class="col cantidad" scope="col"><span><?= $block->escapeHtml(__('Cantidad')) ?></span></th>
+                <th class="col price" scope="col"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
+                <th class="col subtotal" scope="col"><span><?= $block->escapeHtml(__('Subtotal')) ?></span></th>
+
+                <th class="col actions" scope="col"></th>
+            </tr>
+            </thead>
+            <tbody class="cart item">
+            <?php foreach ($block->getItems() as $_item): ?>
+                <?= $block->getItemHtml($_item) ?>
+            <?php endforeach ?>
+            </tbody>
+        </table>
+
+
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="cart-products-toolbar cart-products-toolbar-bottom toolbar"
+                 data-attribute="cart-products-toolbar-bottom"><?= $block->getPagerHtml() ?>
+            </div>
+        <?php endif ?>
+    </div>
+
+    <div class="cart main actions">
+        <?php if ($block->getContinueShoppingUrl()): ?>
+            <a class="action continue"
+               href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
+               title="<?= $block->escapeHtml(__('Continue Shopping')) ?>">
+                <span><?= $block->escapeHtml(__('Continue Shopping')) ?></span>
+            </a>
+        <?php endif; ?>
+        <?php if ($block->getViewModel()->isClearShoppingCartEnabled()): ?>
+            <button type="button"
+                    name="update_cart_action"
+                    data-cart-empty=""
+                    value="empty_cart"
+                    title="<?= $block->escapeHtml(__('Clear Shopping Cart')) ?>"
+                    class="action clear" id="empty_cart_button">
+                <span><?= $block->escapeHtml(__('Clear Shopping Cart')) ?></span>
+            </button>
+        <?php endif ?>
+        <!--
+        <button type="submit"
+                name="update_cart_action"
+                data-cart-item-update=""
+                value="update_qty"
+                title="<?= $block->escapeHtml(__('Update Shopping Cart')) ?>"
+                class="action update">
+            <span><?= $block->escapeHtml(__('Update Shopping Cart')) ?></span>
+        </button>
+        -->
+        <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
+    </div>
+</form>
+
+<?= $block->getChildHtml('checkout.cart.order.actions') ?>
+<?= $block->getChildHtml('shopping.cart.table.after') ?>
+
+<script type="text/javascript">
+    require(['jquery', 'ko', 'Magento_Ui/js/modal/confirm', 'mage/url'], function ($, ko, confirm, urlBuilder) {
+        $('#southbay_cart_clean').on('click', function (e) {
+            e.preventDefault();
+            confirm({
+                content: $.mage.__('¿Está seguro que quiere vaciar su carrito de compras?'),
+                actions: {
+                    confirm: function () {
+                        window.location.href = urlBuilder.build('southbay_custom_checkout/cart/clean');
+                    },
+
+                    always: function (e) {
+                        e.stopImmediatePropagation();
+                    }
+                }
+            });
+        });
+        $('#update_southbay_cart_btn').on('click', function (e) {
+            console.log('hola!');
+            e.preventDefault();
+            $('#southbay_cart').trigger("submit");
+            window._$ = $;
+        });
+    });
+</script>
+<!-- Calcular total de items segun grilla -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Obtener todos los elementos con la clase subtotal-amount
+        var subtotalElements = document.querySelectorAll("#shopping-cart-table .subtotal-amount");
+
+        // Calcular el total sumando los valores de todos los elementos
+        var total = 0;
+        subtotalElements.forEach(function(span) {
+            total += parseInt(span.textContent);
+        });
+
+        // Mostrar el total en el elemento correspondiente
+        document.getElementById("total").textContent = "Total de items: " + total;
+    });
+</script>

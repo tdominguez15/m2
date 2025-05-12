@@ -1,0 +1,124 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+// phpcs:disable Generic.Files.LineLength
+
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
+
+$_item = $block->getItem();
+$product = $_item->getProduct();
+$isVisibleProduct = $product->isVisibleInSiteVisibility();
+/** @var \Magento\Msrp\Helper\Data $helper */
+$helper = $this->helper(Magento\Msrp\Helper\Data::class);
+$canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
+/** @var \Southbay\Product\Helper\Data $southbay_helper */
+$southbay_helper = $this->helper(Southbay\Product\Helper\Data::class);
+$southbay_color = $product->getAttributeText('southbay_color');
+$options = $southbay_helper->getMonthForDeliveryFromCurrent();
+$totales = $southbay_helper->getTotalFromSeasonConfig($product);
+$product_qty = 0;
+$product_southbay_sku = $product->getSku();
+$parent = $southbay_helper->findParentProduct($product->getId());
+
+if(!is_null($parent)) {
+    $product_southbay_sku = $parent->getSku();
+}
+
+$product_qty = array_sum($totales);
+
+if($product_qty == 0) {
+    $_item->setRowTotal(0);
+    $_item->setBaseRowTotal(0);
+}
+?>
+
+<tr class="item-info">
+    <td data-th="<?= $block->escapeHtml(__('Item')) ?>" class="col item">
+        <?php if ($block->hasProductUrl()): ?>
+        <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
+           title="<?= $block->escapeHtml($block->getProductName()) ?>"
+           tabindex="-1"
+           class="product-item-photo">
+            <?php else: ?>
+            <span class="product-item-photo">
+            <?php endif; ?>
+            <?= $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml() ?>
+            <?php if ($block->hasProductUrl()): ?>
+        </a>
+    <?php else: ?>
+        </span>
+    <?php endif; ?>
+        <div class="product-item-details">
+            <strong class="product-item-name">
+                <?php if ($block->hasProductUrl()): ?>
+                    <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"><?= $block->escapeHtml($block->getProductName()) ?></a>
+                <?php else: ?>
+                    <?= $block->escapeHtml($block->getProductName()) ?>
+                <?php endif; ?>
+            </strong>
+            <span class="cart-sku"><?= $block->escapeHtml($product_southbay_sku); ?></span>
+            <?php if ($_options = $block->getOptionList()): ?>
+                <dl class="item-options">
+                    <?php foreach ($_options as $_option): ?>
+                        <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                        <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                        <dd>
+                            <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                <?= $block->escapeHtml($_formatedOptionValue['full_view'], ['span', 'a']) ?>
+                            <?php else: ?>
+                                <?= $block->escapeHtml($_formatedOptionValue['value'], ['span', 'a']) ?>
+                            <?php endif; ?>
+                        </dd>
+                    <?php endforeach; ?>
+                </dl>
+            <?php endif; ?>
+            <?php if ($messages = $block->getMessages()): ?>
+                <?php foreach ($messages as $message): ?>
+                    <div class="cart item message <?= $block->escapeHtmlAttr($message['type']) ?>">
+                        <div><?= $block->escapeHtml($message['text']) ?></div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+            <?php if ($addInfoBlock): ?>
+                <?= $addInfoBlock->setItem($_item)->toHtml() ?>
+            <?php endif; ?>
+        </div>
+    </td>
+
+    <?php if ($southbay_color): ?>
+        <td class="col color" data-th="<?= $block->escapeHtml($southbay_color) ?>">
+            <div><?= $southbay_color ?></div>
+        </td>
+    <?php endif; ?>
+
+    <?php foreach ($options as $option): ?>
+        <td class="col qty <?= $option['code'] ?>" data-th="<?= $block->escapeHtml(__('Qty')) ?>">
+            <span class="month-total"><?= ($totales[$option['code']] ?? 0) ?></span>
+        </td>
+    <?php endforeach; ?>
+
+    <td class="col qtytotal" data-th="<?= $block->escapeHtml(__('Qty')) ?>">
+        <span class="subtotal-amount"><?= $block->escapeHtmlAttr($product_qty) ?></span>
+    </td>
+
+    <td class="col product-price" data-th="<?= $block->escapeHtml(__('Price')) ?>">
+        <?= $block->getUnitPriceHtml($_item) ?>
+    </td>
+
+    <td class="col subtotal" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
+        <?= $block->getRowTotalHtml($_item) ?>
+    </td>
+</tr>
+<tr>
+    <td class="item-actions">
+        <div class="actions-toolbar">
+            <?= /* @noEscape */
+            $block->getActions($_item) ?>
+        </div>
+    </td>
+</tr>

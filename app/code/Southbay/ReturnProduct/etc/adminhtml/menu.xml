@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Southbay_ReturnProduct::manager"
+            resource="Southbay_ReturnProduct::manager"
+            title="Southbay Devoluciones"
+            module="Southbay_ReturnProduct"
+            sortOrder="11"
+        />
+        <add
+            id="Southbay_ReturnProduct::Reception"
+            resource="Southbay_ReturnProduct::Reception"
+            parent="Southbay_ReturnProduct::manager"
+            action="southbay_return_product/reception"
+            module="Southbay_ReturnProduct"
+            title="Recepciones"
+            sortOrder="21"
+        />
+        <add
+            id="Southbay_ReturnProduct::ControlQa"
+            resource="Southbay_ReturnProduct::ControlQa"
+            action="southbay_return_product/controlqa"
+            parent="Southbay_ReturnProduct::manager"
+            module="Southbay_ReturnProduct"
+            title="Control de calidad"
+            sortOrder="22"
+        />
+        <add
+            id="Southbay_ReturnProduct::Approval"
+            resource="Southbay_ReturnProduct::Approval"
+            action="southbay_return_product/approval"
+            parent="Southbay_ReturnProduct::manager"
+            module="Southbay_ReturnProduct"
+            title="Aprobaciones"
+            sortOrder="23"
+        />
+        <add
+            id="Southbay_ReturnProduct::Confirmation"
+            resource="Southbay_ReturnProduct::Confirmation"
+            action="southbay_return_product/confirmation"
+            parent="Southbay_ReturnProduct::manager"
+            module="Southbay_ReturnProduct"
+            title="Confirmaciones"
+            sortOrder="24"
+        />
+        <add
+            id="Southbay_ReturnProduct::Config"
+            resource="Southbay_ReturnProduct::Config"
+            action="southbay_return_product/config"
+            parent="Southbay_ReturnProduct::manager"
+            module="Southbay_ReturnProduct"
+            title="Configuración general"
+            sortOrder="25"
+        />
+        <!--
+        Se oculta esta opción hasta que la necesiten
+        <add
+            id="Southbay_ReturnProduct::ReasonReturn"
+            resource="Southbay_ReturnProduct::ReasonReturn"
+            action="southbay_return_product/reasonreturn"
+            parent="Southbay_ReturnProduct::manager"
+            module="Southbay_ReturnProduct"
+            title="Motivos Devolución"
+            sortOrder="26"
+        />
+        -->
+        <add
+            id="Southbay_ReturnProduct::ReasonReject"
+            resource="Southbay_ReturnProduct::ReasonReject"
+            action="southbay_return_product/reasonreject"
+            parent="Southbay_ReturnProduct::manager"
+            module="Southbay_ReturnProduct"
+            title="Motivos de devolución"
+            sortOrder="27"
+        />
+        <add
+            id="Southbay_ReturnProduct::Exchange"
+            resource="Southbay_ReturnProduct::Exchange"
+            action="southbay_return_product/exchange"
+            parent="Southbay_ReturnProduct::manager"
+            module="Southbay_ReturnProduct"
+            title="Tipo de cambio"
+            sortOrder="28"
+        />
+        <add
+            id="Southbay_ReturnProduct::ConfigApproval"
+            resource="Southbay_ReturnProduct::ConfigApproval"
+            action="southbay_return_product/configApproval"
+            parent="Southbay_ReturnProduct::manager"
+            module="Southbay_ReturnProduct"
+            title="Configuración de aprobadores"
+            sortOrder="29"
+        />
+        <add
+            id="Southbay_ReturnProduct::ConfigRol"
+            resource="Southbay_ReturnProduct::ConfigRol"
+            action="southbay_return_product/configbyrol"
+            parent="Southbay_ReturnProduct::manager"
+            module="Southbay_ReturnProduct"
+            title="Configuración de roles"
+            sortOrder="30"
+        />
+        <add
+            id="Southbay_ReturnProduct::ConfigRolNotification"
+            resource="Southbay_ReturnProduct::ConfigRolNotification"
+            action="southbay_return_product/ConfigNotificationRol"
+            parent="Southbay_ReturnProduct::manager"
+            module="Southbay_ReturnProduct"
+            title="Configuración de notificaciones por rol"
+            sortOrder="31"
+        />
+        <add
+            id="Southbay_ReturnProduct::ConfigCustomerNotification"
+            resource="Southbay_ReturnProduct::ConfigCustomerNotification"
+            action="southbay_return_product/ConfigNotificationCustomer"
+            parent="Southbay_ReturnProduct::manager"
+            module="Southbay_ReturnProduct"
+            title="Configuración de notificaciones del cliente"
+            sortOrder="32"
+        />
+        <add
+            id="Southbay_ReturnProduct::Invoices"
+            resource="Southbay_ReturnProduct::Invoices"
+            action="southbay_return_product/invoice"
+            parent="Southbay_ReturnProduct::manager"
+            module="Southbay_ReturnProduct"
+            title="Facturas"
+            sortOrder="33"
+        />
+    </menu>
+</config>

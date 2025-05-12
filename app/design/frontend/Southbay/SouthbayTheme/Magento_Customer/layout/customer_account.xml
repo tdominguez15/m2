@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Customer My Account (All Pages)" design_abstraction="custom">
+    <head>
+        <title>My Account</title>
+    </head>
+    <body>
+        <!--
+        <referenceContainer name="sidebar.main">
+            <block class="Magento\Framework\View\Element\Template" name="switch.tienda" template="Magento_Customer::switch-tienda.phtml" before="-" />
+        </referenceContainer>
+        -->
+
+       <!--
+        <referenceBlock name="customer_account_navigation">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="menu.devoluciones">
+                <arguments>
+                    <argument name="path" xsi:type="string">tutorial/account/custom</argument>
+                    <argument name="label" xsi:type="string">Devoluciones</argument>
+                    <argument name="sortOrder" xsi:type="number">2</argument>
+                    <argument name="navigation" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        -->
+
+        <!-- <move element="menu.devoluciones" destination="customer_account_navigation" after="customer-account-navigation-account-link"/>-->
+        <referenceBlock name="customer_account_navigation">
+            <block class="Magento\Customer\Block\Account\SortLinkInterface" name="customer-account-navigation-landing-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">landing</argument>
+                    <argument name="label" xsi:type="string" translate="true">Select Landing Page</argument>
+                    <argument name="sortOrder" xsi:type="number">219</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

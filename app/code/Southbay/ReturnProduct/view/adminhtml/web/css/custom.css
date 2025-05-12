@@ -1,0 +1,15 @@
+#menu-southbay-returnproduct-manager>a {
+    color: coral !important;
+}
+
+#menu-southbay-returnproduct-manager .level-1 {
+    color: white !important;
+}
+
+.total_packages input {
+    width: 4em;
+    text-align: right;
+}
+
+
+

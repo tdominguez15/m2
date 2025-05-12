@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="component" xsi:type="string">Southbay_ReturnProduct/js/control_qa_form</item>
+            <item name="provider" xsi:type="string">control_qa_form.form_data_source</item>
+            <item name="deps" xsi:type="string">control_qa_form.form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Control de calidad</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Magento\Customer\Block\Adminhtml\Edit\BackButton</item>
+            <item name="save" xsi:type="string">Southbay\ReturnProduct\Block\Adminhtml\Action\SaveButton</item>
+        </item>
+    </argument>
+
+    <dataSource name="form_data_source" component="Magento_Ui/js/form/provider">
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider name="form_data_source"
+                      class="Southbay\ReturnProduct\Model\ResourceModel\DataProvider\ControlQa\ControlQaDataProvider">
+            <settings>
+                <primaryFieldName>southbay_return_control_qa_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="fields">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true"/>
+            </item>
+        </argument>
+
+        <fieldset name="search_fieldset">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Buscar devolución:</item>
+                </item>
+            </argument>
+            <htmlContent name="southbay_return_search">
+                <settings>
+                    <additionalClasses>
+                        <class name="southbay_return_search_container">true</class>
+                    </additionalClasses>
+                </settings>
+                <block name="html_southbay_return_search_block" class="Magento\Backend\Block\Template">
+                    <arguments>
+                        <argument name="template" xsi:type="string">
+                            Southbay_ReturnProduct::control_qa_search_template.phtml
+                        </argument>
+                    </arguments>
+                </block>
+            </htmlContent>
+        </fieldset>
+
+        <fieldset name="detail">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Detalle</item>
+                </item>
+            </argument>
+
+            <field name="southbay_return_control_qa_id">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                    </item>
+                </argument>
+                <settings>
+                    <visible>false</visible>
+                </settings>
+            </field>
+
+            <field name="southbay_return_id" formElement="input">
+                <settings>
+                    <elementTmpl>ui/form/element/text</elementTmpl>
+                    <label translate="true">Nº Devolución</label>
+                </settings>
+            </field>
+
+            <field name="southbay_return_product_type" formElement="input">
+                <settings>
+                    <elementTmpl>ui/form/element/text</elementTmpl>
+                    <label translate="true">Tipo Devolución</label>
+                </settings>
+            </field>
+
+            <field name="southbay_return_product_customer" formElement="input">
+                <settings>
+                    <elementTmpl>ui/form/element/text</elementTmpl>
+                    <label translate="true">Cliente</label>
+                </settings>
+            </field>
+
+            <button name="custom_button_as_link">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="buttonClasses" xsi:type="string">search_again</item>
+                        <item name="actions" xsi:type="array">
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <displayAsLink>true</displayAsLink>
+                    <title translate="true">Buscar otra devolución</title>
+                </settings>
+            </button>
+        </fieldset>
+        <fieldset name="items_fieldset">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Items:</item>
+                </item>
+            </argument>
+            <hidden name="southbay_return_control_qa_items"/>
+            <htmlContent name="southbay_return_items">
+                <settings>
+                    <additionalClasses>
+                        <class name="html-content-class">true</class>
+                    </additionalClasses>
+                </settings>
+                <block name="html_southbay_return_items_block" class="Magento\Backend\Block\Template">
+                    <arguments>
+                        <argument name="template" xsi:type="string">
+                            Southbay_ReturnProduct::control_qa_items_template.phtml
+                        </argument>
+                    </arguments>
+                </block>
+            </htmlContent>
+        </fieldset>
+    </fieldset>
+</form>

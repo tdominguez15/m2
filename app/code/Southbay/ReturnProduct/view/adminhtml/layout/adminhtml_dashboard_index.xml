@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="dashboard" remove="true" />
+        <referenceBlock name="analytics_service_external_link" remove="true" />
+        <referenceBlock name="store_switcher" remove="true" />
+        <referenceBlock name="refresh_statistics" remove="true" />
+        <referenceContainer name="content">
+            <block class="Southbay\ReturnProduct\Block\Adminhtml\Dashboard\ReturnProductBlock" template="Southbay_ReturnProduct::southbay_return_dashboad_block.phtml" name="dashboard_rtv_list_block"/>
+            <uiComponent name="dashboard_rtv_list"/>
+        </referenceContainer>
+    </body>
+</page>

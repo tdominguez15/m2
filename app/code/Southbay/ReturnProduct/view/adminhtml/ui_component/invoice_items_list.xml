@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">invoice_items_list.grid_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>invoice_items_grid_columns</spinner>
+        <deps>
+            <dep>invoice_items_list.grid_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="grid_data_source" component="Magento_Ui/js/grid/provider">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">southbay_invoice_item_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="Southbay\ReturnProduct\Model\ResourceModel\DataProvider\Invoice\InvoiceItemsDataProvider"
+                      name="grid_data_source">
+            <settings>
+                <primaryFieldName>southbay_invoice_item_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>false</sticky>
+        </settings>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="invoice_items_grid_columns">
+        <column name="southbay_invoice_item_sku">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">SKU</label>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+        <column name="southbay_invoice_item_sku_variant">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Variante</label>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+        <column name="southbay_invoice_item_name">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Nombre</label>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+        <column name="southbay_invoice_item_size">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Talle</label>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+        <column name="southbay_invoice_item_qty">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Cantidad</label>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+        <column name="southbay_invoice_net_item_unit_price">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Precio unitario</label>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+        <column name="southbay_invoice_item_net_amount">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Precio</label>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+    </columns>
+</listing>

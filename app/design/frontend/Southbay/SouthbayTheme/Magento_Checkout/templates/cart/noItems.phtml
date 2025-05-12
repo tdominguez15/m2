@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**  @var $block \Magento\Checkout\Block\Cart */
+?>
+<div class="cart-empty">
+    <?= $block->getChildHtml('checkout_cart_empty_widget') ?>
+    <form action="<?= $block->escapeUrl($block->getUrl('southbay_custom_checkout/cart/upload')) ?>"
+          method="post"
+          enctype="multipart/form-data"
+          id="form-validate"
+          class="form form-cart">
+        <?= $block->getBlockHtml('formkey') ?>
+        <div style="padding: 1em" class="actions">
+            <div class="secondary">
+                <div class="upload-cart">
+                    <span class="leyenda" style="margin-right: .5em; font-style: italic; font-size: .95em"><b>* </b><?= $block->escapeHtml(__('Puedes importar un carrito de compras si ya lo tenes armado')) ?></span>
+                    <span class="upload-box"
+                        style="border-color: #ccc; background-color: beige; padding: 10px; border-radius: 5px; border-style: solid; border-width: thin; border-bottom-width: medium">
+                        <label for="southbay_cart_file">Subir carrito</label>
+                        <input type="file"
+                            name="southbay_cart_file"
+                            id="southbay_cart_file"
+                            title="<?= __('Subir archivo') ?>"
+                            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                            class="input-text">
+                        <input type="submit"
+                            style="background-color: #F75301; padding: 8px; font-weight: 500; color: white; border-color: aliceblue; border-radius: 5.6px; border-width: thin"
+                            value="<?= __('Subir carrito') ?>"/>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
+    <p><?= $block->escapeHtml(__('You have no items in your shopping cart.')) ?></p>
+    <p><?= $block->escapeHtml(
+            __(
+                'Click <a href="%1">here</a> to continue shopping.',
+                $block->escapeUrl($block->getContinueShoppingUrl())
+            ),
+            ['a']
+        ) ?>
+    </p>
+    <?= $block->getChildHtml('shopping.cart.table.after') ?>
+</div>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Checkout/js/empty-cart": {}
+    }
+}
+
+</script>

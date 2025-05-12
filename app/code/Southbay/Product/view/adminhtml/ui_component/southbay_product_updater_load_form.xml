@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">southbay_product_updater_load_form.form_data_source</item>
+            <item name="deps" xsi:type="string">southbay_product_updater_load_form.form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Nueva actualización de productos</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Magento\Customer\Block\Adminhtml\Edit\BackButton</item>
+            <item name="save" xsi:type="string">Southbay\ReturnProduct\Block\Adminhtml\Action\SaveButton</item>
+        </item>
+    </argument>
+
+    <dataSource name="form_data_source" component="Magento_Ui/js/form/provider">
+        <settings>
+            <submitUrl path="*/*/upload"/>
+        </settings>
+        <dataProvider name="form_data_source"
+                      class="Southbay\Product\Model\ResourceModel\SouthbayProductImportHistory\DatasourceUpdater">
+            <settings>
+                <primaryFieldName>season_import_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="fields">
+        <settings>
+            <label translate="true">Detalle</label>
+        </settings>
+
+        <field name="store_id" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                    <item name="label" xsi:type="string" translate="true">Tienda</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <formElements>
+                <select>
+                    <settings>
+                        <options
+                            class="Southbay\CustomCustomer\Model\ResourceModel\ConfigStore\SouthbayOptionsAllOrderEntryStoreDataProvider"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="attribute_code" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                    <item name="label" xsi:type="string" translate="true">Atributo</item>
+                    <item name="notice" xsi:type="string" translate="true">Las actualizaciones en los atributos pueden
+                        afectar a ordenes existentes y la transmisión de los datos a SAP
+                    </item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="southbay_note_warning_v2" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <formElements>
+                <select>
+                    <settings>
+                        <options
+                            class="Southbay\Product\Model\ResourceModel\SouthbayProductImportHistory\AttributesDataProvider"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <file name="southbay_products_file">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Archivo</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="formElement" xsi:type="string">fileUploader</item>
+                    <item name="notice" xsi:type="string">El excel debe contener dos columnas, la primer columna es el
+                        sku del producto y la segunda columna es el nuevo valor. No debe contener formulas el excel, ya
+                        que las mismas no podrán ser interpretadas por el sistema. En la columna sku puede indicar el
+                        codigo nike (ejemplo BV1021-010) o el sku más el talle (ejemplo BV1021-010/2C)
+                    </item>
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="southbay_note_warning_v1" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </file>
+
+        <field name="start_on_line_number" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="validate-digits" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="string">2</item>
+                    <item name="style" xsi:type="string">max-width: 100px;</item>
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="southbay_width_4em" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <visible>true</visible>
+                <elementTmpl>ui/form/element/input</elementTmpl>
+                <label translate="true">Comenzar en la linea</label>
+            </settings>
+        </field>
+        <field name="type_operation" formElement="hidden">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">hidden</item>
+                    <item name="default" xsi:type="string">update</item>
+                </item>
+            </argument>
+        </field>
+
+    </fieldset>
+
+</form>

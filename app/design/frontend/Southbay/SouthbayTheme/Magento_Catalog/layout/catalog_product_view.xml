@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="product.info.description" destination="content" after="-"/>
+        <move element="product.attributes" destination="content" after="-"/>
+        <referenceContainer name="product.info.main">
+            <block name="precio.sugerido" template="Magento_Catalog::suggested-price.phtml" before="product.info.price"/>
+            <block name="multiplo.unidad.compra" template="Magento_Catalog::multiplo-unidad-compra.phtml" after="product.info.price"/>
+            <block name="cart.button.extra" template="Magento_Catalog::cart-button-extra.phtml"  after="-" />
+        </referenceContainer>
+        <move element="cart.button.extra" destination="product.info.options.wrapper.bottom" before="after" />
+    </body>
+</page>

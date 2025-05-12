@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">customer_shipto_list.grid_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>grid_columns</spinner>
+        <deps>
+            <dep>customer_shipto_list.grid_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Nuevo Destino</label>
+            </button>
+        </buttons>
+    </settings>
+    <dataSource name="grid_data_source" component="Magento_Ui/js/grid/provider">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">southbay_ship_to_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="Southbay\CustomCustomer\Model\ResourceModel\ShipTo\Backend\ShipToDataProvider"
+                      name="grid_data_source">
+            <settings>
+                <primaryFieldName>southbay_ship_to_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>false</sticky>
+        </settings>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+   <columns name="grid_columns">
+       <column name="southbay_ship_to_id">
+           <settings>
+               <label translate="true">ID</label>
+               <dataType>text</dataType>
+               <filter>text</filter>
+           </settings>
+       </column>
+       <column name="southbay_ship_to_customer_code">
+           <settings>
+               <label translate="true">Customer Code</label>
+               <filter>text</filter>
+           </settings>
+       </column>
+       <column name="southbay_ship_to_name">
+           <settings>
+               <label translate="true">Ship To Name</label>
+               <filter>text</filter>
+           </settings>
+       </column>
+       <column name="southbay_ship_to_code">
+           <settings>
+               <label translate="true">Code</label>
+               <filter>text</filter>
+           </settings>
+       </column>
+       <!--
+       <column name="southbay_ship_to_old_code">
+           <settings>
+               <label translate="true">Code Old</label>
+           </settings>
+       </column>
+       -->
+       <column name="southbay_ship_to_address">
+           <settings>
+               <label translate="true">Address</label>
+               <filter>text</filter>
+           </settings>
+       </column>
+       <column name="southbay_ship_to_address_number">
+           <settings>
+               <label translate="true">Address Number</label>
+               <filter>text</filter>
+           </settings>
+       </column>
+       <column name="southbay_ship_to_state">
+           <settings>
+               <label translate="true">State</label>
+               <filter>text</filter>
+           </settings>
+       </column>
+       <column name="southbay_ship_to_country_code">
+           <settings>
+               <label translate="true">Country Code</label>
+               <filter>text</filter>
+           </settings>
+       </column>
+        <column name="link_label" component="Magento_Ui/js/grid/columns/link">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="link" xsi:type="string">link</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Actions</label>
+                <dataType>text</dataType>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+
+    </columns>
+</listing>

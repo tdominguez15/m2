@@ -1,0 +1,317 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="southbay_config_store" resource="default" engine="innodb" comment="store configuration">
+        <column xsi:type="int" name="southbay_general_config_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="southbay_function_code" nullable="false" length="32"
+                comment="function code"/>
+        <column xsi:type="varchar" name="southbay_country_code" nullable="false" length="15"
+                comment="country code"/>
+        <column xsi:type="int" name="southbay_store_code" unsigned="true" nullable="false" identity="false"
+                comment="store code"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <index referenceId="SOUTHBAY_CONFIG_STORE_FUNCTION_CODE" indexType="btree">
+            <column name="southbay_function_code"/>
+        </index>
+        <index referenceId="SOUTHBAY_CONFIG_STORE_COUNTRY_CODE" indexType="btree">
+            <column name="southbay_country_code"/>
+        </index>
+        <index referenceId="SOUTHBAY_CONFIG_STORE_CODE" indexType="btree">
+            <column name="southbay_store_code"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="southbay_general_config_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_map_country" resource="default" engine="innodb" comment="map country">
+        <column xsi:type="int" name="southbay_map_country_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="southbay_map_country_code" nullable="false" length="15"
+                comment="country code"/>
+        <column xsi:type="varchar" name="southbay_map_sap_country_code" nullable="false" length="15"
+                comment="country code"/>
+        <column xsi:type="varchar" name="southbay_map_stock_id" nullable="true" length="15"
+                comment="Magento Stock Id"/>
+        <column xsi:type="varchar" name="southbay_map_sap_source_code" nullable="true" length="15"
+                comment="Sap Source Code"/>
+        <column xsi:type="varchar" name="southbay_map_sap_warehouse_code" nullable="true" length="15"
+                comment="Sap Warehouse Code"/>
+
+        <column xsi:type="varchar" name="southbay_map_sap_country_code_frontera" nullable="true" length="15"
+                comment="country code"/>
+
+        <column xsi:type="varchar" name="southbay_map_sap_country_channel" nullable="true" length="15"
+                comment="sap channel"/>
+        <column xsi:type="varchar" name="southbay_map_sap_country_zone" nullable="true" length="15"
+                comment="sap zone"/>
+        <column xsi:type="varchar" name="southbay_map_sap_country_future_doc" nullable="true" length="15"
+                comment="sap doc for future order entry"/>
+        <column xsi:type="varchar" name="southbay_map_sap_country_at_once_doc" nullable="true" length="15"
+                comment="sap doc for at once order entry"/>
+
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <index referenceId="SOUTHBAY_MAP_COUNTRY_SOUTHBAY_MAP_COUNTRY_CODE" indexType="btree">
+            <column name="southbay_map_country_code"/>
+        </index>
+        <index referenceId="SOUTHBAY_MAP_COUNTRY_SOUTHBAY_MAP_SAP_COUNTRY_CODE" indexType="btree">
+            <column name="southbay_map_sap_country_code"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="southbay_map_country_id"/>
+        </constraint>
+    </table>
+    <table name="southbay_sold_to" resource="default" engine="innodb" comment="map country">
+        <column xsi:type="int" name="southbay_sold_to_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="southbay_sold_to_country_code" nullable="false" length="100"
+                comment="magento county code"/>
+        <column xsi:type="boolean" name="southbay_sold_to_is_active" nullable="false" default="1"
+                comment="Is Active"/>
+        <column xsi:type="varchar" name="southbay_sold_to_sap_country_code" nullable="false" length="30"
+                comment="sap county code"/>
+        <column xsi:type="varchar" name="southbay_sold_to_channel_code" nullable="false" length="30"
+                comment="channel code"/>
+        <column xsi:type="varchar" name="southbay_sold_to_section_code" nullable="false" length="30"
+                comment="section code"/>
+        <column xsi:type="varchar" name="southbay_sold_to_customer_code" nullable="false" length="30"
+                comment="id customer code"/>
+        <column xsi:type="varchar" name="southbay_sold_to_customer_code_old" nullable="true" length="30"
+                comment="id customer code old"/>
+        <column xsi:type="varchar" name="southbay_sold_to_country_business_code" nullable="false" length="30"
+                comment="country business code"/>
+        <column xsi:type="varchar" name="southbay_sold_to_customer_name" nullable="false" length="150"
+                comment="customer name"/>
+        <column xsi:type="varchar" name="southbay_sold_to_segmentation" nullable="false" length="250"
+                comment="customer segmentation"/>
+        <column xsi:type="smallint" name="southbay_sold_to_locked" nullable="false"
+                comment="locked"/>
+        <column xsi:type="smallint" name="southbay_sold_to_automatically_authorize_purchases" nullable="false"
+                default="0"
+                comment="automatically authorize purchases"/>
+        <column xsi:type="boolean" name="southbay_sold_to_is_internal" nullable="false" default="0" comment="Is Internal"/>
+        <constraint xsi:type="unique" referenceId="SOUTHBAY_SOLD_TO_SOUTHBAY_SOLD_TO_CUSTOMER_CODE">
+            <column name="southbay_sold_to_customer_code"/>
+        </constraint>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="southbay_sold_to_id"/>
+        </constraint>
+    </table>
+    <table name="southbay_ship_to" resource="default" engine="innodb" comment="map country">
+        <column xsi:type="int" name="southbay_ship_to_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="boolean" name="southbay_ship_to_is_active" nullable="false" default="1"
+                comment="Is Active"/>
+        <column xsi:type="varchar" name="southbay_ship_to_customer_code" nullable="false" length="30"
+                comment="customer Code"/>
+        <column xsi:type="varchar" name="southbay_ship_to_name" nullable="true" length="150"
+                comment="ship to name"/>
+        <column xsi:type="varchar" name="southbay_ship_to_code" nullable="false" length="30"
+                comment="code"/>
+        <column xsi:type="varchar" name="southbay_ship_to_old_code" nullable="true" length="30"
+                comment="code old"/>
+        <column xsi:type="varchar" name="southbay_ship_to_address" nullable="false" length="200"
+                comment="address"/>
+        <column xsi:type="varchar" name="southbay_ship_to_address_number" nullable="false" length="100"
+                comment="address number"/>
+        <column xsi:type="varchar" name="southbay_ship_to_state" nullable="false" length="200"
+                comment="state"/>
+        <column xsi:type="varchar" name="southbay_ship_to_country_code" nullable="false" length="30"
+                comment="country"/>
+
+        <column xsi:type="boolean" name="southbay_ship_to_is_internal" nullable="false" default="0" comment="Is Internal"/>
+
+        <index referenceId="SOUTHBAY_SHIP_TO_SOUTHBAY_SHIP_TO_CUSTOMER_CODE" indexType="btree">
+            <column name="southbay_ship_to_customer_code"/>
+        </index>
+        <index referenceId="SOUTHBAY_SHIP_TO_SOUTHBAY_SHIP_TO_OLD_CODE" indexType="btree">
+            <column name="southbay_ship_to_old_code"/>
+        </index>
+        <constraint xsi:type="unique" referenceId="SOUTHBAY_SHIP_TO_SOUTHBAY_SHIP_TO_CODE">
+            <column name="southbay_ship_to_code"/>
+        </constraint>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="southbay_ship_to_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_sold_to_map" resource="default" engine="innodb" comment="map old sold to">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="sold_to_code" nullable="false" length="30"
+                comment="customer Code"/>
+        <column xsi:type="varchar" name="sold_to_old_code" nullable="false" length="30"
+                comment="customer old Code"/>
+
+        <index referenceId="SOUTHBAY_SOLD_TO_MAP_SOLD_TO_CODE_INDEX" indexType="btree">
+            <column name="sold_to_code"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_SOLD_TO_MAP_SOLD_TO_OLD_CODE_INDEX" indexType="btree">
+            <column name="sold_to_old_code"/>
+        </index>
+
+        <constraint xsi:type="unique" referenceId="SOUTHBAY_SOLD_TO_MAP_UNIQUE">
+            <column name="sold_to_code"/>
+            <column name="sold_to_old_code"/>
+        </constraint>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_ship_to_map" resource="default" engine="innodb" comment="map old ship to">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="sold_to_code" nullable="false" length="30"
+                comment="customer Code"/>
+        <column xsi:type="varchar" name="sold_to_old_code" nullable="false" length="30"
+                comment="customer old Code"/>
+        <column xsi:type="varchar" name="ship_to_code" nullable="false" length="30"
+                comment="code"/>
+        <column xsi:type="varchar" name="ship_to_old_code"
+                nullable="true" length="30"
+                comment="code old"/>
+
+        <index referenceId="SOUTHBAY_SHIP_TO_MAP_SOLD_TO_CODE_INDEX" indexType="btree">
+            <column name="sold_to_code"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_SHIP_TO_MAP_SOLD_TO_OLD_CODE_INDEX" indexType="btree">
+            <column name="sold_to_old_code"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_SHIP_TO_MAP_SHIP_TO_CODE_INDEX" indexType="btree">
+            <column name="ship_to_code"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_SHIP_TO_MAP_SHIP_TO_OLD_CODE_INDEX" indexType="btree">
+            <column name="ship_to_old_code"/>
+        </index>
+
+        <constraint xsi:type="unique" referenceId="SOUTHBAY_SHIP_TO_MAP_UNIQUE">
+            <column name="sold_to_code"/>
+            <column name="sold_to_old_code"/>
+            <column name="ship_to_code"/>
+            <column name="ship_to_old_code"/>
+        </constraint>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_customer_config" resource="default" engine="innodb" comment="config magento customer">
+        <column xsi:type="int" name="southbay_customer_config_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="magento_customer_email" nullable="false" length="150"
+                comment="magento customer email"/>
+        <column xsi:type="varchar" name="southbay_customer_config_sold_to_ids" nullable="true" length="250"
+                comment="list sold to ids"/>
+        <column xsi:type="varchar" name="southbay_customer_config_countries_codes" nullable="true" length="100"
+                comment="country codes availables"/>
+        <column xsi:type="varchar" name="southbay_customer_config_functions_codes" nullable="true" length="100"
+                comment="functions availables"/>
+
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+
+        <index referenceId="SOUTHBAY_CUSTOMER_CONFIG_MAGENTO_CUSTOMER_EMAIL" indexType="btree">
+            <column name="magento_customer_email"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="southbay_customer_config_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_order_entry_rep_config" resource="default" engine="innodb"
+           comment="config magento sales representative">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="int" name="magento_user_code" unsigned="true" nullable="false"
+                comment="Magento admin user id"/>
+        <column xsi:type="varchar" name="southbay_customer_config_sold_to_ids" nullable="true" length="100"
+                comment="solicitantes to ids"/>
+        <column xsi:type="boolean" name="can_approve_at_once" nullable="false" comment="Flag approve at once orders"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="unique" referenceId="SOTHBAY_ORDER_ENTRY_REP_CONFIG_UNIQ">
+            <column name="magento_user_code"/>
+        </constraint>
+        <index referenceId="SOTHBAY_ORDER_ENTRY_REP_CONFIG_CAN_APPROVE_INDEX" indexType="btree">
+            <column name="can_approve_at_once"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_order_entry_notification_config" resource="default" engine="innodb"
+           comment="Order entry notification config">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="southbay_country_code" nullable="false" length="15" comment="country code"/>
+        <column xsi:type="varchar" name="southbay_function_code" nullable="false" length="32" comment="function code"/>
+        <column xsi:type="int" unsigned="true" name="magento_template_id" nullable="false"/>
+        <column xsi:type="int" unsigned="true" name="retry_after" nullable="false" comment="retry after N minutes"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="unique" referenceId="SOUTHBAY_ORDER_ENTRY_NOTIFICATION_CONFIG_UNIQ">
+            <column name="southbay_function_code"/>
+            <column name="southbay_country_code"/>
+        </constraint>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_order_entry_notification" resource="default" engine="innodb"
+           comment="Order entry notification">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="southbay_country_code" nullable="false" length="15" comment="country code"/>
+        <column xsi:type="varchar" name="southbay_function_code" nullable="false" length="32" comment="function code"/>
+        <column xsi:type="varchar" name="order_id" length="50" nullable="false" comment="store code"/>
+        <column xsi:type="int" name="increment_id" unsigned="true" nullable="false" identity="false"
+                comment="store code"/>
+        <column xsi:type="int" unsigned="true" name="magento_template_id" nullable="false"/>
+        <column xsi:type="varchar" name="magento_user_email" nullable="false" length="150"
+                comment="magento admin user email"/>
+        <column xsi:type="varchar" name="magento_user_name" nullable="false" length="80"
+                comment="magento admin user name"/>
+        <column xsi:type="varchar" length="15" name="status" nullable="false"
+                comment="status: complete, success, pending, cancel, error"/>
+        <column xsi:type="timestamp" name="send_at" nullable="false"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <index referenceId="SOUTHBAY_ORDER_ENTRY_NOTIFICATION_SEARCH_INDEX" indexType="btree">
+            <column name="send_at"/>
+            <column name="status"/>
+            <column name="southbay_function_code"/>
+        </index>
+        <index referenceId="SOUTHBAY_ORDER_ENTRY_NOTIFICATION_ORDER_STATUS_INDEX" indexType="btree">
+            <column name="status"/>
+        </index>
+        <index referenceId="SOUTHBAY_ORDER_ENTRY_NOTIFICATION_ORDER_ID_INDEX" indexType="btree">
+            <column name="order_id"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+</schema>

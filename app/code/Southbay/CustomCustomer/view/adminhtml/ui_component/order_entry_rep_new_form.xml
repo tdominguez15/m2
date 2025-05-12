@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">order_entry_rep_new_form.form_data_source</item>
+            <item name="deps" xsi:type="string">order_entry_rep_new_form.form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Nuevo representante</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Magento\Customer\Block\Adminhtml\Edit\BackButton</item>
+            <item name="save" xsi:type="string">Southbay\ReturnProduct\Block\Adminhtml\Action\SaveButton</item>
+        </item>
+    </argument>
+
+    <dataSource name="form_data_source" component="Magento_Ui/js/form/provider">
+        <settings>
+            <submitUrl path="*/*/save"/>
+            <validateUrl path="*/*/validate"/>
+        </settings>
+        <dataProvider name="form_data_source"
+                      class="Southbay\CustomCustomer\Model\ResourceModel\OrderEntryRepConfig\Dataprovider">
+            <settings>
+                <primaryFieldName>entity_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="fields">
+        <settings>
+            <label translate="true">Detalle</label>
+        </settings>
+
+        <field name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+
+        <field name="magento_user_code" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                    <item name="label" xsi:type="string" translate="true">Usuario del representante</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <formElements>
+                <select>
+                    <settings>
+                        <options
+                            class="Southbay\CustomCustomer\Model\ResourceModel\OrderEntryRepConfig\MagentoUserDataProvider"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="southbay_customer_config_sold_to_ids" formElement="multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/multiselect</item>
+                    <item name="label" xsi:type="string" translate="true">Solicitantes</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options
+                            class="Southbay\CustomCustomer\Model\ResourceModel\SoldTo\SoldToOptionsDataProvider"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+
+        <field name="can_approve_at_once" formElement="checkbox">
+            <settings>
+                <label translate="true">Aprueba ordenes At Once</label>
+                <tooltip>
+                    <description translate="true">Este campo indica si este usuario está habilitado para poder aprobar
+                        ordenes de compras at once
+                    </description>
+                </tooltip>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <prefer>toggle</prefer>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+    </fieldset>
+
+</form>

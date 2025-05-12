@@ -1,0 +1,23 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit */
+/** @var \Magento\Framework\Escaper $escaper */
+
+/** @var \Southbay\Product\Helper\Data $southbay_helper */
+$southbay_helper = $this->helper(Southbay\Product\Helper\Data::class);
+$product = $southbay_helper->findParentProduct($block->getItem()->getProduct()->getId());
+if (is_null($product)) {
+    $product = $block->getItem()->getProduct();
+}
+?>
+
+<a class="action action-edit"
+   href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>"
+   title="<?= $block->escapeHtmlAttr(__('Edit item parameters')) ?>">
+    <span><?= $block->escapeHtml(__('Edit')) ?></span>
+</a>
+

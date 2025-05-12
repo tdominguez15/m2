@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route frontName="southbay_custom_checkout" id="southbay_custom_checkout">
+            <module name="Southbay_CustomCheckout"/>
+        </route>
+    </router>
+</config>

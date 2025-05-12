@@ -1,0 +1,22 @@
+<script>
+    require([
+        'jquery',
+        'Magento_Customer/js/customer-data'
+    ], function ($, customerData) {
+        $(document).ready(function () {
+            $(document).on('click', '#reload-cart-button', function () {
+                var sections = ['cart'];
+                var miniCart = $('.block-minicart');
+                if (miniCart.length) {
+                    miniCart.append('<div class="loading-mask"><div class="loader"></div></div>');
+                }
+                customerData.reload(sections, true).done(function () {
+                    miniCart.find('.loading-mask').remove();
+                }).fail(function () {
+                    miniCart.find('.loading-mask').remove();
+                    console.error('Error al recargar el carrito.');
+                });
+            });
+        });
+    });
+</script>

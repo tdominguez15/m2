@@ -1,0 +1,969 @@
+//Variables
+
+@custom-primary-color: #F5F5F5;
+@green-link-color: #D94747;
+@color-black: #000000;
+@button-colors: #111111;
+
+@button-primary__background: @custom-primary-color;
+@link__color: @green-link-color;
+
+@screen__m: 1024px;
+
+@copyright__background-color: @custom-primary-color;
+
+
+//Estilos Generales
+
+body, select, button, .action.primary, input[type="text"], input[type="email"], input {
+    font-family: 'Montserrat', sans-serif;
+}
+
+ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+& when (@media-common = true) {
+//Buttons
+    .action.primary {
+        background: #000000;
+        border: none;
+        opacity: 0.7;
+        transition: 0.3s;
+
+        &:hover {
+            background: #C0C0C0;
+            color: #696969;
+            border: none;
+            opacity: 1;
+        }
+    }
+
+    a, .alink {
+        color: #1d1d1d;
+    }
+
+//Fotorama
+    .fotorama__nav__shaft {
+        .fotorama__thumb-border {
+            border: 1px solid #808080;
+        }
+    }
+
+//Search results
+    .search.results {
+        .block {
+            display: none;
+        }
+    }
+
+//Sidebar
+    .sidebar {
+        .block-wishlist {
+            display: none;
+        }
+    }
+
+//Hide reorder block
+    .block.block-reorder {
+        display: none;
+    }
+
+    .block-reorder {
+        display: none;
+    }
+
+    .header.content {
+        .block-search, .minicart-wrapper {
+            display: none;
+        }
+    }
+}
+
+//Links
+
+a:visited, .alink:visited {
+    color: #333333;
+}
+
+.block-collapsible-nav .item .delimiter {
+    display: none;
+}
+
+.sections.nav-sections {
+    display: none;
+}
+
+
+/*Tabla Nueva Devolución*/
+.southbay_return_product-newreturn-index {
+    h1 {
+        font-size: 30px;
+        margin-bottom: 22px;
+    }
+
+    .start {
+        #new-good {
+            display: block;
+            background-color: #F75301;
+            border: 1px solid #F75301;
+            color: white;
+            margin-right: 12px;
+            padding: 7px 10px;
+            border-radius: 4px;
+            transition: 0.3s;
+            font-size: 20px;
+            text-transform: uppercase;
+            font-weight: 600;
+            width: 332px;
+            text-align: center;
+            float: left;
+
+            &:hover {
+                text-decoration: none;
+                opacity: 0.8;
+            }
+        }
+
+        #new-fail {
+            display: block;
+            background-color: transparent;
+            color: #F75301;
+            border: 1px solid #F75301;
+            padding: 7px 10px;
+            border-radius: 4px;
+            transition: 0.3s;
+            font-size: 20px;
+            text-transform: uppercase;
+            font-weight: 600;
+            width: 332px;
+            text-align: center;
+            float: left;
+
+            &:hover {
+                text-decoration: none;
+                opacity: 0.8;
+            }
+        }
+    }
+
+    .step-1, .step-2 {
+        table {
+            font-size: 13px;
+
+            tr {
+                border-bottom: 1px solid gray;
+
+                &.return-table-header {
+                    background-color: #6e716e;
+                    color: white;
+                }
+            }
+
+            #table_body {
+                tr {
+                    &:nth-child(odd) {
+                        background-color: #fff;
+                    }
+                    &:nth-child(even) {
+                        background-color: #eee;
+                    }
+                }
+            }
+
+            td {
+                .return-select {
+                    position: relative;
+                    top: 10px;
+                    cursor: pointer;
+                }
+            }
+
+            .remove-cart-item {
+                text-transform: capitalize;
+                color: #F75301;
+                text-decoration: none;
+                transition: 0.3s;
+                font-weight: 600;
+
+                &:hover {
+                    color: black;
+                }
+            }
+        }
+
+        .change-type-link {
+            text-transform: capitalize;
+            color: #F75301;
+            text-decoration: none;
+            transition: 0.3s;
+            font-weight: 600;
+
+            &:hover {
+                color: #F75301;
+            }
+        }
+
+        .add-more-link {
+            text-transform: capitalize;
+            color: #F75301;
+            text-decoration: none;
+            transition: 0.3s;
+            font-weight: 600;
+
+            &:hover {
+                color: black;
+            }
+        }
+
+        .search-paga-container {
+            #btn-search {
+                text-transform: uppercase;
+                font-size: 13px;
+                height: 32px;
+
+                &:hover {
+                    border-color: #F75301;
+                    color: #F75301;
+                    background-color: #FFFFFF;
+                    transition: 0.3s;
+                }
+            }
+
+            .return-cart-total {
+                .return-cart-total-text {
+                    position: relative;
+                    top: 8px;
+                }
+
+                .return-cart-total-value {
+                    display: block;
+                    float: right;
+                    text-align: center;
+                    width: 86px;
+                    height: 23px;
+
+                    a {
+                        display: block;
+                        font-weight: 600;
+                        text-decoration: none;
+                        color: white;
+                        float: left;
+                        margin-left: 8px;
+                    }
+
+                    .edit-returns {
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: #FFFFFF;
+                        text-transform: uppercase;
+                        display: inline;
+                        margin-top: 4px;
+                    }
+                }
+            }
+        }
+    }
+
+    #action-generate-return {
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        padding: 10px;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    .step-1 {
+        .search-container {
+            margin-bottom: 14px;
+            margin-top: 10px;
+        }
+
+        .buttons-container {
+            margin-bottom: 10px;
+            height: 44px;
+
+            .select-all {
+                display: block;
+                float: left;
+                background-color: #F75301;
+                border: 1px solid #F75301;
+                color: white;
+                margin-right: 12px;
+                padding: 7px 10px;
+                border-radius: 4px;
+                transition: 0.3s;
+                font-size: 13px;
+                text-transform: uppercase;
+                font-weight: 600;
+
+                &:hover {
+                    text-decoration: none;
+                    opacity: 0.8;
+                }
+            }
+
+            .add-selection {
+                display: block;
+                float: left;
+                background-color: transparent;
+                color: #F75301;
+                border: 1px solid #F75301;
+                padding: 7px 10px;
+                border-radius: 4px;
+                transition: 0.3s;
+                font-size: 13px;
+                text-transform: uppercase;
+                font-weight: 600;
+
+                &:hover {
+                    text-decoration: none;
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+
+    .step-2 {
+        #form-southbay-return-products {
+            #table_body_cart {
+                tr {
+                    &:nth-child(odd) {
+                        background-color: #fff;
+                    }
+                    &:nth-child(even) {
+                        background-color: #eee;
+                    }
+
+                    .message-info {
+                        background-color: #eee;
+                        border: 1px solid gray;
+
+                        a {
+                            color: #F75301;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.form-southbay-return-products, .form-southbay-return-products-type {
+    .reason_selected_option {
+        border-style: solid;
+        border-radius: 4px;
+        padding: 5px;
+        background-color: lightgrey;
+        font-weight: 500;
+        font-size: 12px;
+        margin-right: 3px;
+        border-width: 1px;
+        margin-bottom: 3px;
+    }
+}
+
+.reason_selected_option {
+    border-style: solid;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: lightgrey;
+    font-weight: 500;
+    font-size: 12px;
+    margin-right: 8px;
+    border-width: 1px;
+    margin-bottom: 3px;
+}
+
+.block block-reorder {
+    display: none;
+}
+
+.abs-like-link {
+    color: #F75301;
+}
+
+.return-history {
+    .col.actions {
+        .view-return {
+            color: #F75301;
+
+            &:hover {
+                color: #F75301;
+                text-decoration: none;
+            }
+        }
+    }
+
+    .history {
+        .reason_selected_option {
+            border-style: solid;
+            border-radius: 4px;
+            padding: 5px;
+            background-color: lightgrey;
+            font-weight: 500;
+            font-size: 12px;
+            margin-right: 3px;
+            border-width: 1px;
+            margin-bottom: 3px;
+        }
+
+        tbody {
+            tr {
+                &:nth-child(odd) {
+                    background-color: #fff;
+                }
+                &:nth-child(even) {
+                    background-color: #eee;
+                }
+            }
+        }
+    }
+}
+
+.southbay_return_product-myreturns-index, .southbay_return_product-history-index {
+    h1 {
+        font-size: 30px;
+        margin-bottom: 22px;
+    }
+
+    .return-history {
+        table#my-returns-table {
+            font-size: 13px;
+
+            thead {
+                tr {
+                    border-bottom: 1px solid gray;
+                    background-color: #6e716e;
+                    color: white;
+                }
+            }
+
+            td {
+                .return-select {
+                    position: relative;
+                    top: 10px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.southbay_return_product-newreturn-index {
+    .modal-footer {
+        button {
+            background-color: #F75301;
+            border-radius: 3px;
+            padding: 8px 10px;
+            color: white;
+            text-transform: uppercase;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+input.southbay_return_product {
+    text-align: center!important;
+}
+
+.customer-account-login {
+    main#maincontent {
+        padding-top: 40px;
+    }
+}
+
+//Modal
+
+footer.modal-footer {
+    display: block;
+
+    .action-secondary, .action-primary {
+        display: block;
+        float: left;
+        background-color: #F75301;
+        border: 1px solid #f75301;
+        color: white;
+        margin-right: 12px;
+        padding: 7px 10px;
+        border-radius: 4px;
+        transition: 0.3s;
+        font-size: 13px;
+        text-transform: uppercase;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: none;
+            opacity: 0.8;
+        }
+    }
+}
+
+.customer-account-logoutsuccess {
+    main#maincontent {
+        padding-top: 40px;
+    }
+}
+
+
+// New Return
+.southbay_return_product-newreturn-index {
+    .return-table-container {
+        overflow: auto;
+        width: 100%;
+    }
+
+    .return_reasons {
+        display: none;
+    }
+
+    .step-1, .step-2 {
+        display: none;
+        width: 100%;
+    }
+
+    #sold_to_select {
+        max-width: 30em;
+    }
+
+    .sold_to_list_container {
+        margin-bottom: 1em;
+    }
+
+    .sold_to_list_container label {
+        font-weight: 600;
+        font-size: 14px;
+        margin-right: .5em;
+    }
+
+    .start .message-success {
+        display: none;
+    }
+
+    .start .message-error {
+        display: none;
+    }
+
+    .step-2 .message-error {
+        display: none;
+    }
+
+    .search-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+
+    .search-container #sku-search {
+        flex: 6;
+        margin-right: .5em;
+    }
+
+    .search-container button {
+        flex: 2;
+    }
+
+    .search-container .empty {
+        flex: 4;
+    }
+
+    .empty_row {
+        text-align: center;
+        color: grey;
+        font-size: 1.3em;
+    }
+
+    th {
+        text-align: center !important;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .price {
+        text-wrap: nowrap;
+        text-align: right;
+    }
+
+    .change-type-link, .add-more-link {
+        font-size: .85em;
+        color: red;
+        text-decoration: underline;
+    }
+
+    .add-more-link {
+        margin-left: 2em;
+        color: dodgerblue;
+    }
+
+    .search-paga-container {
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+    }
+
+    .return-cart-total-text {
+        color: grey;
+        margin-right: .5em;
+    }
+
+    .return-cart-total-value {
+        background-color: #F75301;
+        border-radius: 3px;
+        padding: 0.45em;
+        font-size: 1.2em;
+    }
+
+    .return-cart-total-action, .return-cart-total-action:hover {
+        color: white;
+    }
+
+    .return-cart-total {
+        display: inline;
+    }
+
+    .step-2 table {
+        margin-top: 2em;
+    }
+
+    .step-2 table tr td {
+        vertical-align: middle;
+    }
+
+    td.southbay_int_invoice_num, td.southbay_invoice_ref, td.southbay_invoice_item_sku, td.southbay_invoice_date {
+        text-wrap: nowrap;
+    }
+
+    input.southbay_return_product {
+        max-width: 60px;
+        text-align: right;
+    }
+
+    .generate-return, .generate-return:hover {
+        background-color: #F75301;
+        border-radius: 3px;
+        padding: 0.45em;
+        color: white;
+        font-size: 1.2em;
+    }
+
+    .modal-inner-wrap {
+        max-width: 30% !important;
+    }
+
+    .modal-inner-wrap #return_reason {
+        margin-top: 5px;
+        min-height: 100px;
+        max-height: 200px;
+    }
+
+    .reason_selected_option {
+        border-style: solid;
+        border-color: darkgrey;
+        border-radius: 10px;
+        padding: 5px;
+        background-color: lightgrey;
+        font-weight: 400;
+        margin-right: 3px;
+    }
+}
+
+//My Returns
+.southbay_return_product-myreturns-index {
+    .modal-inner-wrap {
+        max-width: 25% !important;
+    }
+
+    .modal-inner-wrap .modal-content {
+        padding-bottom: 10px !important;
+    }
+
+    .packages-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .packages-content label {
+        font-weight: 600;
+    }
+
+    .packages-content input {
+        max-width: 30% !important;
+        text-align: right;
+    }
+
+    .southbay_return_type {
+        text-align: center;
+    }
+
+    .southbay_return_status {
+        text-align: center;
+    }
+
+    .southbay_created_at {
+        text-align: center;
+        text-wrap: nowrap;
+    }
+
+    .southbay_return_id {
+        text-align: left;
+    }
+
+    tr {
+        vertical-align: middle;
+    }
+
+    td {
+        vertical-align: middle;
+    }
+
+    .qty {
+        text-align: right;
+    }
+}
+
+//Return Detail
+.southbay_return_product-myreturns-detail {
+    .modal-inner-wrap {
+        max-width: 25% !important;
+    }
+
+    .modal-inner-wrap .modal-content {
+        padding-bottom: 10px !important;
+    }
+
+    .packages-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .packages-content label {
+        font-weight: 600;
+    }
+
+    .packages-content input {
+        max-width: 30% !important;
+        text-align: right;
+    }
+
+    .southbay_return_type {
+        text-align: center;
+    }
+
+    .southbay_return_status {
+        text-align: center;
+    }
+
+    .southbay_created_at {
+        text-align: center;
+    }
+
+    .southbay_return_id {
+        text-align: left;
+    }
+
+    tr {
+        vertical-align: middle;
+    }
+
+    td {
+        vertical-align: middle;
+    }
+
+    .qty {
+        text-align: right;
+    }
+
+    .reason_selected_option_rejected {
+        border-color: darkkhaki;
+        background-color: lightyellow;
+    }
+
+    label {
+        margin-right: 15px;
+        font-weight: 700;
+    }
+}
+
+#control_qa_items_form {
+    .table_items {
+        font-size: 13px;
+        width: 100%;
+    }
+
+    .table_items tr {
+        border-bottom: 1px solid gray;
+    }
+
+    .table_items thead tr {
+        background-color: #6e716e;
+        color: white;
+        font-weight: bold;
+    }
+
+    .table_items thead td {
+        padding: 10px;
+    }
+
+    .table_items tbody td {
+        padding: 5px;
+        padding-top: 10px;
+        vertical-align: top;
+    }
+
+    .southbay_return_qty_rejected input {
+        min-width: 6.5em;
+        text-align: right;
+    }
+
+    td.southbay_return_item_sku {
+        text-wrap: nowrap;
+    }
+
+    .southbay_return_item_name, .southbay_return_item_sku {
+        text-align: center;
+    }
+
+    .southbay_return_item_sku, .southbay_return_item_qty, .southbay_return_qty_accepted {
+        font-size: 18px;
+        line-height: 35px;
+    }
+
+    .southbay_return_item_sku {
+        font-weight: 400;
+    }
+
+    .southbay_return_qty_rejected {
+        font-size: 16px;
+    }
+
+    .southbay_return_qty_real {
+        max-width: 6.5em !important;
+        text-align: right;
+    }
+
+    .table_items .select2-container {
+        min-width: 200px;
+    }
+
+    .table_items .select2-container .select2-selection {
+        text-align: left;
+    }
+}
+//dashboard
+.southbay_return_product-dashboard-index {
+
+    #return-dashboard-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    #return-dashboard-table th {
+        background-color: #6e716e;
+        color: #fff;
+        padding: 10px;
+        text-align: left;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    #return-dashboard-table th input,
+    #return-dashboard-table th select {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+
+    #return-grid-body tr {
+        transition: background-color 0.3s ease;
+    }
+
+
+    #return-grid-body tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    #return-grid-body tr:nth-child(even) {
+        background-color: #eee;
+    }
+
+    #return-grid-body tr:hover {
+        background-color: #eaeaea;
+    }
+
+
+    #return-dashboard-table td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .southbay_return_id {
+        font-weight: bold;
+    }
+
+    .southbay_return_updated_at {
+        color: #555;
+    }
+
+    .southbay_return_type {
+        text-transform: capitalize;
+    }
+
+    #download-btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 15px;
+        font-size: 14px;
+    }
+
+    #download-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .date-filter {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    #filter-updated-at-from,#filter-updated-at-to {
+        padding: 2px 6px;
+        width: 100%;
+        max-width: 115px;
+        appearance: none;
+    }
+
+    #return-dashboard-table td.southbay_return_updated_at {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    #return-dashboard-table th.southbay_return_updated_at {
+        text-align: center;
+    }
+}
+
+
+
+

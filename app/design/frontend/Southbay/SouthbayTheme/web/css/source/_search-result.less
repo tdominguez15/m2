@@ -1,0 +1,77 @@
+& when (@media-common = true) {
+    .agregar-todos {
+        position: relative;
+        top: -20px;
+
+        font-size: 16px;
+        text-transform: uppercase;
+        padding: 6px 8px;
+        color: #FFFFFF;
+        background-color: #F75301;
+        border-radius: 4px;
+        transition: 0.3s;
+        border: 1px solid transparent;
+        width: 240px;
+        text-align: center;
+        &.success {
+            background-color: #006400;
+            border: 1px solid #006400;
+        }
+        &:hover {
+            text-decoration: none;
+            color: #F75301;
+            background-color: #FFFFFF;
+            border: 1px solid #F75301;
+        }
+    }
+
+    .catalogsearch-result-index {
+        .product-item-link {
+            &.added-to-cart {
+                background-color: #d2f7d2;
+                padding: 3px 2px;
+                position: relative;
+                color: #006400;
+                font-weight: 600;
+                transition: 0.3s;
+                line-height: 27px;
+
+                &:before {
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    font-size: 32px;
+                    line-height: 30px;
+                    color: #006400;
+                    content: '\e60e';
+                    font-family: 'luma-icons';
+                    margin: -12px 0 0;
+                    vertical-align: middle;
+                    display: inline-block;
+                    font-weight: normal;
+                    overflow: hidden;
+                    speak: none;
+                    left: -5px;
+                    top: -30px;
+                    width: 45px;
+                    height: 33px;
+                    position: absolute;
+                    text-align: center;
+                    z-index: 99;
+                    transition: 0.3s;
+                }
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .product-item-details {
+            .product-item-inner {
+                .actions-secondary {
+                    display: none!important;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">config_by_rol_list.grid_data_source</item>
+            <item name="sticky" xsi:type="boolean">false</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>grid_columns</spinner>
+        <deps>
+            <dep>config_by_rol_list.grid_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Nueva configuración</label>
+            </button>
+        </buttons>
+    </settings>
+    <dataSource name="grid_data_source" component="Magento_Ui/js/grid/provider">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">southbay_rol_config_return_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="Southbay\ReturnProduct\Model\ResourceModel\DataProvider\ConfigByRol\ConfigByRolDataProvider"
+                      name="grid_data_source">
+            <settings>
+                <primaryFieldName>southbay_rol_config_return_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="grid_columns">
+        <column name="southbay_rol_config_return_country_code" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label translate="true">País</label>
+                <dataType>select</dataType>
+                <sortable>true</sortable>
+                <filter>select</filter>
+                <options class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\CountryOptionsProvider"/>
+            </settings>
+        </column>
+        <column name="southbay_rol_config_return_type" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label translate="true">Tipo devolución</label>
+                <dataType>select</dataType>
+                <sortable>true</sortable>
+                <filter>select</filter>
+                <options class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\ReturnTypeOptionsProvider"/>
+            </settings>
+        </column>
+        <column name="southbay_rol_config_return_type_rol" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label translate="true">Tipo rol</label>
+                <dataType>select</dataType>
+                <sortable>true</sortable>
+                <filter>select</filter>
+                <options class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\TypeRolOptionsProvider"/>
+            </settings>
+        </column>
+        <column name="southbay_rol_config_return_rol_code" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label translate="true">Rol</label>
+                <dataType>select</dataType>
+                <sortable>true</sortable>
+                <filter>select</filter>
+                <options class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\MagentoRolesOptionsProvider"/>
+            </settings>
+        </column>
+        <column name="link_label" component="Magento_Ui/js/grid/columns/link">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="link" xsi:type="string">link</item>
+                </item>
+            </argument>
+            <settings>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+    </columns>
+</listing>

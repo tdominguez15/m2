@@ -1,0 +1,37 @@
+.southbay_return_product_search_return_container .message {
+    width: 36em;
+    margin: auto;
+    margin-bottom: .5em;
+    display: none;
+}
+
+div[data-index="form_fields"] {
+    display: none;
+}
+
+#save {
+    display: none;
+}
+
+#southbay_return_product_search_return_id {
+    width: 50%;
+}
+
+.southbay_return_product_id_container input, .amount_container input {
+    width: 10em !important;
+    text-align: right;
+}
+
+.view_return_product_detail {
+    margin-left: 13em;
+    margin-bottom: 2em;
+}
+
+.southbay_return_product_id_show_detail {
+    padding-top: .5em;
+}
+
+.admin__control-text[disabled] {
+    background-color: #fff !important;
+    color: #000 !important;
+}

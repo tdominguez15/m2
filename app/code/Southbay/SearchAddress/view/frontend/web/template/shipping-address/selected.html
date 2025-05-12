@@ -1,0 +1,125 @@
+<div class="shipping-address-item selected">
+    <if args="defaultAddress()">
+        <span data-bind="text: defaultAddress().prefix"></span>
+        <span data-bind="text: defaultAddress().firstname"></span>
+<!--        <span data-bind="text: defaultAddress().middlename"></span>-->
+<!--        <span data-bind="text: defaultAddress().lastname"></span>-->
+        <span data-bind="text: defaultAddress().suffix"></span>
+        <br/>
+        <span data-bind="text: _.values(defaultAddress().street).join(', ')"></span>
+        <br/>
+<!--        <span data-bind="text: defaultAddress().city"></span>-->
+         <span data-bind="text: defaultAddress().region"></span>
+<!--        <span data-bind="text: defaultAddress().postcode"></span>-->
+        <br/>
+
+        <if args="getCountryName(defaultAddress().countryId)">
+            <span data-bind="text: getCountryName(defaultAddress().countryId)"></span>
+        </if>
+        <ifnot args="getCountryName(defaultAddress().countryId)">
+            <span data-bind="text: getCountryName(defaultAddress().country_id)"></span>
+        </ifnot>
+        <br/>
+<!--        <a if="defaultAddress().telephone" attr="'href': 'tel:' + defaultAddress().telephone"-->
+<!--           text="defaultAddress().telephone"></a>-->
+        <br/>
+
+        <each args="data: defaultAddress().customAttributes, as: 'element'">
+            <each args="data: Object.keys(element), as: 'attribute'">
+                <if args="typeof element[attribute] === 'object'">
+                    <if args="element[attribute].label">
+                        <span data-bind="text: element[attribute].label"></span>
+                    </if>
+                    <ifnot args="element[attribute].label">
+                        <if args="element[attribute].value">
+                            <span data-bind="text: element[attribute].value"></span>
+                        </if>
+                    </ifnot>
+                </if>
+                <if args="typeof element[attribute] === 'string'">
+                    <span data-bind="text: element[attribute]"></span>
+                </if>
+                <br/>
+            </each>
+        </each>
+    </if>
+    <ifnot args="defaultAddress()">
+        <p data-bind="text: noAddressMessage"></p>
+    </ifnot>
+    <div class="edit-address-popup">
+        <button type="button"
+                class="action action-additional"
+                visible="defaultAddress() &amp;&amp; defaultAddress().isEditable()"
+                click="editAddress">
+            <span data-bind="i18n: 'Edit'"></span>
+        </button>
+    </div>
+    <div class="change-address-popup">
+        <button type="button"
+                class="action action-additional"
+                visible="isChangeAddressVisible"
+                click="openAddressSelection">
+            <span data-bind="i18n: 'Change Address'"></span>
+        </button>
+    </div>
+</div>
+
+
+
+
+
+<!--<div class="shipping-address-item selected">-->
+<!--    &lt;!&ndash; ko if: defaultAddress() &ndash;&gt;-->
+<!--    <span data-debug="prefix" data-bind="text: defaultAddress().prefix"></span>-->
+<!--    <span data-debug="firstname" data-bind="text: defaultAddress().firstname"></span>-->
+<!--    <span data-debug="middlename" data-bind="text: defaultAddress().middlename"></span>-->
+<!--    <span data-debug="lastname" data-bind="text: defaultAddress().lastname"></span>-->
+<!--    <span data-debug="suffix" data-bind="text: defaultAddress().suffix"></span>-->
+<!--    <br>-->
+<!--    <span data-debug="street" data-bind="text: _.values(defaultAddress().street).join(', ')"></span>-->
+<!--    <br>-->
+<!--    <span data-debug="city" data-bind="text: defaultAddress().city"></span>,-->
+<!--    <span data-debug="region" data-bind="text: defaultAddress().region"></span>-->
+<!--    <span data-debug="postcode" data-bind="text: defaultAddress().postcode"></span>-->
+<!--    <br>-->
+
+<!--    &lt;!&ndash; ko if: getCountryName(defaultAddress().countryId) &ndash;&gt;-->
+<!--    <span data-debug="countryName" data-bind="text: getCountryName(defaultAddress().countryId)"></span>-->
+<!--    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    &lt;!&ndash; ko ifnot: getCountryName(defaultAddress().countryId) &ndash;&gt;&lt;!&ndash; /ko &ndash;&gt;-->
+<!--    <br>-->
+<!--    &lt;!&ndash; ko if: defaultAddress().telephone &ndash;&gt;-->
+<!--    <a data-bind="attr: {'href': 'tel:' + defaultAddress().telephone}, text: defaultAddress().telephone" data-debug="telephone" href="tel:22222">22222</a>-->
+<!--    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    <br>-->
+
+<!--    &lt;!&ndash; ko foreach: {data: defaultAddress().customAttributes, as: 'element'} &ndash;&gt;-->
+<!--    &lt;!&ndash; ko if: typeof element[attribute] === 'object' &ndash;&gt;-->
+<!--    &lt;!&ndash; ko if: element[attribute].label &ndash;&gt;-->
+<!--    <span data-bind="text: element[attribute].label" data-debug="customAttributeLabel"></span>-->
+<!--    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    &lt;!&ndash; ko ifnot: element[attribute].label &ndash;&gt;-->
+<!--    &lt;!&ndash; ko if: element[attribute].value &ndash;&gt;-->
+<!--    <span data-bind="text: element[attribute].value" data-debug="customAttributeValue"></span>-->
+<!--    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    &lt;!&ndash; ko if: typeof element[attribute] === 'string' &ndash;&gt;-->
+<!--    <span data-bind="text: element[attribute]" data-debug="customAttributeStringValue"></span>-->
+<!--    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    <br/>-->
+<!--    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    &lt;!&ndash; ko ifnot: defaultAddress() &ndash;&gt;&lt;!&ndash; /ko &ndash;&gt;-->
+<!--    <div class="edit-address-popup">-->
+<!--        <button type="button" class="action action-additional" data-bind="click: editAddress, visible: defaultAddress() &amp;&amp; defaultAddress().isEditable()" style="display: none;">-->
+<!--            <span data-bind="i18n: 'Edit'">Editar</span>-->
+<!--        </button>-->
+<!--    </div>-->
+<!--    <div class="change-address-popup">-->
+<!--        <button type="button" class="action action-additional" data-bind="click: openAddressSelection, visible: isChangeAddressVisible">-->
+<!--            <span data-bind="i18n: 'Change Address'">Change Address</span>-->
+<!--        </button>-->
+<!--    </div>-->
+<!--</div>-->
+

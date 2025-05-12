@@ -1,0 +1,97 @@
+& when (@media-common = true) {
+    .landing-index-index {
+        .page-layout-3columns .column.main {
+            width: 100%;
+        }
+
+        .minicart-wrapper, .block-search, .nav-sections {
+            display: none;
+        }
+
+        .col {
+            clear: both;
+            padding-top: 10px;
+
+            .action.primary {
+                display: block;
+                float: left;
+                margin-right: 8px;
+                font-size: 16px;
+                text-transform: uppercase;
+                padding: 6px 8px;
+                color: #FFFFFF;
+                background-color: #F75301;
+                border-radius: 4px;
+                transition: 0.3s;
+                border: 1px solid transparent;
+                width: 240px;
+                text-align: center;
+
+                &:hover {
+                    text-decoration: none;
+                    color: #F75301;
+                    background-color: #FFFFFF;
+                    border: 1px solid #f75301;
+                }
+
+                &:nth-child(2) {
+                    background-color: #00B0E5;
+
+                    &:hover {
+                        text-decoration: none;
+                        color: #00B0E5;
+                        background-color: #FFFFFF;
+                        border: 1px solid #00B0E5;
+                    }
+                }
+
+                &:nth-child(3) {
+                    background-color: #0033AF;
+
+                    &:hover {
+                        text-decoration: none;
+                        color: #0033AF;
+                        background-color: #FFFFFF;
+                        border: 1px solid #0033AF;
+                    }
+                }
+            }
+        }
+    }
+
+    .landing-soldto-index {
+        .minicart-wrapper, .block-search, .nav-sections {
+            display: none;
+        }
+
+        #save_and_redirect {
+            display: block;
+            float: left;
+            margin-right: 8px;
+            font-size: 16px;
+            text-transform: uppercase;
+            padding: 6px 8px;
+            color: #FFFFFF;
+            background-color: #F75301;
+            border-radius: 4px;
+            transition: 0.3s;
+            border: 1px solid transparent;
+            width: 240px;
+            text-align: center;
+
+            &:hover {
+                text-decoration: none;
+                color: #F75301;
+                background-color: #FFFFFF;
+                border: 1px solid #f75301;
+            }
+        }
+    }
+}
+
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .page-layout-3columns .column.main {
+        width: 100%;
+    }
+}

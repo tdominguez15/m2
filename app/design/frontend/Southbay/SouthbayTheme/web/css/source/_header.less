@@ -1,0 +1,119 @@
+& when (@media-common = true) {
+    .page-header {
+        background-color: @color-black;
+
+        .panel.wrapper {
+            border-bottom: 0;
+
+            .customer-menu {
+                .header.links {
+                    li.link.wishlist {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .navigation {
+        a {
+            font-weight: 600;
+        }
+    }
+
+    .breadcrumbs {
+        a, a:visited, .alink {
+            color: #1d1d1d;
+        }
+    }
+
+    .header.content {
+        background-image: url("../images/bg-header.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        .nav-toggle:before {
+            color: #FFFFFF;
+        }
+    }
+
+    .modal-content {
+        .block.block-new-customer {
+            display: none;
+        }
+    }
+}
+
+//Mobile
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .header.content {
+        .switch-tienda {
+            ul {
+                li {
+                    a {
+                        width: 120px;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+
+    .modal-content {
+        .block.block-new-customer {
+            display: none;
+        }
+    }
+}
+
+//Desktop
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .page-header {
+        background-color: @color-black;
+
+        .panel.wrapper {
+            border-bottom: 0;
+        }
+    }
+
+    .modal-content {
+        .block.block-new-customer {
+            display: none;
+        }
+    }
+
+    .popup-authentication {
+        .modal-inner-wrap {
+            min-width: 420px;
+            width: 40%;
+        }
+    }
+
+    .checkout-cart-index {
+        .popup-authentication {
+            .modal-inner-wrap {
+                min-width: 420px;
+                width: 40%;
+            }
+
+            .block[class] + .block {
+                padding: 10px;
+                border-left: none;
+
+                &:before {
+                    display: none;
+                }
+            }
+        }
+    }
+    .search-max-notice {
+        text-align: left;
+        font-size: 12px;
+        color: #FFFFFF;
+        margin-top: 5px;
+        padding-left: 15px;
+    }
+
+
+
+}

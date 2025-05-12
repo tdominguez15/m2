@@ -1,0 +1,259 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="southbay_sap_interface_config" resource="default" engine="innodb" comment="sap interface">
+        <column xsi:type="int" name="southbay_sap_interface_config_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+
+        <column xsi:type="varchar" name="southbay_sap_interface_config_type" nullable="false" length="30"
+                comment="type: innova, no-innova, purchase-order, check-status"/>
+
+        <column xsi:type="varchar" name="southbay_sap_interface_config_url" nullable="false" length="250"
+                comment="url"/>
+
+        <column xsi:type="varchar" name="southbay_sap_interface_config_user" nullable="false" length="250"
+                comment="user"/>
+
+        <column xsi:type="varchar" name="southbay_sap_interface_config_pass" nullable="false" length="250"
+                comment="password"/>
+
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+
+        <index referenceId="SOUTHBAY_SAP_INTERFACE_CONFIG_TYPE" indexType="btree">
+            <column name="southbay_sap_interface_config_type"/>
+        </index>
+
+        <constraint xsi:type="unique" referenceId="SOUTHBAY_SAP_INTERFACE_CONFIG_URL">
+            <column name="southbay_sap_interface_config_url"/>
+        </constraint>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="southbay_sap_interface_config_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_sap_interface" resource="default" engine="innodb" comment="sap interface">
+        <column xsi:type="int" name="southbay_sap_interface_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="southbay_sap_interface_status" nullable="false" length="30"
+                comment="status"/>
+        <column xsi:type="varchar" name="southbay_sap_interface_url" nullable="false" length="250"
+                comment="url"/>
+        <column xsi:type="varchar" name="southbay_sap_interface_from" nullable="false" length="30"
+                comment="from"/>
+        <column xsi:type="int" name="southbay_sap_interface_ref" unsigned="true" nullable="false"
+                comment="ref id"/>
+        <column xsi:type="text" name="southbay_sap_interface_request" nullable="false"
+                comment="request"/>
+        <column xsi:type="text" name="southbay_sap_interface_response" nullable="true"
+                comment="response"/>
+        <column xsi:type="boolean" name="southbay_sap_interface_end"
+                nullable="false"
+                comment="flag for cron"
+                default="0"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <index referenceId="SOUTHBAY_SAP_INTERFACE_REF" indexType="btree">
+            <column name="southbay_sap_interface_ref"/>
+            <column name="southbay_sap_interface_from"/>
+        </index>
+        <index referenceId="SOUTHBAY_SAP_INTERFACE_END" indexType="btree">
+            <column name="southbay_sap_interface_end"/>
+        </index>
+        <index referenceId="SOUTHBAY_SAP_INTERFACE_FROM" indexType="btree">
+            <column name="southbay_sap_interface_from"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="southbay_sap_interface_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_sap_doc" resource="default" engine="innodb" comment="sap doc">
+        <column xsi:type="int" name="southbay_sap_doc_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="int" name="southbay_sap_interface_id" unsigned="true" nullable="false" identity="false"
+                comment="sap interface id"/>
+        <column xsi:type="varchar" name="southbay_sap_doc_type" nullable="false" length="30"
+                comment="type doc"/>
+        <column xsi:type="varchar" name="southbay_sap_doc_internal_number" nullable="false" length="150"
+                comment="internal number"/>
+        <column xsi:type="varchar" name="southbay_sap_doc_legal_number" nullable="false" length="150"
+                comment="legal number"/>
+        <column xsi:type="decimal" name="southbay_sap_doc_total_net_amount" nullable="false" precision="10" scale="2"
+                comment="total net amount"/>
+        <column xsi:type="decimal" name="southbay_sap_doc_total_amount" nullable="false" precision="10" scale="2"
+                comment="total amount"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <index referenceId="SOUTHBAY_SAP_DOC_INTERFACE_ID_REL" indexType="btree">
+            <column name="southbay_sap_interface_id"/>
+        </index>
+        <constraint xsi:type="unique" referenceId="SOUTHBAY_SAP_DOC_NUMBER_UNIQUE">
+            <column name="southbay_sap_doc_internal_number"/>
+            <column name="southbay_sap_interface_id"/>
+        </constraint>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="southbay_sap_doc_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_sap_doc_item" resource="default" engine="innodb" comment="sap doc">
+        <column xsi:type="int" name="southbay_sap_doc_item_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="int" name="southbay_sap_doc_id" unsigned="true" nullable="false" identity="false"
+                comment="sap doc id"/>
+        <column xsi:type="varchar" name="southbay_sap_doc_item_sku" nullable="false" length="150"
+                comment="sap sku"/>
+        <column xsi:type="int" name="southbay_sap_doc_item_qty" nullable="false" unsigned="true"
+                comment="internal number"/>
+        <column xsi:type="varchar" name="southbay_sap_doc_item_position" nullable="false" length="150"
+                comment="position"/>
+        <column xsi:type="decimal" name="southbay_sap_doc_item_net_amount" nullable="false" precision="10" scale="2"
+                comment="total net amount"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <index referenceId="SOUTHBAY_SAP_DOC_ID_REF" indexType="btree">
+            <column name="southbay_sap_doc_id"/>
+        </index>
+        <index referenceId="SOUTHBAY_SAP_DOC_ITEM_DOC_ID_REF" indexType="btree">
+            <column name="southbay_sap_doc_id"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="southbay_sap_doc_item_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_sap_check_status" resource="default" engine="innodb" comment="check status transactions">
+        <column xsi:type="int" name="southbay_sap_check_status_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="int" name="southbay_sap_interface_id" unsigned="true" nullable="false" identity="false"
+                comment="Sap interface id"/>
+        <column xsi:type="text" name="southbay_sap_interface_response" nullable="true"
+                comment="response"/>
+        <column xsi:type="varchar" name="southbay_sap_interface_check_sum" nullable="false" length="50"
+                comment="check sum"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <index referenceId="SOUTHBAY_SAP_CHECK_STATUS_SAP_INTERFACE_ID" indexType="btree">
+            <column name="southbay_sap_interface_id"/>
+        </index>
+        <index referenceId="SOUTHBAY_SAP_CHECK_STATUS_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+        <index referenceId="SOUTHBAY_SAP_CHECK_STATUS_CHECK_SUM" indexType="btree">
+            <column name="southbay_sap_interface_check_sum"/>
+            <column name="southbay_sap_interface_id"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="southbay_sap_check_status_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_sap_doc_interface" resource="default" engine="innodb" comment="customer sap interface">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="50"
+                comment="type" default="rtv"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="15"
+                comment="status"/>
+        <column xsi:type="varchar" name="result_msg" nullable="false" length="150"
+                comment="result msg"/>
+        <column xsi:type="timestamp" name="start_import_date" nullable="true"/>
+        <column xsi:type="timestamp" name="end_import_date" nullable="true"/>
+        <column xsi:type="timestamp" name="retry_at" nullable="true"/>
+        <column xsi:type="mediumtext" name="data" nullable="false" comment="data"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+
+        <index referenceId="SOUTHBAY_SAP_DOC_INTERFACE_STATUS_INDEX" indexType="btree">
+            <column name="status"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_SAP_DOC_INTERFACE_RETRY_AT_INDEX" indexType="btree">
+            <column name="retry_at"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_SAP_DOC_INTERFACE_START_IMPORT_INDEX" indexType="btree">
+            <column name="start_import_date"/>
+        </index>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="southbay_rol_config_return" resource="default" engine="innodb">
+        <column xsi:type="boolean"
+                name="require_all_members"
+                nullable="false"
+                comment="flag for multiple approvals"
+                default="0"/>
+    </table>
+
+    <table name="southbay_return_financial_approval" resource="default" engine="innodb">
+        <column xsi:type="varchar" name="southbay_return_financial_approval_user_code" nullable="true" length="150"
+                comment="user rol code"/>
+        <column xsi:type="boolean"
+                name="require_all_members"
+                nullable="false"
+                comment="flag for multiple approvals"
+                default="0"/>
+        <column xsi:type="int" name="southbay_return_financial_approval_total_approvals" unsigned="true" nullable="true"
+                comment="total approvals"/>
+        <column xsi:type="int" name="southbay_return_financial_approval_total_pending_approvals" unsigned="true"
+                nullable="true"
+                comment="total pending approvals"/>
+    </table>
+
+    <table name="southbay_return_financial_approval_users" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+
+        <column xsi:type="int" name="southbay_return_id" unsigned="true" nullable="false"
+                comment="rtv id"/>
+
+        <column xsi:type="varchar" name="user_code" nullable="false" length="100"
+                comment="user code"/>
+
+        <column xsi:type="varchar" name="username" nullable="false" length="150"
+                comment="username"/>
+
+        <column xsi:type="varchar" name="rol_code" nullable="false" length="150"
+                comment="user rol code"/>
+
+        <column xsi:type="boolean" name="approved" nullable="true"
+                comment="approved or not"/>
+
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+
+        <index referenceId="SOUTHBAY_RETURN_FINANCIAL_APPROVAL_USERS_RETURN_ID_INDEX" indexType="btree">
+            <column name="southbay_return_id"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_RETURN_FINANCIAL_APPROVAL_USERS_RETURN_ID_AND_USER_INDEX" indexType="btree">
+            <column name="southbay_return_id"/>
+            <column name="user_code"/>
+        </index>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

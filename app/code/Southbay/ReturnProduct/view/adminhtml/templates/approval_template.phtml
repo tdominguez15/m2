@@ -1,0 +1,116 @@
+<div id="page:main-container" class="page-columns">
+    <div class="admin__old">
+        <div id="container" class="main-col">
+            <div>
+                <div data-bind="scope: 'product_form.product_form'" class="entry-edit form-inline">
+                    <!-- ko template: getTemplate() -->
+                    <!-- ko foreach: {data: elems, as: 'element'} -->
+                    <!-- ko if: hasTemplate() --><!-- ko template: getTemplate() -->
+                    <div class="fieldset-wrapper"
+                         data-bind="visible: $data.visible === undefined ? true: $data.visible, css: $data.additionalClasses, attr: {'data-level': $data.level, 'data-index': index}"
+                         data-level="0" data-index="product-details">
+                        <form id="form_search_return_id">
+                            <p style="text-align: center; font-size: 18px">
+                                <label class="admin__field-label" style="font-weight: bold; margin-right: 1em"
+                                       for="search_return_id">Buscar
+                                    Devolución:
+                                </label>
+                                <input class="admin__control-text" type="number" name="search_return_id"/>
+                                <input class="button primary" type="submit" value="Buscar"/>
+                            </p>
+                        </form>
+                        <hr>
+                        <form id="form_new_reception">
+                            <div style="text-align: center">
+                                <table style="width: 50%; margin: auto">
+                                    <tr>
+                                        <td>
+                                            <label for="return_id">Nro. Devolución:</label>
+                                        </td>
+                                        <td>
+                                            <input id="return_id" readonly type="text" name="return_id">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="return_id">Cliente:</label>
+                                        </td>
+                                        <td>
+                                            <input id="customer_name" readonly type="text" name="customer_name">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="return_id">Total unidades devueltas:</label>
+                                        </td>
+                                        <td>
+                                            <input id="customer_name" readonly type="text" name="customer_name">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <div>
+                                            <table style="width: 80%; margin: auto">
+                                                <thead>
+                                                <th>SKU</th>
+                                                <th>Cantidad devuelta</th>
+                                                <th>Cantidad aceptada</th>
+                                                <th>Cantidad rechazada</th>
+                                                <th>Motivo rechazo</th>
+                                                </thead>
+                                                <tbody>
+                                                <td>FD1244-410</td>
+                                                <td>5</td>
+                                                <td><input value="5"></td>
+                                                <td><input value="0"></td>
+                                                <td>
+                                                    <select multiple>
+                                                        <option>Producto en condiciones para la venta</option>
+                                                        <option>Producto talle incorrecto</option>
+                                                    </select>
+                                                </td>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center">
+                                            <div style="margin-top: 10px; text-align: center">
+                                                <input style="margin-right: 1em; padding: 10px" class="button primary"
+                                                       type="reset"
+                                                       value="Limpiar"/>
+                                                <input style="font-weight: bold; padding: 10px" class="button primary"
+                                                       type="submit" value="Guardar"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    td {
+        text-align: right;
+    }
+
+    td label {
+        font-weight: 600;
+    }
+
+    tr input {
+        margin-bottom: 5px;
+    }
+</style>
+
+<script type="application/javascript">
+    require(['jquery', 'ko'], function ($, ko, modal) {
+        window._$ = $;
+    });
+</script>
+
+

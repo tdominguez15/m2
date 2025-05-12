@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Southbay\Product\Api\Data\SeasonTypeInterface" type="Southbay\Product\Model\SeasonType"/>
+    <preference for="Southbay\Product\Api\Data\SeasonInterface" type="Southbay\Product\Model\Season"/>
+    <preference for="Southbay\Product\Api\ProductSapApiInterface" type="Southbay\Product\Model\ProductSapApiSapApi"/>
+    <preference for="Southbay\Product\Api\Response\ProductInterfaceResponse"
+                type="Southbay\Product\Model\Response\ProductApiInterfaceResponse"/>
+    <preference for="Southbay\Product\Api\InternalProductLoadApiInterface"
+                type="Southbay\Product\Model\InternalProductLoadApi"/>
+    <preference for="Southbay\Product\Api\Response\InternalProductLoadResponseInterface"
+                type="Southbay\Product\Model\Response\InternalProductLoadResponse"/>
+
+    <preference for="Magento\CatalogSearch\Model\Layer\Filter\Attribute" type="Southbay\Product\Plugin\Attribute"/>
+
+    <type name="Magento\Elasticsearch7\Model\Client\Elasticsearch">
+        <plugin name="elastcisearch_filter_plugin" type="Southbay\Product\Plugin\Elasticsearch"/>
+    </type>
+
+    <type name="Magento\OpenSearch\Model\SearchClient">
+        <plugin name="open_search_filter_plugin" type="Southbay\Product\Plugin\Elasticsearch"/>
+    </type>
+
+    <type name="Southbay\Product\Model\Import\SeasonImporter">
+        <arguments>
+            <argument name="seasonFactory" xsi:type="object">Southbay\Product\Model\SeasonFactory</argument>
+            <argument name="seasonRepository" xsi:type="object">Southbay\Product\Model\ResourceModel\Season\Collection
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="southbay_test" xsi:type="object">Southbay\Product\Console\Command\TestCommand</item>
+                <item name="southbay_clear" xsi:type="object">Southbay\Product\Console\Command\ClearCommand</item>
+                <item name="southbay_test_create_season" xsi:type="object">
+                    Southbay\Product\Console\Command\TestCreateSeasonCommand
+                </item>
+                <item name="southbay_load_product_excel" xsi:type="object">
+                    Southbay\Product\Console\Command\ProductImportCommand
+                </item>
+                <item name="southbay_load_product_sap" xsi:type="object">
+                    Southbay\Product\Console\Command\SapProductImportCommand
+                </item>
+                <item name="southbay_fix_segmentation" xsi:type="object">
+                    Southbay\Product\Console\Command\FixSegmentationCommand
+                </item>
+                <item name="southbay_test_util" xsi:type="object">
+                    Southbay\Product\Console\Command\TestUtilCommand
+                </item>
+                <item name="southbay_export_products" xsi:type="object">
+                    Southbay\Product\Console\Command\ExportProductFromStoreCommand
+                </item>
+                <item name="southbay_fix_future_products" xsi:type="object">
+                    Southbay\Product\Console\Command\FixFutureProductsCommand
+                </item>
+                <item name="southbay_fix_variants_products" xsi:type="object">
+                    Southbay\Product\Console\Command\FixVariantsProductsCommand
+                </item>
+                <item name="southbay_load_sap_products" xsi:type="object">
+                    Southbay\Product\Console\Command\LoadSAPProducts
+                </item>
+                <item name="southbay_run_stock_atp" xsi:type="object">
+                    Southbay\Product\Console\Command\RunStockAtp
+                </item>
+                <item name="southbay_update_product_data" xsi:type="object">
+                    Southbay\Product\Console\Command\UpdateProductData
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Directory\Model\ResourceModel\Country\Collection" shared="false">
+        <arguments>
+            <argument name="helperData" xsi:type="object">DirectoryHelperDataProxy</argument>
+            <argument name="countriesWithNotRequiredStates" xsi:type="array">
+                <item name="FR" xsi:type="string">FR</item>
+                <item name="DE" xsi:type="string">DE</item>
+                <item name="AT" xsi:type="string">AT</item>
+                <item name="FI" xsi:type="string">FI</item>
+                <item name="BE" xsi:type="string">BE</item>
+                <item name="Z1" xsi:type="string">Z1</item>
+                <item name="Z1" xsi:type="string">Z2</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Locale\TranslatedLists">
+        <plugin name="Magento_Directory" type="Southbay\Product\Plugin\TranslatedListsPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\Locale\TranslatedLists">
+        <plugin name="Magento_Directory" type="Southbay\Product\Plugin\TranslatedListsPlugin"/>
+    </type>
+
+    <preference for="Magento\ConfigurableProduct\Pricing\Price\LowestPriceOptionsProvider"
+                type="Southbay\Product\Plugin\LowestPriceOptionsProvider"/>
+
+    <type name="Magento\Catalog\Helper\Product">
+        <plugin name="Magento_Product_Helper_Around_SkipSaleableCheck" type="Southbay\Product\Helper\MagentoProduct"/>
+    </type>
+
+    <preference for="Magento\Indexer\Console\Command\IndexerReindexCommand"
+                type="Southbay\Product\Plugin\Magento\Indexer\Console\Command\CustomIndexerReindexCommand"/>
+
+    <preference for="Magento\Indexer\Cron\ReindexAllInvalid"
+                type="Southbay\Product\Plugin\Magento\Indexer\Cron\CustomReindexAllInvalid"/>
+</config>

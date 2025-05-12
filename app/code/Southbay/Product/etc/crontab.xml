@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job instance="Southbay\Product\Cron\SouthbayProductImportCron"
+             method="run"
+             name="southbay_product_loader">
+            <schedule>* * * * *</schedule>
+        </job>
+<!--        <job instance="Southbay\Product\Cron\SouthbayProductImportImgCron"-->
+<!--             method="run"-->
+<!--             name="southbay_product_img_loader">-->
+<!--            <schedule>* * * * *</schedule>-->
+<!--        </job>-->
+        <job instance="Southbay\Product\Cron\SouthbayProductImportImgCronOptimized"
+             method="run"
+             name="southbay_product_img_loader_optimized">
+            <schedule>* * * * *</schedule>
+        </job>
+        <job instance="Southbay\Product\Cron\SouthbaySapProductImportCron"
+             method="run"
+             name="southbay_product_sap_import">
+            <schedule>* * * * *</schedule>
+        </job>
+        <job instance="Southbay\Product\Cron\SouthbayAtpCron"
+             method="run"
+             name="southbay_product_atp">
+            <schedule>* 6 * * *</schedule>
+        </job>
+    </group>
+</config>

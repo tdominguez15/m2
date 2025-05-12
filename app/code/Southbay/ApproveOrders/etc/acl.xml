@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Southbay_ApproveOrders::resource_id" title="Southbay Aprobación de ordenes" sortOrder="10">
+                    <resource id="Southbay_ApproveOrders::at_once" title="Aprueba ordenes At Once" sortOrder="20"/>
+                    <resource id="Southbay_ApproveOrders::future" title="Aprueba ordenes Futuras" sortOrder="21"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

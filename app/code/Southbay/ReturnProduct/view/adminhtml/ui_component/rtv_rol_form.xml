@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">exchange_form.form_data_source</item>
+            <item name="deps" xsi:type="string">exchange_form.form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Nuevo tipo de cambio</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+    </argument>
+
+    <dataSource name="form_data_source">
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Southbay\ReturnProduct\Model\SouthbayExchangeReturnDataProvider</argument>
+            <argument name="name" xsi:type="string">form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">southbay_exchange_return_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="fields">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Detalle</item>
+            </item>
+        </argument>
+
+        <field name="southbay_exchange_return_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+
+        <field name="southbay_exchange_return_country_code" formElement="select" sortOrder="1">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\CountryOptionsProvider"/>
+                    </settings>
+                </select>
+            </formElements>
+            <settings>
+                <visible>true</visible>
+                <elementTmpl>ui/form/element/select</elementTmpl>
+                <label translate="true">País</label>
+            </settings>
+        </field>
+
+        <field name="southbay_exchange_return_exchange" formElement="input" sortOrder="2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <visible>true</visible>
+                <elementTmpl>ui/form/element/input</elementTmpl>
+                <label translate="true">Cotización</label>
+            </settings>
+        </field>
+    </fieldset>
+
+    <settings>
+        <buttons>
+            <button name="back" class="Magento\Customer\Block\Adminhtml\Edit\BackButton"/>
+            <button name="save" class="Southbay\ReturnProduct\Block\Adminhtml\Action\SaveButton"/>
+        </buttons>
+    </settings>
+
+</form>

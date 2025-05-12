@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">config_form.form_data_source</item>
+            <item name="deps" xsi:type="string">config_form.form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Configuración general</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Magento\Customer\Block\Adminhtml\Edit\BackButton</item>
+            <item name="save" xsi:type="string">Southbay\ReturnProduct\Block\Adminhtml\Action\SaveButton</item>
+        </item>
+    </argument>
+
+    <dataSource name="form_data_source" component="Magento_Ui/js/form/provider">
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider name="form_data_source" class="Southbay\ReturnProduct\Model\ConfigDataProvider">
+            <settings>
+                <primaryFieldName>southbay_return_config_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="southbay_return_config">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Detalle</item>
+            </item>
+        </argument>
+
+        <field name="southbay_return_config_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">southbay_return_config</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </field>
+
+        <field name="southbay_return_country_code" formElement="select" sortOrder="1">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                    <item name="label" xsi:type="string" translate="true">País</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <formElements>
+                <select>
+                    <settings>
+                        <options
+                            class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\CountryOptionsProvider"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="southbay_return_type" formElement="select" sortOrder="2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                    <item name="label" xsi:type="string" translate="true">Tipo devolución</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <formElements>
+                <select>
+                    <settings>
+                        <options
+                            class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\ReturnTypeOptionsProvider"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="southbay_return_max_year_history" formElement="input" sortOrder="3">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">southbay_return_max_year_history</item>
+                    <item name="dataScope" xsi:type="string">southbay_return_max_year_history</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="validate-digits" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="style" xsi:type="string">max-width: 100px;</item>
+                </item>
+            </argument>
+            <settings>
+                <visible>true</visible>
+                <elementTmpl>ui/form/element/input</elementTmpl>
+                <label translate="true">Devolver facturas de hasta (años)</label>
+            </settings>
+        </field>
+
+        <field name="southbay_return_order" formElement="select" sortOrder="4">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                    <item name="label" xsi:type="string" translate="true">Orden listado de facturas</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <formElements>
+                <select>
+                    <settings>
+                        <options
+                            class="Southbay\ReturnProduct\Block\Adminhtml\Config\Form\OrderOptionsProvider"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="southbay_return_label_text" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <visible>true</visible>
+                <elementTmpl>ui/form/element/input</elementTmpl>
+                <label translate="true">Texto para la etiqueta</label>
+            </settings>
+        </field>
+
+        <field name="southbay_return_available_automatic_approval" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Permitir aprobación automática</item>
+                </item>
+            </argument>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <prefer>checkbox</prefer>
+                        <valueMap>
+                            <map name="false" xsi:type="boolean">false</map>
+                            <map name="true" xsi:type="boolean">true</map>
+                        </valueMap>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+
+        <field name="southbay_return_max_automatic_amount" formElement="input">
+            <settings>
+                <visible>true</visible>
+                <elementTmpl>ui/form/element/input</elementTmpl>
+                <label translate="true">Monto máximo para autorizaciones automáticas</label>
+            </settings>
+        </field>
+    </fieldset>
+</form>

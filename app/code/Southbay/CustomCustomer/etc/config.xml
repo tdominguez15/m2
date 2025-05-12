@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <southbay_landing>
+            <general>
+                <enable_menu_button>0</enable_menu_button>
+                <start_time>06:00</start_time>
+                <end_time>21:00</end_time>
+            </general>
+        </southbay_landing>
+        <southbay_magento>
+            <general>
+                <url_base>http://localhost</url_base>
+                <max_request>20</max_request>
+            </general>
+        </southbay_magento>
+    </default>
+</config>

@@ -1,0 +1,88 @@
+{
+    "southbay_catalog_product": {
+        "column": {
+            "southbay_catalog_product_id": true,
+            "southbay_catalog_product_country_code": true,
+            "southbay_catalog_product_sap_country_code": true,
+            "southbay_catalog_product_magento_product_id": true,
+            "southbay_catalog_product_sku": true,
+            "southbay_catalog_product_sku_generic": true,
+            "southbay_catalog_product_sku_variant": true,
+            "southbay_catalog_product_sku_full": true,
+            "southbay_catalog_product_name": true,
+            "southbay_catalog_product_color": true,
+            "southbay_catalog_product_size": true,
+            "southbay_catalog_product_ean": true,
+            "southbay_catalog_product_group_code": true,
+            "southbay_catalog_product_group_name": true,
+            "southbay_catalog_product_season_name": true,
+            "southbay_catalog_product_season_year": true,
+            "southbay_catalog_product_bu": true,
+            "southbay_catalog_product_gender": true,
+            "southbay_catalog_product_age": true,
+            "southbay_catalog_product_sport": true,
+            "southbay_catalog_product_shape_1": true,
+            "southbay_catalog_product_shape_2": true,
+            "southbay_catalog_product_brand": true,
+            "southbay_catalog_product_channel": true,
+            "southbay_catalog_product_level": true,
+            "southbay_catalog_product_price": true,
+            "southbay_catalog_product_suggested_retail_price": true,
+            "southbay_catalog_product_denomination": true,
+            "southbay_catalog_product_sale_date_from": true,
+            "southbay_catalog_product_sale_date_to": true,
+            "southbay_catalog_product_initiative": true,
+            "southbay_catalog_product_purchasing_unit": true,
+            "southbay_catalog_product_description": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "SOUTHBAY_CATALOG_PRODUCT_SOUTHBAY_CATALOG_PRODUCT_COUNTRY_CODE": true,
+            "SOUTHBAY_CAT_PRD_SOUTHBAY_CAT_PRD_MAGENTO_PRD_ID": true,
+            "SOUTHBAY_CAT_PRD_SOUTHBAY_CAT_PRD_SAP_COUNTRY_CODE": true,
+            "SOUTHBAY_CATALOG_PRODUCT_SOUTHBAY_CATALOG_PRODUCT_SKU": true,
+            "SOUTHBAY_CATALOG_PRODUCT_SOUTHBAY_CATALOG_PRODUCT_SKU_GENERIC": true,
+            "SOUTHBAY_CATALOG_PRODUCT_SOUTHBAY_CATALOG_PRODUCT_SKU_VARIANT": true,
+            "IDX_2AFD711C5CCE7D546DC806C4BCE364A4": true,
+            "IDX_600E67CB99D5214FD3B630A272929293": true
+        },
+        "constraint": {
+            "UNQ_47F5670332565A63F0BE46CB90D1B744": true,
+            "PRIMARY": true
+        }
+    },
+    "southbay_product_exclusion": {
+        "column": {
+            "entity_id": true,
+            "sku": true,
+            "store": true,
+            "product_id": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "SOUTHBAY_PRODUCT_EXCLUSION_SKU_STORE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "southbay_product_group": {
+        "column": {
+            "entity_id": true,
+            "type": true,
+            "code": true,
+            "name": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "SOUTHBAY_PRODUCT_GROUP_TYPE": true
+        },
+        "constraint": {
+            "SOUTHBAY_PRODUCT_GROUP_CODE_TYPE": true,
+            "PRIMARY": true
+        }
+    }
+}

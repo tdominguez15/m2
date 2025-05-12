@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <log_administrator>
+            <cart_excel_upload>
+                <enable_logging>0</enable_logging>
+            </cart_excel_upload>
+        </log_administrator>
+    </default>
+
+</config>

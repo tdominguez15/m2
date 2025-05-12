@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Southbay\CustomCustomer\Block\Season\History" name="customer_account_season_history" cacheable="false" template="Southbay_CustomCustomer::history/index.phtml"/>
+        </referenceContainer>
+    </body>
+</page>
+

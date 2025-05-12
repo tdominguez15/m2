@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- MODELs -->
+    <preference for="Southbay\ReturnProduct\Api\Data\SouthbayInvoice" type="Southbay\ReturnProduct\Model\SouthbayInvoice"/>
+    <preference for="Southbay\ReturnProduct\Api\Data\SouthbayIvoiceItem" type="Southbay\ReturnProduct\Model\SouthbayIvoiceItem"/>
+    <!-- /MODELs -->
+
+    <!-- APIs_DEFINITION -->
+    <preference for="Southbay\ReturnProduct\Api\SapDocApiInterface" type="Southbay\ReturnProduct\Model\SapDocApiInterface"/>
+    <preference for="Southbay\ReturnProduct\Api\SapInvoiceApiInterface" type="Southbay\ReturnProduct\Model\SapInvoiceApiInterface"/>
+    <preference for="Southbay\ReturnProduct\Api\SapOrderConfirmationApiInterface" type="Southbay\ReturnProduct\Model\SapOrderConfirmation"/>
+    <!-- /APIs_DEFINITION -->
+
+    <!-- APIs_RESPONSE_DEFINITION -->
+    <preference for="Southbay\ReturnProduct\Api\Data\SapDocApiResponseInterface" type="Southbay\ReturnProduct\Model\SapDocApiResponse"/>
+    <preference for="Southbay\ReturnProduct\Api\Data\SapOrderConfirmationApiResponseInterface" type="Southbay\ReturnProduct\Model\SapOrderConfirmationApiResponse"/>
+    <!-- /APIs_RESPONSE_DEFINITION -->
+
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="southbay_return_product_import" xsi:type="object">Southbay\ReturnProduct\Console\Command\ReturnProductImport</item>
+                <item name="southbay_return_invoice_import" xsi:type="object">Southbay\ReturnProduct\Console\Command\ImportInvoicesCommand</item>
+                <item name="southbay_return_retry" xsi:type="object">Southbay\ReturnProduct\Console\Command\ReturnProductRetryCommand</item>
+                <item name="southbay_return_run_cron" xsi:type="object">Southbay\ReturnProduct\Console\Command\RunRtvSaveSapDocumentsCron</item>
+                <item name="southbay_return_send_approval_notification" xsi:type="object">Southbay\ReturnProduct\Console\Command\SendApprovalNotificationCommand</item>
+                <item name="southbay_return_revert" xsi:type="object">Southbay\ReturnProduct\Console\Command\ReturnProductRevertCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="reception_grid_data_source" xsi:type="string">Southbay\ReturnProduct\Model\ResourceModel\DataProvider\Reception\ReceptionSearchResult</item>
+                <item name="control_qa_grid_data_source" xsi:type="string">Southbay\ReturnProduct\Model\ResourceModel\DataProvider\ControlQa\ControlQaSearchResult</item>
+                <item name="invoice_grid_data_source" xsi:type="string">Southbay\ReturnProduct\Model\ResourceModel\DataProvider\Invoice\InvoiceSearchResult</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

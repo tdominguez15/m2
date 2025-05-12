@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job instance="Southbay\ReturnProduct\Cron\RtvSaveSapDocumentsCronModel"
+             method="execute"
+             name="southbay_return_product_sap_check_doc_status">
+            <schedule>* * * * *</schedule>
+        </job>
+        <job instance="Southbay\ReturnProduct\Cron\RtvSendToSapCronModel"
+             method="execute"
+             name="southbay_return_product_send_docs">
+            <schedule>* * * * *</schedule>
+        </job>
+    </group>
+</config>

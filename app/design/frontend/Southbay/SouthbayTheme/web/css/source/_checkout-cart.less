@@ -1,0 +1,283 @@
+& when (@media-common = true) {
+    .checkout-cart-index {
+        .cart-empty {
+            form {
+                width: 460px;
+                float: right;
+
+                .upload-cart {
+                    .leyenda {
+                        display: block;
+                        margin-top: 0;
+                        margin-bottom: 8px;
+                    }
+
+                    .upload-box {
+                        display: block;
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+
+        .cart.table-wrapper {
+            .item {
+                .col.item {
+                    padding: 14px 0 10px 0;
+                    width: 132px;
+
+                    .product-image-container {
+                        width: 32px!important;
+
+                        .product-image-photo {
+                            max-height: 70px;
+                        }
+                    }
+                }
+
+                .col {
+                    padding-top: 20px;
+                }
+
+                .product-item-details {
+                    .item-options {
+                        display: none;
+                    }
+                }
+
+                input[type="text"] {
+                    width: 52px;
+                    text-align: center;
+                }
+
+                .col.cantidad {
+                    input[type="text"] {
+                        width: 70px;
+                        text-align: center;
+                    }
+                }
+
+                .col.color {
+                    font-size: 13px;
+                }
+
+                .col.price {
+                    .price {
+                        font-size: 13px;
+                    }
+                }
+
+                .col.subtotal {
+                    .price {
+                        font-size: 15px;
+                        padding-top: 1px;
+                        text-align: right;
+                        font-weight: 600;
+                    }
+                }
+            }
+
+            .item-actions {
+                .towishlist {
+                    display: none;
+                }
+            }
+
+            .product-item-photo {
+                display: block;
+                width: 87px;
+            }
+
+            .product-item-name {
+                font-size: 13px;
+                font-weight: 600;
+            }
+
+            .cart-sku {
+                font-size: 11px;
+            }
+
+            .actions-toolbar {
+                padding-bottom: 6px;
+                left: 76px;
+            }
+
+            input[type="number"] {
+                text-align: center;
+                width: 58px;
+            }
+
+            .subtotal-amount {
+                text-align: center;
+                width: 100%;
+                display: block;
+                padding-top: 0;
+            }
+
+            .price-excluding-tax {
+                .price {
+                    font-size: 14px;
+                    padding-top: 2px;
+                    display: block;
+                    text-align: right;
+                    font-weight: 600;
+                }
+            }
+
+            .month_delivery_date_1, .month_delivery_date_2, .month_delivery_date_3 {
+                text-align: center;
+            }
+
+            .product-price {
+                padding-top: 15px;
+            }
+        }
+
+        .actions {
+            #southbay_cart_clean {
+                background: url("../images/empty-cart.svg") 0px center no-repeat;
+                padding-left: 26px;
+                display: block;
+                background-size: 20px 20px;
+                font-size: 12px;
+                text-transform: uppercase;
+                font-weight: 600;
+                color: #333333;
+                padding-top: 5px;
+                display: inline-block;
+
+                &:hover {
+                    color: #F75301;
+                    text-decoration: none;
+                }
+            }
+
+            #southbay_cart_download {
+                background: url("../images/cart-download.svg") 0px center no-repeat;
+                padding-left: 26px;
+                display: block;
+                background-size: 20px 20px;
+                font-size: 12px;
+                text-transform: uppercase;
+                font-weight: 600;
+                color: #333333;
+                padding-top: 5px;
+                display: inline-block;
+                margin-left: 11px;
+
+                &:hover {
+                    color: #F75301;
+                    text-decoration: none;
+                }
+            }
+
+            .secondary {
+                span {
+                    margin-top: -34px;
+                    float: right;
+                    background: #f5f5f5!important;
+
+                    input#southbay_cart_file {
+                        width: 192px;
+                    }
+                }
+            }
+        }
+
+        .discount-code {
+            display: none;
+        }
+
+        a.use-ajax.action.towishlist.action-towishlist {
+            display: none;
+        }
+
+        .cart-summary {
+            .block.shipping {
+                display: none;
+
+                &.active {
+                    display: none;
+                }
+            }
+
+            .totals.shipping.excl {
+                display: none;
+            }
+        }
+    }
+
+    .minicart-wrapper {
+        .action.showcart:before {
+            color: #FFFFFF;
+
+            &:hover, &:focus &:visited {
+                color: #999999;
+            }
+        }
+
+        .leyenda-import {
+            margin-top: 14px;
+            text-align: center;
+            border-bottom: 1px solid gray;
+            padding-bottom: 16px;
+
+            a {
+                font-weight: 600;
+                color: #F75301;
+
+                &:hover {
+                    text-decoration: none;
+                    color: black;
+                }
+            }
+        }
+
+        .subtitle.empty {
+            padding-bottom: 0;
+            padding-top: 20px;
+        }
+    }
+
+    .block-minicart {
+        .actions {
+            .secondary {
+                span {
+                    width: auto;
+                    margin-top: 0;
+                    float: none;
+                }
+            }
+        }
+    }
+}
+
+//Mobile
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .checkout-cart-index {
+        .cart.table-wrapper {
+            .item {
+                .col.item {
+                    width: 50%;
+                    float: left;
+                    margin-bottom: 0;
+                    padding: 15px 15px 10px 90px!important;
+                }
+            }
+        }
+    }
+}
+
+//Desktop
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .checkout-cart-index {
+        .cart.table-wrapper {
+            .item {
+                .col.item {
+                    min-height: auto;
+                    height: 36px;
+                }
+            }
+        }
+    }
+}

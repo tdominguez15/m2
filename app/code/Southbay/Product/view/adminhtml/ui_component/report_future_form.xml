@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="component" xsi:type="string">Southbay_Product/js/report_future_form</item>
+            <item name="provider" xsi:type="string">report_future_form.form_data_source</item>
+            <item name="deps" xsi:type="string">report_future_form.form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Reporte de Ordenes Futuras</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="save" xsi:type="string">Southbay\Product\Block\Adminhtml\Action\GenerateReportButton</item>
+        </item>
+    </argument>
+
+    <dataSource name="form_data_source" component="Magento_Ui/js/form/provider">
+        <settings>
+            <submitUrl path="*/*/generate"/>
+        </settings>
+        <dataProvider name="form_data_source" class="Southbay\Product\Model\ResourceModel\ReportFuture\Datasource">
+            <settings>
+                <primaryFieldName>entity_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="fields">
+        <settings>
+            <label translate="true">Detalle</label>
+        </settings>
+
+        <field name="type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">hidden</item>
+                    <item name="default" xsi:type="string">future</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="from" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <visible>true</visible>
+                <dataType>date</dataType>
+                <label translate="true">Desde</label>
+            </settings>
+        </field>
+
+        <field name="to" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <visible>true</visible>
+                <dataType>date</dataType>
+                <label translate="true">Hasta</label>
+            </settings>
+        </field>
+
+        <field name="store_id" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                    <item name="label" xsi:type="string" translate="true">Tienda</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="disabled" xsi:type="boolean">false</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <formElements>
+                <select>
+                    <settings>
+                        <options
+                            class="Southbay\CustomCustomer\Model\ResourceModel\ConfigStore\SouthbayOptionsOnlyFutureDataProvider"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="sold_to_list" formElement="multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/multiselect</item>
+                    <item name="label" xsi:type="string" translate="true">Solicitantes</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options
+                            class="Southbay\CustomCustomer\Model\ResourceModel\SoldTo\SoldToOptionsDataProvider"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+    </fieldset>
+
+</form>

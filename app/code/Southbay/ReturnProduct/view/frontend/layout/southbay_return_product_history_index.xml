@@ -1,0 +1,20 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="southbay_return_product_history_head" template="Magento_Customer::js/components.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Historial de Devoluciones</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Southbay\ReturnProduct\Block\Frontend\MyHistoricalReturns"
+                   name="southbay_return_product_history_content"
+                   template="Southbay_ReturnProduct::my_returns.phtml"
+                   cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

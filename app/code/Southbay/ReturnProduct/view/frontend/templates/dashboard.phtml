@@ -1,0 +1,211 @@
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Southbay\ReturnProduct\Block\Frontend\Dashboard
+ */
+$items = $block->getFilteredCollection();
+?>
+
+<div id="return-grid" class="table-wrapper return-dashboard">
+    <button id="download-btn">Descargar detalle</button>
+    <table class="data table table-order-items dashboard" id="return-dashboard-table">
+        <caption class="table-caption"><?= $block->escapeHtml(__('Devoluciones Filtradas')) ?></caption>
+        <thead>
+        <tr>
+            <th scope="col" class="col southbay_return_id">
+                Nº Devolución
+                <input type="text" id="filter-return-id" placeholder="Nº Devolución" />
+            </th>
+            <th scope="col" class="col southbay_return_type">
+                Tipo Devolución
+                <select id="filter-return-type">
+                    <option value="">Seleccone un tipo</option>
+                    <?php foreach ($block->getReturnTypeOptions() as $option): ?>
+                        <option value="<?= $option['value'] ?>"><?= $option['label'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            <th scope="col" class="col southbay_return_country">
+                País
+                <select id="filter-country">
+                    <?php foreach ($block->getCountryOptions() as $option): ?>
+                        <option value="<?= $option['value'] ?>"><?= $option['label'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </th>
+            <th scope="col" class="col southbay_return_updated_at">
+                <label class="label-filter-updated-at-to">Actualizado</label>
+                <div class="date-filter">
+                    <div class="date-filter-item">
+                        <label for="filter-updated-at-from">Desde</label>
+                        <input type="date" id="filter-updated-at-from" placeholder="Desde" />
+                    </div>
+                    <div class="date-filter-item">
+                        <label for="filter-updated-at-to">Hasta</label>
+                        <input type="date" id="filter-updated-at-to" placeholder="Hasta" />
+                    </div>
+                </div>
+            </th>
+            <th scope="col" class="col southbay_return_customer">
+                Cliente
+                <input type="text" id="filter-customer" placeholder="Nombre cliente" />
+            </th>
+            <th scope="col" class="col southbay_return_status">
+                Estado
+                <select id="filter-status">
+
+                    <?php foreach ($block->getStatusOptions() as $option): ?>
+                        <option value="<?= $option['value'] ?>"><?= $option['label'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </th>
+        </tr>
+        </thead>
+        <tbody id="return-grid-body">
+        <?php foreach ($items as $item): ?>
+            <?php
+            $updatedAt = new \DateTime($item->getUpdatedAt());
+            $formattedUpdatedAt = $updatedAt->format('d-m-Y H:i:s');
+            $isoUpdatedAt = $updatedAt->format('Y-m-d');
+            ?>
+            <tr data-return-id="<?= $item->getSouthbayReturnId(); ?>"
+                data-return-type="<?= $item->getSouthbayReturnType(); ?>"
+                data-country="<?= $item->getSouthbayReturnCountryCode(); ?>"
+                data-updated-at="<?= $item->getUpdatedAt(); ?>"
+                data-customer="<?= $item->getSouthbayReturnCustomerName(); ?>"
+                data-status="<?= $item->getSouthbayReturnStatus(); ?>"
+            >
+                <td class="southbay_return_id"><?= $item->getSouthbayReturnId(); ?></td>
+                <td class="southbay_return_type"><?= $block->getTypeName($item->getSouthbayReturnType()); ?></td>
+                <td class="southbay_return_country"><?= $item->getSouthbayReturnCountryCode(); ?></td>
+                <td class="southbay_return_updated_at"><?= $formattedUpdatedAt; ?></td>
+                <td class="southbay_return_customer"><?= $item->getSouthbayReturnCustomerName(); ?></td>
+                <td class="southbay_return_status"><?= $item->getStatusName(); ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+
+<script type="text/javascript">
+    require(['jquery', 'ko'], function ($, ko) {
+        $(document).ready(function () {
+            const downloadBtn = $('#download-btn');
+
+            function filterGrid() {
+                const filters = {
+                    country: $('#filter-country').val(),
+                    updatedAtFrom: $('#filter-updated-at-from').val(),
+                    updatedAtTo: $('#filter-updated-at-to').val(),
+                    returnId: $('#filter-return-id').val(),
+                    returnType: $('#filter-return-type').val(),
+                    customer: $('#filter-customer').val(),
+                    status: $('#filter-status').val()
+                };
+
+                $('#return-grid-body tr').each(function () {
+                    const row = $(this);
+
+                    const rowCountry = row.data('country') ? row.data('country').toLowerCase() : '';
+                    const rowUpdatedAt = row.data('updated-at') ? row.data('updated-at').split(' ')[0] : '';
+                    const rowReturnId = row.data('return-id') ? row.data('return-id').toString() : '';
+                    const rowReturnType = row.data('return-type') || '';
+                    const rowCustomer = row.data('customer') ? row.data('customer').toLowerCase() : '';
+                    const rowStatus = row.data('status') || '';
+
+                    let matches = true;
+
+                    if (filters.country && !rowCountry.includes(filters.country.toLowerCase())) {
+                        matches = false;
+                    }
+
+                    if (filters.updatedAtFrom && rowUpdatedAt < filters.updatedAtFrom) {
+                        matches = false;
+                    }
+
+                    if (filters.updatedAtTo && rowUpdatedAt > filters.updatedAtTo) {
+                        matches = false;
+                    }
+
+                    if (filters.returnId && !rowReturnId.includes(filters.returnId)) {
+                        matches = false;
+                    }
+
+                    if (filters.returnType && rowReturnType !== filters.returnType) {
+                        matches = false;
+                    }
+
+                    if (filters.customer && !rowCustomer.includes(filters.customer.toLowerCase())) {
+                        matches = false;
+                    }
+
+                    if (filters.status && rowStatus !== filters.status) {
+                        matches = false;
+                    }
+                    row.toggle(matches);
+                });
+            }
+            $('#filter-country, #filter-updated-at-to,#filter-updated-at-from, #filter-return-id, #filter-return-type, #filter-customer, #filter-status').on('input change', function () {
+                filterGrid();
+            });
+            function downloadFilteredData() {
+                const filters = {
+                    'filter[southbay_return_country_code]': {
+                        value: $('#filter-country').val(),
+                        condition: 'like'
+                    },
+                    'filter[updated_at_From]': {
+                        value: $('#filter-updated-at-from').val(),
+                        condition: 'eq'
+                    },
+                    'filter[updated_at_To]': {
+                        value: $('#filter-updated-at-to').val(),
+                        condition: 'eq'
+                    },
+                    'filter[southbay_return_id]': {
+                        value: '%' + $('#filter-return-id').val() + '%',
+                        condition: 'like'
+                    },
+                    'filter[southbay_return_type]': {
+                        value: $('#filter-return-type').val(),
+                        condition: 'eq'
+                    },
+                    'filter[southbay_return_customer_name]': {
+                        value: '%' + $('#filter-customer').val() + '%',
+                        condition: 'like'
+                    },
+                    'filter[southbay_return_status]': {
+                        value: $('#filter-status').val(),
+                        condition: 'eq'
+                    }
+                };
+
+                const serializedFilters = Object.keys(filters).reduce((acc, key) => {
+                    const filter = filters[key];
+                    if (filter.value) {
+                        acc[`${key}[value]`] = filter.value;
+                        acc[`${key}[condition]`] = filter.condition;
+                    }
+                    return acc;
+                }, {});
+
+
+                const url = "<?= $block->getUrl('southbay_return_product/dashboard/download') ?>";
+                const queryString = $.param(serializedFilters);
+                // Iniciar la descarga
+                window.location.href = url + '?' + queryString;
+            }
+
+            downloadBtn.on('click', function (e) {
+                e.preventDefault();
+                downloadFilteredData();
+            });
+
+            filterGrid();
+        });
+    });
+</script>
+
+
+

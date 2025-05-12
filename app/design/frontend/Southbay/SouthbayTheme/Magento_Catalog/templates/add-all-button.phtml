@@ -1,0 +1,60 @@
+<?php
+/**
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+?>
+<h3 class="agregar-todos">Agregar todos</h3>
+
+<script type="text/javascript">
+    require(['jquery', 'mage/url', 'Magento_Customer/js/customer-data'], function ($, urlBuilder, customerData) {
+        $(document).ready(function(){
+            $('.agregar-todos').on('click', function() {
+                var button = $(this);
+                button.prop('disabled', true);
+                var checkedProducts = [];
+                $('.check-product:checked').each(function() {
+                    var productElement = $(this).closest('.product-item-info');
+                    if (!productElement.find('.product-item-link').hasClass('added-to-cart')) {
+                        var productId = $(this).closest('.product-item-info').attr('id').replace('product-item-info_', '');
+                        checkedProducts.push(productId);
+                        $(this).closest('.product-item').find('.product-item-link').addClass('added-to-cart');
+                    }
+                });
+                var requestData = {
+                    checked_products: checkedProducts.join(',')
+                };
+                $.ajax({
+                    url: '<?php echo $block->getUrl("southbay_custom_checkout/cart/addall") ?>',
+                    type: 'POST',
+                    data: requestData,
+                    dataType: 'json',
+                    success: function(response) {
+                        var total = response.total || 0;
+                        var minicartCounter = $('.minicart-wrapper .action.showcart .counter.qty');
+                        var currentQty = parseInt(minicartCounter.text()) || 0
+                        var newQty = currentQty + total;
+                        minicartCounter.text(newQty).show();
+                        var cartData = customerData.get('cart')();
+                        cartData.summary_count = newQty;
+                        cartData.hasNewItems = true;
+                        customerData.set('cart', cartData)
+                        var button = $('.agregar-todos');
+                        button.addClass('success').text('Agregados ' + total + ' productos');
+                        $('.check-product:checked').prop('checked', false);
+
+                        setTimeout(function() {
+                            button.removeClass('success').text('Agregar todos');
+                        }, 5000);
+                        button.prop('disabled', false);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error en la solicitud AJAX:', error);
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+

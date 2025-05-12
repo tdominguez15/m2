@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="Southbay_Product::manager"
+            resource="Southbay_Product::manager"
+            title="Southbay Order Entry"
+            module="Southbay_Product"
+            sortOrder="12"
+        />
+        <add
+            id="Southbay_Product::SeasonType"
+            resource="Southbay_Product::SeasonType"
+            parent="Southbay_Product::manager"
+            action="southbay_order_entry/seasontype"
+            module="Southbay_Product"
+            title="Tipos de temporada"
+        />
+        <add
+            id="Southbay_Product::Season"
+            resource="Southbay_Product::Season"
+            parent="Southbay_Product::manager"
+            action="southbay_order_entry/season"
+            module="Southbay_Product"
+            title="Temporadas"
+        />
+        <add
+            id="Southbay_Product::SeasonProduct"
+            resource="Southbay_Product::SeasonProduct"
+            parent="Southbay_Product::manager"
+            action="southbay_order_entry/product"
+            module="Southbay_Product"
+            title="Lineas"
+        />
+        <add
+            id="Southbay_Product::ProductAtOnce"
+            resource="Southbay_Product::ProductAtOnce"
+            parent="Southbay_Product::manager"
+            action="southbay_order_entry/product/atonce"
+            module="Southbay_Product"
+            title="Lineas At Once"
+        />
+        <add
+            id="Southbay_Product::ImgProduct"
+            resource="Southbay_Product::ImgProduct"
+            parent="Southbay_Product::manager"
+            action="southbay_order_entry/image"
+            module="Southbay_Product"
+            title="Imagenes"
+        />
+        <add
+            id="Southbay_Product::ProductGroup"
+            resource="Southbay_Product::ProductGroup"
+            parent="Southbay_Product::manager"
+            action="southbay_order_entry/productgroup"
+            module="Southbay_Product"
+            title="Grupo de Productos"
+        />
+        <add
+            id="Southbay_Product::ProductExclusion"
+            resource="Southbay_Product::ProductExclusion"
+            parent="Southbay_Product::manager"
+            action="southbay_order_entry/productexclusion"
+            module="Southbay_Product"
+            title="Exclusion de Productos"
+        />
+
+        <add
+            id="Southbay_Product::OrderReportFuture"
+            resource="Southbay_Product::OrderReportFuture"
+            parent="Southbay_Product::manager"
+            action="southbay_order_entry/report/future"
+            module="Southbay_Product"
+            title="Reporte de Ordenes Futuras"
+            sortOrder="100"
+        />
+
+        <add
+            id="Southbay_Product::OrderReportAtOnce"
+            resource="Southbay_Product::OrderReportAtOnce"
+            parent="Southbay_Product::manager"
+            action="southbay_order_entry/report/atonce"
+            module="Southbay_Product"
+            title="Reporte de Ordenes At Once"
+            sortOrder="101"
+        />
+        <add
+            id="Southbay_Product::OrderReportAttributeAtOnce"
+            resource="Southbay_Product::OrderReportAttributeAtOnce"
+            parent="Southbay_Product::manager"
+            action="southbay_order_entry/reportattribute/atonce"
+            module="Southbay_Product"
+            title="Reporte de Control de Productos At Once"
+            sortOrder="102"
+        />
+        <add
+            id="Southbay_Product::ProductUpdater"
+            resource="Southbay_Product::ProductUpdater"
+            parent="Southbay_Product::manager"
+            action="southbay_order_entry/productupdater"
+            module="Southbay_Product"
+            title="Actualizar productos"
+        />
+        <add
+            id="Southbay_Product::ProductSegmentation"
+            resource="Southbay_Product::ProductSegmentation"
+            parent="Southbay_Product::manager"
+            action="southbay_order_entry/segmentation"
+            module="Southbay_Product"
+            title="Segmentacion de Productos"
+            sortOrder="110"
+        />
+    </menu>
+</config>

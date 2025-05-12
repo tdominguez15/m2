@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\CustomerData\Cart">
+        <plugin name="southbay_minicart_content" type="Southbay\CustomCheckout\Plugin\Checkout\CustomerData\Cart"/>
+    </type>
+    <type name="Magento\Checkout\Controller\Index\Index">
+        <plugin name="southbay_checkout_validation" type="Southbay\CustomCheckout\Plugin\Checkout\Validation\ValidateItems"/>
+    </type>
+    <type name="Magento\Sales\Model\Reorder\Reorder">
+        <plugin name="southbay_sale_reorder" type="Southbay\CustomCheckout\Plugin\Checkout\Sale\Reorder"/>
+    </type>
+    <type name="Southbay\CustomCheckout\Controller\Cart\AddAll">
+        <arguments>
+            <argument name="checkoutSession" xsi:type="object">Magento\Checkout\Model\Session\Proxy</argument>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,80 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <input type="radio"
+           name="payment[method]"
+           class="radio"
+           data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+
+    <div class="payment-method-content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <form id="purchaseorder-form" class="form form-purchase-order" data-role="purchaseorder-form">
+            <fieldset class="fieldset payment method" data-bind='attr: {id: "payment_form_" + getCode()}'>
+                <div class="field field-number required">
+                    <div class="control">
+                        <input type="hidden"
+                               id="po_number"
+                               name="payment[po_number]"
+                               data-validate="{required:true}"
+                               data-bind='
+                                attr: {title: $t("Purchase Order Number")},
+                                value: purchaseOrderNumber'
+                               class="input-text"/>
+                    </div>
+                </div>
+                <label class="label" for="additional_information">
+                    <span data-bind="i18n: 'Ingrese información adicional para su pedido'"></span>
+                </label>
+                <div class="field field-text required">
+                    <div class="control">
+                        <input type="text"
+                               id="additional_information"
+                               name="payment[additional_information]"
+                               data-validate="{required:false}"
+                               data-bind='
+                                attr: {
+                                        title: $t("Add Observation text"),
+                                        maxlength: 35
+                                },
+                                value: additionalInformation'
+                               class="input-text"/>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="checkout-agreements-block">
+                <!-- ko foreach: $parent.getRegion('before-place-order') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                <!--/ko-->
+            </div>
+
+            <div class="actions-toolbar" id="review-buttons-container">
+                <div class="primary">
+                    <button class="action primary checkout"
+                            type="submit"
+                            data-bind="
+                            click: placeOrder,
+                            attr: {title: $t('Place Order')},
+                            enable: (getCode() == isChecked()),
+                            css: {disabled: !isPlaceOrderActionAllowed()}
+                            "
+                            data-role="review-save">
+                        <span data-bind="i18n: 'Place Order'"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

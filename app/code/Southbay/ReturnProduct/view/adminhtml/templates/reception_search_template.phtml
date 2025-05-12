@@ -1,0 +1,134 @@
+<div class="southbay_return_product_search_return_container">
+    <div style="text-align: center">
+        <div class="message-error error message">
+            <div class="content"></div>
+        </div>
+        <div class="message-warning warning message">
+            <div class="content"></div>
+        </div>
+
+        <select class="admin__control-text input-text admin__control-text"
+                id="southbay_return_product_search_return_id"
+                name="southbay_return_product_search_return_id">
+        </select>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'ko', 'Magento_Ui/js/modal/confirm', 'mage/url', 'select2'], function ($, ko, confirm, urlBuilder) {
+        const url_search_pending = "<?= $block->getUrl('*/*/pending') ?>";
+        let pending_map = {};
+
+        $(document).on('searchPending', function() {
+            $("#southbay_return_product_search_return_id").select2('open');
+        });
+
+        $(document).on('southbay_return_product_reception_reset', function() {
+            $('#southbay_return_product_search_return_id').val(null).trigger("change");
+            $("#southbay_return_product_search_return_id").select2('open');
+        });
+
+        $("#southbay_return_product_search_return_id").select2({
+            tags: false,
+            allowClear: true,
+            placeholder: "<?= __('Seleccione o busque la devolución que quiere recepcionar') ?>",
+            ajax: {
+                url: url_search_pending,
+                delay: 250,
+                data: function (params) {
+                    return params;
+                },
+                processResults: function (data) {
+                    pending_map = {};
+                    const items = [];
+                    let has_more = data.more;
+
+                    if (data.items && data.items.length > 0) {
+                        data.items.forEach(item => {
+                            pending_map[item.id] = item;
+                            items.push(item);
+                        });
+                    }
+
+                    $('.select2-search__field').removeAttr('autocomplete');
+                    $('.select2-search__field').focus();
+
+                    return {
+                        results: items,
+                        pagination: {
+                            more: has_more
+                        }
+                    };
+                }
+            },
+            templateResult: formatRepo,
+            templateSelection: formatRepoSelection
+        });
+
+        $("#southbay_return_product_search_return_id").on('select2:select', function (e) {
+            const data = e.params.data;
+
+            if (!data) {
+                return;
+            }
+
+            $('div[data-index="new_reception_search_fieldset"]').hide();
+            $('div[data-index="new_reception_fieldset"]').show();
+            $('#save').show();
+
+            $('.total_packages input').focus();
+
+            $(document).trigger('southbay_return_product_reception_set_values', [{
+                id: data.id,
+                type: data.type,
+                customer: data.customer,
+                total_packages: data.total_packages
+            }]);
+        });
+
+        function formatRepo(item) {
+            if (item.loading) {
+                return "<?= __('Buscando...') ?>";
+            }
+            return $(
+                `<div class='select2-result-repository clearfix'>
+                    <table>
+                        <tr>
+                            <td rowspan="3"><h3 style="margin: 0; margin-right: .5em">#${item.id}</h3></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><span style="font-size: .8em"><?= __('Cliente') ?>:</span> <h7>${item.customer}</h7></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><p style="font-style: italic; font-size: .8em"><span><?= __('Tipo') ?>:</span> ${item.type}</p></td>
+                        </tr>
+                    </table>
+                </div>`
+            );
+        }
+
+        function formatRepoSelection(item) {
+            if (item.id) {
+                return `#${item.id} - <?= __('Cliente') ?>: ${item.customer}. <?= __('Tipo') ?>: ${item.type}`;
+            }
+            return item.text;
+        }
+
+        function hideMessage() {
+            $('.message').hide();
+        }
+
+        function showWarningMessage(message) {
+            $('.message-warning').show();
+            $('.message-warning .content').html(message);
+        }
+
+        function showErrorMessage(message) {
+            $('.message-error').show();
+            $('.message-error .content').html(message);
+        }
+    });
+</script>

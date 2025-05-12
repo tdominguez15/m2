@@ -1,0 +1,74 @@
+<?php
+/** @var \Southbay\CustomCustomer\ViewModel\SoldToViewModel $viewModel */
+$viewModel = $block->getData('view_model');
+$soldTo = $viewModel->getSoldTo();
+
+$options = [];
+foreach ($soldTo as $item) {
+    $options[] = [
+        'value' => $item->getSouthbaySoldToId(),
+        'label' => $item->getSouthbaySoldToCustomerCode() ."-". $item->getSouthbaySoldToCustomerName()
+    ];
+}
+
+$storeBaseUrl = $viewModel->buildRedirect($block->getBaseUrl());
+?>
+
+<form id="soldto_form" method="post">
+    <br>
+    <select name="soldto" id="soldto" style="margin-top: 12px">
+        <option value="" disabled selected>Seleccione su solicitante</option>
+        <?php foreach ($options as $option): ?>
+            <option value="<?php echo $option['value']; ?>"><?php echo $option['label']; ?></option>
+        <?php endforeach; ?>
+    </select>
+
+
+    <button type="button" id="save_and_redirect" style="margin-top: 12px">Guardar y Redirigir</button>
+    <input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>" />
+    <?php echo $block->getBlockHtml('formkey'); ?>
+</form>
+
+
+<script type="application/javascript">
+    require(['jquery', 'ko', 'uiRegistry'], function($, ko, registry) {
+        $(document).ready(function() {
+
+            // Manejador para el evento 'save_and_redirect'
+            $('#save_and_redirect').on('click', function() {
+                // Disparar el evento 'processStart' al cuerpo
+                $('body').trigger('processStart');
+
+                var soldToId = $('#soldto').val();
+
+                if (!soldToId) {
+                    alert('Por favor, seleccione una opción antes de continuar.');
+                    $('body').trigger('processStop');
+                    return;
+                }
+
+                $.ajax({
+                    url: '/landing/soldto/createshippingaddress',
+                    type: 'POST',
+                    data: { soldToId: soldToId },
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    },
+                    success: function(data) {
+                        console.log(data.success);
+                        if (data.success === true) {
+                            window.location.href = '<?php echo $storeBaseUrl ?>';
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                    },
+                    complete: function() {
+                        $('body').trigger('processStop');
+                    }
+                });
+            });
+        });
+    });
+</script>

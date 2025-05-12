@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="southbay_ui_test" resource="default" engine="innodb"
+           comment="Southbay Ui Test">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+
+        <column xsi:type="varchar" name="name" nullable="false" length="50"
+                comment="Test name"/>
+
+        <column xsi:type="varchar" name="description" nullable="true" length="200"
+                comment="Test description"/>
+
+        <column xsi:type="longtext" name="content" nullable="false" comment="content"/>
+        <column xsi:type="longtext" name="result" nullable="true" comment="result content"/>
+
+        <column xsi:type="int" name="total_execution" unsigned="true" nullable="false" default="0" comment="Total execution"/>
+
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+
+        <index referenceId="SOUTHBAY_UI_TEST_CREATED_AT_INDEX" indexType="btree">
+            <column name="created_at"/>
+        </index>
+
+        <index referenceId="SOUTHBAY_UI_TEST_UPDATED_AT_INDEX" indexType="btree">
+            <column name="updated_at"/>
+        </index>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

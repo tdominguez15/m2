@@ -1,0 +1,23 @@
+<?php
+/**
+ * @var \Southbay\ReturnProduct\Block\Adminhtml\Dashboard\ReturnProductBlock $block
+ */
+?>
+<style>
+    #southbay_dashboard_btn_download {
+        display: none;
+    }
+</style>
+<script>
+    require(['jquery', 'ko'], function ($, ko) {
+        $(document).ready(function() {
+            const show = <?= $block->showDownloadDetail() ? 'true' : 'false' ?>;
+
+            if(show) {
+                $('#southbay_dashboard_btn_download').show();
+            } else {
+                $('#southbay_dashboard_btn_download').hide();
+            }
+        });
+    });
+</script>
